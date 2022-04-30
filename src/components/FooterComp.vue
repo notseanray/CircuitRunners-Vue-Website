@@ -9,6 +9,7 @@
     </footer>
 </template>
 
+
 <style lang="scss"> 
 footer { 
 background-color: #141414;

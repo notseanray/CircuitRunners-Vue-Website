@@ -8,6 +8,11 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 import { STLLoader } from 'three/examples/jsm/loaders/STLLoader'
 import Stats from 'three/examples/jsm/libs/stats.module'
 
+//get the current directory in the browser
+var currentDir = window.location.href.substring(window.location.href.lastIndexOf('/')+1);
+console.log(currentDir);
+if(currentDir == 'cad'){
+
 const scene = new THREE.Scene()
 scene.add(new THREE.AxesHelper(5))
 
@@ -31,14 +36,9 @@ document.body.appendChild(renderer.domElement)
 const controls = new OrbitControls(camera, renderer.domElement)
 controls.enableDamping = true
 
-const envTexture = new THREE.CubeTextureLoader().load([
-    'img/px.png',
-    'img/nx.png',
-    'img/py.png',
-    'img/ny.png',
-    'img/pz.png',
-    'img/nz.png'
-])
+const envTexture = new THREE.CubeTextureLoader().load(
+    '../assets/Backdrop1.png'
+)
 envTexture.mapping = THREE.CubeReflectionMapping
 
 const material = new THREE.MeshPhysicalMaterial({
@@ -94,4 +94,5 @@ function render() {
 }
 
 animate()
+}
 </script>
