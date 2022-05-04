@@ -1,8 +1,7 @@
 <template>
     <div class="h-screen w-screen bg-[url('./assets/Backdrop1.png')]">
         <div class="absolute inset-y-[40%] w-screen text-center">
-            <h1 class="text-7xl font-bold font-mono uppercase">From <span class="cyan">Potential</span> To <span class="red">Kinetic</span></h1>
-            <h1 class="py-[8px] text-2xl font-bold font-mono uppercase">WE'RE CIRCUITRUNNERS ROBOTICS AND WE DON'T JUST BUILD ROBOTS!</h1>
+            <h1 class="text-7xl font-bold font-mono uppercase">FRC 1002</h1>
         </div>
         
         <navbarcustom />
