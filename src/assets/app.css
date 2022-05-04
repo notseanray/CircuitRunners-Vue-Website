@@ -1,0 +1,54 @@
+.App {
+	display: flex;
+	min-height: 100vh;
+	flex-direction: column;
+	justify-content: space-between;
+	text-align: center;
+}
+body{
+	margin: 0;
+}
+html {
+	--brand-cyan: #4df4d4;
+	--brand-red: #ff0000;
+	--dark-color: #000000;
+	--light-color: #FFFFFF;
+	margin: 0;
+}
+@font-face {
+font-family: Futura-Book;
+src: url(${futurabook});
+}
+@font-face {
+font-family: Futura-Bold;
+src: url(./assets/fonts/Futura-Bold.otf);
+}
+@font-face {
+font-family: Futura-Bold-Outline;
+src: url(./assets/fonts/FuturaBQ-BoldOutline.otf);
+}
+html{
+	height: 100%;
+	margin: 0;
+}
+body {
+	overflow: auto;
+	height: 100%;
+	background-color: var(--dark-color);
+	color: var(--light-color);
+	z-index: -1;
+}
+.cyan {
+	color: var(--brand-cyan);
+}
+.red {
+	color: var(--brand-red);
+}
+.main {
+	/* padding-top: 5em; */
+	/* padding: 0 5em 0 5em; */
+}
+.noscroll {
+	/* position: fixed; */
+	overflow: hidden;
+}
