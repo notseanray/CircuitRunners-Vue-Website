@@ -5,29 +5,34 @@
 	justify-content: space-between;
 	text-align: center;
 }
-body{
+body {
 	margin: 0;
 }
 html {
 	--brand-cyan: #4df4d4;
 	--brand-red: #ff0000;
 	--dark-color: #000000;
-	--light-color: #FFFFFF;
+	--light-color: #ffffff;
+	--brand-green: #20d54d;
 	margin: 0;
 }
 @font-face {
-font-family: Futura-Book;
-src: url(${futurabook});
+	font-family: Futura-Book;
+	src: url(./assets/fonts/Futura-Book.otf);
 }
 @font-face {
-font-family: Futura-Bold;
-src: url(./assets/fonts/Futura-Bold.otf);
+	font-family: Futura-Bold;
+	src: url(./assets/fonts/Futura-Bold.otf);
 }
 @font-face {
-font-family: Futura-Bold-Outline;
-src: url(./assets/fonts/FuturaBQ-BoldOutline.otf);
+	font-family: Futura-Bold-Outline;
+	src: url(./assets/fonts/FuturaBQ-BoldOutline.otf);
 }
-html{
+@font-face {
+	font-family: LibreFranklin-Black;
+	src: url(./assets/fonts/LibreFranklin-Black.ttf);
+}
+html {
 	height: 100%;
 	margin: 0;
 }
@@ -38,11 +43,23 @@ body {
 	color: var(--light-color);
 	z-index: -1;
 }
+.futura {
+	font-family: "Futura-Book";
+}
+.futura-bold {
+	font-family: "Futura-Bold";
+}
+.franklin {
+	font-family: "LibreFranklin-Black";
+}
 .cyan {
 	color: var(--brand-cyan);
 }
 .red {
 	color: var(--brand-red);
+}
+.text-crgreen {
+	color: var(--brand-green);
 }
 .main {
 	/* padding-top: 5em; */

@@ -7,16 +7,23 @@
     "preview": "vite preview --port 5050"
   },
   "dependencies": {
-    "sass": "^1.51.0",
+    "@quasar/extras": "^1.14.0",
+    "axios": "^0.27.2",
+    "postcss-remove-declaration": "^1.0.0",
+    "primeicons": "^5.0.0",
+    "primevue": "^3.12.6",
+    "quasar": "^2.7.3",
     "three": "^0.140.0",
     "vue": "^3.2.33",
     "vue-router": "^4.0.14"
   },
   "devDependencies": {
+    "@quasar/vite-plugin": "^1.0.10",
     "@vitejs/plugin-vue": "^2.3.1",
     "autoprefixer": "^10.4.5",
     "node-sass": "^7.0.1",
     "postcss": "^8.4.13",
+    "sass": "^1.32.12",
     "sass-loader": "^12.6.0",
     "tailwindcss": "^3.0.24",
     "vite": "^2.9.5"
