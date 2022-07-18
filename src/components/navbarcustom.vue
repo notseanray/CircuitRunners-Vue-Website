@@ -6,9 +6,9 @@
                     <img src="https://cdn.discordapp.com/attachments/966089783044628540/988834097277317200/CircuitRunner-Logo-680x843_1.png">
                 </q-icon>
             </q-btn>
-            
+
             <q-btn color="primary" text-color="black" label="About Us" v-on:click="toabout"/>
-            
+
             <q-btn color="primary" text-color="black" label="Teams">
                 <q-menu class="text-black">
                     <q-list style="min-width: 100px">
@@ -26,26 +26,40 @@
             </q-btn>
 
             <q-btn color="primary" text-color="black" label="Sponsors">
-
-        
-                
             </q-btn>
-
             <q-btn v-on:click="twitter" round color="primary" text-color="black" icon="fa-brands fa-twitter"/>
             <q-btn v-on:click="instagram" round color="primary" text-color="black" icon="fa-brands fa-instagram"/>
             <q-btn v-on:click="facebook" round color="primary" text-color="black" icon="fa-brands fa-facebook"/>
-        </div>  
-    </div>  
+            <div class="flex">
+            {{this.displayName()}}
+            <div v-if="this.authed">
+                <q-btn color="primary" text-color="black" label="signout" v-on:click="signout"/>
+                <q-btn color="primary" text-color="black" label="dashboard" v-on:click="signout"/>
+            </div>
+            <div v-else>
+                <q-btn color="primary" text-color="black" label="login" v-on:click="toLogin"/>
+            </div>
+            </div>
+        </div>
+    </div>
 </template>
 
 <script>
 import dropdown from 'primevue/dropdown'
 import axios from "axios";
 import {ref} from 'vue';
-
+import { getAuth, signOut, onAuthStateChanged } from "firebase/auth";
+import { useStore } from "../store";
 export default {
+    data() {
+        return { 
+            authed: useStore().auth
+        }
+    },
     setup() {
         const quote = ref('');
+        console.log("loaded")
+
 
         axios.get('https://api.coinbase.com/v2/prices/spot?currency=USD').then(response => {
             quote.value = response.data.data.amount;
@@ -59,6 +73,9 @@ export default {
         dropdown: dropdown,
     },
     methods: {
+        displayName() {
+            return useStore().auth ? "Welcome " + useStore().displayName : "";
+        },
         toabout() {
             this.$router.push('/about');
         },
@@ -73,6 +90,25 @@ export default {
         },
         toFTC2(){
             this.$router.push('/ftc11347');
+        },
+        toLogin() {
+            this.$router.push('/login');
+        },
+        isAuthed() {
+            return useStore().auth;
+        },
+        dashboard() {
+            this.$router.push("/dashboard");
+        },
+        signout() {
+            const auth = getAuth();
+            console.log("signed out")
+            signOut(auth).then(() => {
+                // set unlogged in store
+                this.$router.push('/');
+            }) 
+            useStore().auth = false;
+            console.log(useStore().auth)
         },
         login(){
             axios.get('https://api.coinbase.com/v2/prices/spot?currency=USD').then(response => {
@@ -90,7 +126,7 @@ export default {
         facebook(){
             window.location.href = 'http://facebook.com/circuitrunners'
         }
-        
+
     }
 }
 </script>
