@@ -1,6 +1,5 @@
 <template>
-    <cad />
+  <cad />
 </template>
 
-<script>
-</script>
+<script></script>

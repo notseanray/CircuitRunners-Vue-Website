@@ -34,7 +34,7 @@
             {{this.displayName()}}
             <div v-if="this.authed">
                 <q-btn color="primary" text-color="black" label="signout" v-on:click="signout"/>
-                <q-btn color="primary" text-color="black" label="dashboard" v-on:click="signout"/>
+                <q-btn color="primary" text-color="black" label="dashboard" v-on:click="dashboard"/>
             </div>
             <div v-else>
                 <q-btn color="primary" text-color="black" label="login" v-on:click="toLogin"/>
@@ -48,7 +48,7 @@
 import dropdown from 'primevue/dropdown'
 import axios from "axios";
 import {ref} from 'vue';
-import { getAuth, signOut, onAuthStateChanged } from "firebase/auth";
+import { getAuth, signOut} from "firebase/auth";
 import { useStore } from "../store";
 export default {
     data() {
@@ -57,16 +57,31 @@ export default {
         }
     },
     setup() {
-        const quote = ref('');
-        console.log("loaded")
-
-
-        axios.get('https://api.coinbase.com/v2/prices/spot?currency=USD').then(response => {
-            quote.value = response.data.data.amount;
-        });
-
-        return {
-            quote
+        if (!useStore().auth && !useStore().userdata) {
+            const auth = getAuth();
+            auth.onAuthStateChanged((u) => {
+                if (u && !useStore().auth) {
+                    console.log("wasn't logged in, is now")
+                    useStore().userdata = false;
+                    useStore().auth = true;
+                    useStore().registered = false;
+                    useStore().email = u.email;
+                    useStore().displayName = u.displayName;
+                    // change page
+                } else if (u && useStore().auth && useStore().userdata) {
+                    console.log("already logged in")
+                    useStore().auth = true;
+                    useStore().registered = false;
+                    useStore().email = u.email;
+                    useStore().displayName = u.displayName;
+                } else {
+                    console.log("not logged in")
+                    useStore().auth = false;
+                    useStore().registered = false;
+                    useStore().email = "";
+                    useStore().displayName = "";
+                }
+            })
         }
     },
     components: {
