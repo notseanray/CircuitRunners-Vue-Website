@@ -1,20 +1,21 @@
 <template>
-  <div class="h-screen w-screen bg-[url('./assets/Backdrop1.png')]">
+  <div class="">
     <navbarcustom />
-    <div class="grid grid-flow-row">
+    <div class="titlecontainer">
       <h1 class="">Login</h1>
-      <h2 class="mx-[400px] p-3 border-4 bg-black relative top-20 text-medium">
+      <h2 class="grid gap-[20px] text-center mx-[400px] p-3 border-4 bg-black relative top-10 text-medium">
         <q-btn
+          class="mx-[100px]"
           color="primary"
           text-color="black"
           label="Sign In With Google"
           v-on:click="signInWithGoogle"
         />
-        <form action="#" @submit.prevent="submit">
-          <div class="form-group row">
-            <label for="email" class="">Email</label>
+        <form class="grid gap-0" action="#" @submit.prevent="submit">
+          <div class="">
+            <label for="email" class="text-3xl">Email</label>
 
-            <div class="col-md-6">
+            <div class="">
               <input
                 id="email"
                 type="email"
@@ -28,10 +29,10 @@
             </div>
           </div>
 
-          <div class="form-group row">
-            <label for="password" class="">Password</label>
+          <div class="">
+            <label for="password" class="text-3xl">Password</label>
 
-            <div class="col-md-6">
+            <div class="">
               <input
                 id="password"
                 type="password"
@@ -43,14 +44,15 @@
             </div>
           </div>
 
-          <div class="form-group row mb-0">
+          <div class="mb-3">
             <div class="col-md-8 offset-md-4">
-              <button type="submit" class="btn btn-primary">Login</button>
+              <button type="submit" class="mt-4 btn btn-primary">Login</button>
             </div>
           </div>
         </form>
         Don't have an account?
         <q-btn
+          class="mx-[100px]"
           color="primary"
           text-color="black"
           label="register"
@@ -146,3 +148,17 @@ export default {
   },
 };
 </script>
+
+<style>
+.titlecontainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-width: 600px;
+}
+
+.border {
+  border: 3px solid white;
+}
+</style>

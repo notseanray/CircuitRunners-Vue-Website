@@ -1,9 +1,45 @@
 <template>
 <div class="nooverflow">
-    <navbarcustom class="w-screen" />
+    <navbarcustom/>
 
     <div class="titlecontainer">
-        <h1 class="my-6 font-roboto text-bold">FRC 1002</h1>
+        <h1 class="mt-6 font-roboto text-bold">FRC 1002</h1>
+
+        <div class="justify-center grid grid-rows-2 grid-flow-col gap-[400px] my-10">
+
+            <div class="row-span-2 titlecontainer">
+                <h1 class="text-4xl">About FRC 1002</h1>
+                <h1 class="text-2xl">We are FRC 1002, a high school robotics team based out of Wheeler High School in Marietta, GA. We strive to spread STEM throughout the community through our efforts.</h1>
+
+            </div>
+
+            <div class="titlecontainer p-10">
+                <h1 class="text-4xl">News</h1>
+                <h1 class="text-2xl">Did stuff.</h1>
+            </div>
+
+            <div class="titlecontainer p-10">
+                <h1 class="text-4xl">Awards</h1>
+                <h1 class="text-2xl">Won some things.</h1>
+            </div>
+
+        </div>
+
+        <div class="text-center">
+            Leadership
+            <div class="grid grid-cols-3 grid-flow-row gap-40 my-10">
+                <div>
+                    person 1
+                </div>
+                <div>
+                    person 2
+                </div>
+                <div>
+                    person 3
+                </div>
+            </div>
+        </div>
+
         <q-pagination
         v-on:click="update"
         v-model="current"
@@ -23,10 +59,8 @@
     
     <FooterComp />
 
-    <navbarcustom />
   </div>
 
-  <FooterComp></FooterComp>
 </template>
 
 <script>

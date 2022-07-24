@@ -1,9 +1,9 @@
 <template>
-  <div class="h-screen w-screen bg-[url('./assets/Backdrop1.png')]">
+  <div class="">
     <navbarcustom />
-    <div class="grid grid-flow-row">
-      <h1 class="">About Us</h1>
-      <h2 class="mx-[400px] p-3 border-4 bg-black relative top-20 text-medium">
+    <div class="flex flex-center">
+      <h1 class="text-bold mt-8 mb-1">About Us</h1>
+      <h2 class="mx-[400px] font-sans p-3 border-4 bg-black relative top-20 text-lg">
         CircuitRunners Robotics is best known as a nonprofit FIRST robotics
         organization based at Wheeler High School. While we compete as FIRST
         Robotics Competition Team 1002, FIRST Tech Challenge Teams 1002 and
@@ -23,7 +23,7 @@
         higher!
       </h2>
       <h2
-        class="my-8 mx-[400px] p-3 border-4 bg-black relative top-20 text-medium"
+        class="my-8 mx-[400px] font-sans p-3 border-4 bg-black relative top-20 text-lg"
       >
         All the way back in 2002, CircuitRunners Robotics joined the robotics
         community with a mission of giving high school students the best
@@ -33,23 +33,6 @@
         community. We have always taken pride in our strong outreach base, our
         competitive spirit, and our tight-knit community that spans decades.
       </h2>
-
-      <div class="my-24 mx-[400px] bg-black border-4 p-3">
-        <p class="text-2xl text-bold">Follow Us on Social Media!</p>
-        <p class="my-3"></p>
-        <h1>
-          <span v-on:click="gotofacebook" class="cyan">@circuitrunners</span> on
-          Facebook
-        </h1>
-        <h1>
-          <span v-on:click="gototwitter" class="cyan">@circuitrunners</span> on
-          Twitter
-        </h1>
-        <h1>
-          <span v-on:click="gotoinsta" class="cyan">@circuitrunners</span> on
-          Instagram
-        </h1>
-      </div>
     </div>
     <FooterComp class="fixed bottom-0 w-screen" />
   </div>

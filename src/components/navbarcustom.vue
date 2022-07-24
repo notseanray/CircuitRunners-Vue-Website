@@ -36,8 +36,8 @@
         <q-btn v-on:click="twitter" round color="primary" text-color="black" icon="fa-brands fa-twitter"/>
         <q-btn v-on:click="instagram" round color="primary" text-color="black" icon="fa-brands fa-instagram"/>
         <q-btn v-on:click="facebook" round color="primary" text-color="black" icon="fa-brands fa-facebook"/>
-        {{ this.displayName() }}
-        <div v-if="this.authed">
+        <h1 class="text-sm text-bold">{{ this.displayName() }}</h1>
+        <div v-if="this.authed" class="grid">
           <q-btn
             color="primary"
             text-color="black"
