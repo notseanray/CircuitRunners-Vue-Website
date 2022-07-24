@@ -97,7 +97,6 @@ export default {
   data() {
     return {
       authed: useStore().auth,
-      rerender: 0
     };
   },
   setup() {
