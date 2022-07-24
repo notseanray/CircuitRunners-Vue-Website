@@ -30,19 +30,19 @@
 </template>
 
 <script>
-import { ref } from 'vue'
+import { ref } from "vue";
 
 import FooterComp from "./FooterComp.vue";
 import navbarcustom from "./navbarcustom.vue";
 
 export default {
-    setup () {
+  setup() {
     return {
       slide: ref(1),
-      autoplay: ref(true)
-    }
+      autoplay: ref(true),
+    };
   },
-    components: {
+  components: {
     FooterComp: FooterComp,
     navbarcustom: navbarcustom,
 },

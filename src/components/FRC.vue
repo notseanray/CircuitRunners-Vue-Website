@@ -23,8 +23,10 @@
     
     <FooterComp />
 
-</div>
+    <navbarcustom />
+  </div>
 
+  <FooterComp></FooterComp>
 </template>
 
 <script>
