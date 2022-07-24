@@ -1,15 +1,18 @@
 <template>
-    <div class="border-4 px-10 bg-black grid grid-flow-col gap-10 justify-start border-[#2b2a2a]">
-        <div class="font-roboto q-pa-md q-gutter-md">
-            <q-btn round class="mr-[80px]" v-on:click="tohome">
-                <q-icon size="100px">
-                    <img src="https://cdn.discordapp.com/attachments/966089783044628540/988834097277317200/CircuitRunner-Logo-680x843_1.png">
-                </q-icon>
-            </q-btn>
+<div class="absolute inset-x-0 top-4 flex flex-center">
+    <img class="h-20" src="../assets/cr white-svg.svg" />
+</div>
+<div class="flex flex-center justify-between border-4 bg-black border-[#20d54d]">
+    <div class="q-pa-md q-gutter-sm">
+        <q-btn class="mr-10" round v-on:click="tohome">
+            <q-icon size="81px">
+                <img src="https://cdn.discordapp.com/attachments/966089783044628540/988834097277317200/CircuitRunner-Logo-680x843_1.png">
+            </q-icon>
+        </q-btn>
+
+        <q-btn color="primary" size="small" text-color="black" label="About Us" v-on:click="toabout"/>
             
-            <q-btn color="primary" text-color="black" label="About Us" v-on:click="toabout"/>
-            
-            <q-btn color="primary" text-color="black" label="Teams">
+            <q-btn color="primary" size="small" text-color="black" label="Teams">
                 <q-menu class="text-black">
                     <q-list style="min-width: 100px">
                         <q-item clickable v-close-popup v-on:click="toFRC">
@@ -25,17 +28,17 @@
                 </q-menu>
             </q-btn>
 
-            <q-btn color="primary" text-color="black" label="Sponsors">
-
+            <q-btn v-on:click="tooutreach" color="primary" size="small" text-color="black" label="Outreach" />
+            <q-btn v-on:click="tosponsors" color="primary" size="small" text-color="black" label="Sponsors" />
+    </div>
+    <div class="flex flex-center q-gutter-md mr-10">
+        <q-btn v-on:click="twitter" class="mr-5" color="primary" text-color="black" icon="fa-solid fa-address-card" label="Contact"/>
+        <q-btn v-on:click="twitter" round color="primary" text-color="black" icon="fa-brands fa-twitter"/>
+        <q-btn v-on:click="instagram" round color="primary" text-color="black" icon="fa-brands fa-instagram"/>
+        <q-btn v-on:click="facebook" round color="primary" text-color="black" icon="fa-brands fa-facebook"/>
+    </div>
+</div>
         
-                
-            </q-btn>
-
-            <q-btn v-on:click="twitter" round color="primary" text-color="black" icon="fa-brands fa-twitter"/>
-            <q-btn v-on:click="instagram" round color="primary" text-color="black" icon="fa-brands fa-instagram"/>
-            <q-btn v-on:click="facebook" round color="primary" text-color="black" icon="fa-brands fa-facebook"/>
-        </div>  
-    </div>  
 </template>
 
 <script>
@@ -89,8 +92,18 @@ export default {
         ,
         facebook(){
             window.location.href = 'http://facebook.com/circuitrunners'
+        },
+        tosponsors(){
+            this.$router.push('/sponsors')
+        },
+        tooutreach(){
+            this.$router.push('/outreach')
         }
         
     }
 }
 </script>
+
+<style>
+
+</style>

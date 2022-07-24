@@ -1,9 +1,10 @@
 .App {
 	display: flex;
 	min-height: 100vh;
-	flex-direction: column;
-	justify-content: space-between;
-	text-align: center;
+	overflow-x: hidden;
+}
+.nooverflow {
+	overflow-x: hidden;
 }
 body {
 	margin: 0;
@@ -31,6 +32,10 @@ html {
 @font-face {
 	font-family: LibreFranklin-Black;
 	src: url(./assets/fonts/LibreFranklin-Black.ttf);
+}
+@font-face {
+	font-family: Alte;
+	src: url(./assets/fonts/altehaasgroteskbold.ttf);
 }
 html {
 	height: 100%;
