@@ -5,6 +5,7 @@ module.exports = {
 			fontFamily: {
 				roboto: ["Roboto"],
 				franklin: ["Libre Franklin"],
+				alte: ["Alte"],
 			},
 		},
 	},
