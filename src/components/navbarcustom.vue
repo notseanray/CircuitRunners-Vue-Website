@@ -2,7 +2,7 @@
 <div class="absolute inset-x-0 top-4 flex flex-center">
     <img class="h-20" src="../assets/cr white-svg.svg" />
 </div>
-<div class="flex flex-center justify-between border-4 bg-black border-[#20d54d]">
+<div class="flex flex-center justify-between border-b-[.5px] bg-black border-[#20d54d]">
     <div class="q-pa-md q-gutter-sm">
         <q-btn class="mr-10" round v-on:click="tohome">
             <q-icon size="81px">
@@ -28,11 +28,9 @@
                 </q-menu>
             </q-btn>
 
-            <q-btn v-on:click="tooutreach" color="primary" size="small" text-color="black" label="Outreach" />
-            <q-btn v-on:click="tosponsors" color="primary" size="small" text-color="black" label="Sponsors" />
     </div>
     <div class="flex flex-center q-gutter-md mr-10">
-        <q-btn v-on:click="twitter" class="mr-5" color="primary" text-color="black" icon="fa-solid fa-address-card" label="Contact"/>
+        <q-btn v-on:click="tocontact" class="mr-5" color="primary" text-color="black" icon="fa-solid fa-address-card" label="Contact"/>
         <q-btn v-on:click="twitter" round color="primary" text-color="black" icon="fa-brands fa-twitter"/>
         <q-btn v-on:click="instagram" round color="primary" text-color="black" icon="fa-brands fa-instagram"/>
         <q-btn v-on:click="facebook" round color="primary" text-color="black" icon="fa-brands fa-facebook"/>
@@ -165,6 +163,9 @@ export default {
     },
     tooutreach(){
         this.$router.push('/outreach')
+    },
+    tocontact(){
+        window.location.href = 'mailto:info@circuitrunners.com'
     }
   },
 };
