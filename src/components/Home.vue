@@ -22,7 +22,7 @@
 
     <div class="mx-[25%]">
       <div class=" flex flex-col min-h-screen bg-[#2b2b2b] text-white">
-         <h1 class="text-center p-8 text-xl font-franklin mb-8">CircuitRunners is 20 year old 501(c)(3) nonprofit robotics organization working out of Wheeler High School in Marietta, GA containing 4 robotics teams</h1>
+         <h1 class="text-center p-6 text-xl font-franklin mb-8">CircuitRunners Robotics is 20 year old 501(c)(3) nonprofit robotics organization working out of Wheeler High School in Marietta, GA. CircuitRunners Robotics owns and operates 4 robotics teams, including an FRC team, two FTC teams, and a BEST team</h1>
           
           <div class="grid grid-rows-3 gap-8">
 
