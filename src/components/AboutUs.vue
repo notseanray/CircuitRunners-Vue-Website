@@ -27,7 +27,7 @@
         </div>
         <div class="text-center flex flex-col">
           Director of Outreach – Paloma Carignano
-          <img src="../assets/question.png" class="mt-4 w-[150px] self-center borderw" />
+          <img src="../assets/plaoma.png" class="mt-4 w-[150px] self-center " />
         </div>
         <div class="text-center flex flex-col">
           Director of Marketing – Saahas Swaroop
