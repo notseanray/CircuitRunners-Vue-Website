@@ -2,29 +2,43 @@
 <div class="nooverflow">
     <navbarcustom/>
 
-    <div class="titlecontainer">
+    <div class="titlecontainer h-screen">
         <h1 class="mt-6 font-roboto text-bold">FTC 11347</h1>
 
-        <div class="justify-center grid grid-rows-2 grid-flow-col gap-[400px] my-10">
-
-            <div class="row-span-2 titlecontainer">
-                <h1 class="text-4xl">About FTC 11347</h1>
-                <h1 class="text-2xl">We are FTC 11347, a high school robotics team based out of Wheeler High School in Marietta, GA. We strive to spread STEM throughout the community through our efforts.</h1>
-
+        <div class="flex flex-row justify-around w-screen my-6">
+            <div class="w-96">
+                <h2 class="text-2xl text-bold text-center mb-2">About FTC 11347</h2>
+                <p class="text-xl">
+                    Founded in 2016, FTC 11347 is our second FTC team. Due to the success of FTC 1002, the popularity of FTC among our students, and the limited team size of FTC teams, we decided to form a second FTC team to meet demand.
+                </p>
+                <img src="../assets/madi.png" class="borderg mb-2"/>
+                <p class="mt-2 ml-2 borderg border-[2px] w-fit px-2"> – FTC 11347 Team Lead Madi working on her teams robot at their league meet</p>
             </div>
+            <div class="flex flex-col justify-around">
+                <div class="w-[400px]">
+                    <h2 class="text-2xl text-bold text-center">News</h2>
+                    <p class="text-center ">FTC 11347 finished 3rd at their offseason meet in North Carolina, just behind FTC 1002. Nice job!</p>
+                    <img src="../assets/11347atfieldPt2.png" class="borderg"/>
+                </div>
+                <div>
+                    <h2 class="text-2xl text-bold text-center mb-2 mt-8">Awards</h2>
+                    <div class="grid grid-flow-row grid-rows-2 gap-2 text-center w-[400px]">
+                        <div class="borderg p-1 flex flex-row justify-around">
+                            <p>
+                                Rank #11 at Worlds Divison
+                            </p>
+                            <p>
+                                2019 Georgia World Championship
+                            </p>
+                        </div>
 
-            <div class="titlecontainer p-10">
-                <h1 class="text-4xl">News</h1>
-                <h1 class="text-2xl">Did stuff.</h1>
+                        
+                    
+                    </div>
+                </div>
             </div>
-
-            <div class="titlecontainer p-10">
-                <h1 class="text-4xl">Awards</h1>
-                <h1 class="text-2xl">Won some things.</h1>
-            </div>
-
         </div>
-
+        <!--
         <div class="text-center">
             Leadership
             <div class="grid grid-cols-3 grid-flow-row gap-40 my-10">
@@ -39,22 +53,8 @@
                 </div>
             </div>
         </div>
+        -->
 
-        <q-pagination
-        v-on:click="update"
-        v-model="current"
-        :min="2002"
-        :max="2022"
-        :max-pages="0"
-        :ellipses="false"
-        outline
-        :boundary-numbers="false"
-        
-
-        />
-
-    <img class="mt-10" v-bind:src="'src/assets/' + current + '.png'"/>
-    <img class="mt-10" v-bind:src="'src/assets/' + current + '.jpg'"/>
     </div>
     
     <FooterComp />
@@ -69,6 +69,7 @@ import navbarcustom from "./navbarcustom.vue";
 
 
 import { ref } from 'vue'
+import.meta.hot
 
 export default {
 
@@ -100,5 +101,9 @@ export default {
     flex-direction: column;
     align-items: center;
     min-width: 100%;
+}
+
+.borderg {
+    border: 4px solid #515155;
 }
 </style>

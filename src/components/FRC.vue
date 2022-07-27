@@ -2,7 +2,7 @@
 <div class="nooverflow">
     <navbarcustom/>
 
-    <div class="titlecontainer">
+    <div class="titlecontainer h-screen">
         <h1 class="mt-6 font-roboto text-bold">FRC 1002</h1>
 
         <div class="flex flex-row justify-around w-screen my-6">
@@ -17,7 +17,7 @@
             <div class="flex flex-col justify-around">
                 <div class="w-[400px]">
                     <h2 class="text-2xl text-bold text-center mb-2 ">News</h2>
-                    <p class="text-center ">FRC 1002 finished as Event Finalists at the Peachtree District Albany event with alliance partners team 1414 IHOT and team 6829 Ignite Robotics!</p>
+                    <p class="text-center ">FRC 1002 finished 1st at their offseason meet in North Carolina. Nice job!</p>
                     <img src="https://cdn.discordapp.com/attachments/966089783044628540/988844257534152704/image_6.png" class="borderg"/>
                 </div>
                 <div>
