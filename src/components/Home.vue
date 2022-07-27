@@ -1,8 +1,12 @@
 <template>
-  <div class="nooverflow">
-      <navbarcustom />
 
+
+  <div class="nooverflow">
+    
+
+      <navbarcustom />
       <!--<h1 class="text-center mt-10 text-6xl tracking-wide font-roboto font-bold"><span class="text-crgreen">Circuit</span>Runners Robotics</h1>-->      
+      
       <q-carousel class="mt-3.5 mb-4 mx-[25%]"
         animated
         v-model="slide"
@@ -19,6 +23,7 @@
         <q-carousel-slide :name="1" img-src="https://cdn.discordapp.com/attachments/966089783044628540/988844257534152704/image_6.png" class=""/>
         <q-carousel-slide :name="2" img-src="https://i.imgur.com/juPRryg.jpg" />
       </q-carousel>
+      
 
     <div class="mx-[25%]">
       <div class=" flex flex-col min-h-screen bg-[#2b2b2b] text-white">
@@ -82,14 +87,17 @@
                   </div>
               </div>
             </div>
+            
+            
           
           </div> 
+
       </div>
-
-
     </div>
+
       <FooterComp/>
 </div>
+
 </template>
 
 <script>
