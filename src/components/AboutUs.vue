@@ -19,7 +19,6 @@
           <img src="../assets/mrgoh.png" class="mt-4 w-[150px] self-center borderw" />
         </div>
       </div>
-
       <div class="flex divide-x-[10rem] mx-[16%] divide-black flex-row mb-10">
         <div class="text-center flex flex-col">
           Director of Fundraising – Declan Amerault
@@ -33,7 +32,6 @@
           Director of Marketing – Saahas Swaroop
           <img src="../assets/SAAAAAAAAAAAHAAAAAAAAAAAAS.png" class="mt-4 w-[150px] self-center borderw" />
         </div>
-
       </div>
       <h2 class="container text-center mt-5">
       History
@@ -43,11 +41,7 @@
       >
       In 2002, CircuitRunners Robotics joined the robotics community with a mission of giving high school students the best hands-on opportunities to begin a lifelong journey in the fields of Science, Technology, Engineering, and Math. Since then, CircuitRunners Robotics has become an integral part of the Georgia competition robotics community and has always taken pride in our strong outreach base, our competitive spirit, and our tight-knit community that spans decades.
       </h2>
-        
-
     </div>
-
-
   </div>
 </template>
 
