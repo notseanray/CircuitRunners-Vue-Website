@@ -1,6 +1,6 @@
 <template>
 <div class="absolute inset-x-0 top-4 flex flex-center">
-    <img class="h-20" src="../assets/cr white-svg.svg" />
+    <img class="h-20" src="../assets/logo.svg" />
 </div>
 <div class="flex flex-center justify-between border-b-[.5px] bg-black border-[#20d54d]">
     <div class="q-pa-md q-gutter-sm">
