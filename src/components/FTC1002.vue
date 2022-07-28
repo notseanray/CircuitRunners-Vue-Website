@@ -2,7 +2,7 @@
 <div class="nooverflow">
     <navbarcustom/>
 
-    <div class="titlecontainer h-screen">
+    <div class="titlecontainer">
         <h1 class="mt-6 font-roboto text-bold">FTC 1002</h1>
 
         <div class="flex flex-row justify-around w-screen my-6">
@@ -81,7 +81,7 @@
 
     </div>
     
-    <FooterComp />
+    
 
   </div>
 

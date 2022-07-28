@@ -1,8 +1,6 @@
 <template>
-<div class="absolute inset-x-0 top-4 flex flex-center">
-    <img class="h-20" src="../assets/logo.svg" />
-</div>
-<div class="flex flex-center justify-between border-b-[.5px] bg-black border-[#20d54d]">
+
+<div v-if="!isMobile" class="flex flex-center justify-between border-b-[.5px] bg-black border-[#20d54d]">
     <div class="q-pa-md q-gutter-sm">
         <q-btn class="mr-10" round v-on:click="tohome">
             <q-icon size="81px">
@@ -29,6 +27,8 @@
             </q-btn>
 
     </div>
+    <img class="h-20" src="../assets/logo.svg" />
+
     <div class="flex flex-center q-gutter-md mr-10">
         <q-btn v-on:click="tocontact" class="mr-5" color="primary" text-color="black" icon="fa-solid fa-address-card" label="Contact"/>
         <q-btn v-on:click="twitter" round color="primary" text-color="black" icon="fa-brands fa-twitter"/>
@@ -59,6 +59,40 @@
         </div>
     </div>
 </div>
+
+<div v-else class="flex flex-col flex-center justify-center border-b-[.5px] bg-black border-[#20d54d]">
+    <div class="q-pa-md q-gutter-sm">
+        
+        <img v-on:click="tohome" class="h-20" src="../assets/logo.svg" />
+  
+        <q-btn color="primary" size="small" text-color="black" label="About Us" v-on:click="toabout"/>
+            
+            <q-btn color="primary" size="small" text-color="black" label="Teams">
+                <q-menu class="text-black">
+                    <q-list style="min-width: 100px">
+                        <q-item clickable v-close-popup v-on:click="toFRC">
+                            <q-item-section text-color="black">FRC 1002</q-item-section>
+                        </q-item>
+                        <q-item clickable v-close-popup v-on:click="toFTC1">
+                            <q-item-section text-color="black">FTC 1002</q-item-section>
+                        </q-item>
+                        <q-item clickable v-close-popup v-on:click="toFTC2">
+                            <q-item-section text-color="black">FTC 11347</q-item-section>
+                        </q-item>
+                    </q-list>
+                </q-menu>
+            </q-btn>
+
+    
+
+    
+        <q-btn v-on:click="twitter" round color="primary" text-color="black" icon="fa-brands fa-twitter"/>
+        <q-btn v-on:click="instagram" round color="primary" text-color="black" icon="fa-brands fa-instagram"/>
+        <q-btn v-on:click="facebook" round color="primary" text-color="black" icon="fa-brands fa-facebook"/>
+        <h1 class="text-sm text-center text-bold">{{ this.displayName() }}</h1>
+        
+    </div>
+</div>
         
 </template>
 
@@ -74,6 +108,7 @@ export default {
   data() {
     return {
       authed: useStore().auth,
+      isMobile: false,
     };
   },
   setup() {
@@ -99,6 +134,11 @@ export default {
   },
   components: {
     dropdown: dropdown,
+  },
+  
+  mounted() {
+    this.onResize();
+    window.addEventListener("resize", this.onResize, { passive: true });
   },
   methods: {
     displayName() {
@@ -166,8 +206,16 @@ export default {
     },
     tocontact(){
         window.location.href = 'mailto:info@circuitrunners.com'
-    }
+    },
+    onResize() {
+        this.isMobile = window.innerWidth < 600;
+      },
   },
+  beforeDestroy() {
+    if (typeof window !== "undefined") {
+      window.removeEventListener("resize", this.onResize, { passive: true });
+    }
+  }
 };
 </script>
 
