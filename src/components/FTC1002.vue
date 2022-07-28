@@ -11,7 +11,7 @@
                 <p class="text-xl">
                     Founded in 2007, FTC 1002 was our second robotics team, and our first venture into the FIRST Tech Challenge. They just recently qualified for the World Championship in Houston, Texas, where they finished 42nd in their divison out of 80.
                 </p>
-                <img src="../assets/cart.JPG" class="borderg mb-2"/>
+                <img src="../assets/cart.jpg" class="borderg mb-2"/>
                 <p class="mt-2 ml-2 borderg border-[2px] w-fit px-2"> – The FTC 1002 robot traveling on its cart at the FTC World Championship</p>
             </div>
             <div class="flex flex-col justify-around">
