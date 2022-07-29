@@ -42,7 +42,7 @@
                     <q-btn label="To Site" color="blue" @click="goto(`https://www.firstinspires.org/robotics/frc`)"/>                  
                   </div>
                   <p class="font-franklin">
-                    Under strict rules, limited time and resources, teams of students are challenged to raise funds, hone teamwork skills, and build and program industrial-size robots to play a difficult field game against like-minded competitors. It’s as close to real-world engineering as a student can get.
+                    Under strict rules, limited time and resources, teams of students are challenged to raise funds, hone teamwork skills, and build and program industrial-size robots to play a difficult field game against like-minded competitors. It’s as close to real-world engineering as a student can get. Teams get 9 weeks to prototype, design, build, program, and test their robots before they travel to compete in a 3 on 3 competition format for 3 days against other teams, fighting for a chance to advance to the world championship.
                   </p>
                 </div>
               </div>
@@ -137,7 +137,7 @@
                     <q-btn label="To Site" color="blue" @click="goto(`https://www.firstinspires.org/robotics/frc`)"/>                  
                   </div>
                   <p class="font-franklin">
-                    Under strict rules, limited time and resources, teams of students are challenged to raise funds, hone teamwork skills, and build and program industrial-size robots to play a difficult field game against like-minded competitors. It’s as close to real-world engineering as a student can get.
+                    Under strict rules, limited time and resources, teams of students are challenged to raise funds, hone teamwork skills, and build and program industrial-size robots to play a difficult field game against like-minded competitors. It’s as close to real-world engineering as a student can get. Teams get 9 weeks to prototype, design, build, program, and test their robots before they travel to compete in a 3 on 3 competition format for 3 days against other teams, fighting for a chance to advance to the world championship.
                   </p>
                 </div>
               </div>
