@@ -217,10 +217,6 @@ export default {
     FooterComp: FooterComp,
     navbarcustom: navbarcustom,
   },
-  mounted() {
-    this.onResize();
-    window.addEventListener("resize", this.onResize, { passive: true });
-  },
   methods: {
         gotoabout() {
           this.$router.push('/about');
@@ -231,6 +227,10 @@ export default {
         onResize() {
         this.isMobile = window.innerWidth < 600;
       },
+  },
+  mounted() {
+    this.onResize();
+    window.addEventListener("resize", this.onResize, { passive: true });
   },
   beforeDestroy() {
     if (typeof window !== "undefined") {

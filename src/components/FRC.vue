@@ -3,7 +3,7 @@
     <navbarcustom/>
 
     <div class="titlecontainer ">
-        <h1 class="mt-6 font-roboto text-bold">FRC 1002</h1>
+        <h1 v-if="!isMobile" class="mt-6 font-roboto text-bold">FRC 1002</h1>
 
         <div class="flex flex-row justify-around w-screen my-6">
             <div class="w-96">
@@ -78,10 +78,14 @@ import { ref } from 'vue'
 import.meta.hot
 
 export default {
-
+    data () {
+        return {
+            isMobile: false,
+        }
+    },
     setup () {
         return {
-        current: ref(2022)
+            current: ref(2022)
         }
     },
 
@@ -95,9 +99,22 @@ export default {
         },
         update(){
             console.log(this.current)
-        }
+        },
+        onResize() {
+        this.isMobile = window.innerWidth < 600;
+      },
 
+
+    },
+  mounted() {
+    this.onResize();
+    window.addEventListener("resize", this.onResize, { passive: true });
+  },
+  beforeDestroy() {
+    if (typeof window !== "undefined") {
+      window.removeEventListener("resize", this.onResize, { passive: true });
     }
+  }
 }
 </script>
 
