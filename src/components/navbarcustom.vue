@@ -9,7 +9,7 @@
         </q-btn>
 
         <q-btn color="primary" size="small" text-color="black" label="About Us" v-on:click="toabout"/>
-            
+
             <q-btn color="primary" size="small" text-color="black" label="Teams">
                 <q-menu class="text-black">
                     <q-list style="min-width: 100px">
@@ -62,11 +62,11 @@
 
 <div v-else class="flex flex-col flex-center justify-center border-b-[.5px] bg-black border-[#20d54d]">
     <div class="q-pa-md q-gutter-sm">
-        
+
         <img v-on:click="tohome" class="h-20" src="../assets/logo.svg" />
-  
+
         <q-btn color="primary" size="small" text-color="black" label="About Us" v-on:click="toabout"/>
-            
+
             <q-btn color="primary" size="small" text-color="black" label="Teams">
                 <q-menu class="text-black">
                     <q-list style="min-width: 100px">
@@ -83,17 +83,17 @@
                 </q-menu>
             </q-btn>
 
-    
 
-    
+
+
         <q-btn v-on:click="twitter" round color="primary" text-color="black" icon="fa-brands fa-twitter"/>
         <q-btn v-on:click="instagram" round color="primary" text-color="black" icon="fa-brands fa-instagram"/>
         <q-btn v-on:click="facebook" round color="primary" text-color="black" icon="fa-brands fa-facebook"/>
         <h1 class="text-sm text-center text-bold">{{ this.displayName() }}</h1>
-        
+
     </div>
 </div>
-        
+
 </template>
 
 <script>
@@ -101,7 +101,7 @@ import dropdown from "primevue/dropdown";
 import axios from "axios";
 import { ref } from "vue";
 import { getAuth, signOut } from "firebase/auth";
-import { store_login } from "../database";
+import { store_login, clear_login } from "../database";
 import { useStore } from "../store";
 
 export default {
@@ -135,7 +135,7 @@ export default {
   components: {
     dropdown: dropdown,
   },
-  
+
   mounted() {
     this.onResize();
     window.addEventListener("resize", this.onResize, { passive: true });
@@ -175,12 +175,13 @@ export default {
     signout() {
       const auth = getAuth();
       console.log("signed out");
+      useStore().auth = false;
+      console.log(useStore().auth);
       signOut(auth).then(() => {
         // set unlogged in store
         this.$router.push("/");
+		window.location.reload();
       });
-      useStore().auth = false;
-      console.log(useStore().auth);
     },
     login() {
       axios

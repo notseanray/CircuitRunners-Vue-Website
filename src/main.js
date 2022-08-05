@@ -1,7 +1,7 @@
 import App from "./App.vue";
 import router from "./router";
 import PrimeVue from "primevue/config";
-import "./index.css";
+import "./index.scss";
 import "./assets/app.css";
 import { Quasar } from "quasar";
 
@@ -11,7 +11,6 @@ import "@quasar/extras/fontawesome-v6/fontawesome-v6.css";
 import "quasar/src/css/index.sass";
 import { createApp } from "vue";
 import { createPinia } from "pinia";
-
 const pinia = createPinia();
 
 const app = createApp(App);
