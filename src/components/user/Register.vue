@@ -1,17 +1,17 @@
 <template>
-    <div class="h-screen w-screen bg-[url('./assets/Backdrop1.png')]">
+    
         <navbarcustom />
         <div class="grid grid-flow-row pb-48">
-            <h1 class="">Register</h1>
+            <h1 class="text-center mt-6">Club Registration</h1>
             <h2
                 class="grid gap-[10px] pb-8 text-center mx-[400px] border-4 bg-black relative top-10 text-medium"
             >
-                <form class="grid gap-0" action="#" @submit.prevent="submit">
-                    <div class="">
+                <form class="grid gap-0 font-roboto " action="#" @submit.prevent="submit">
+                    <div class="font-franklin">
                         <label for="first_name" class="text-[24px]"
                             >First Name</label
                         >
-                        <div class="">
+                        <div class="font-franklin">
                             <input
                                 id="first_name"
                                 type="first_name"
@@ -24,11 +24,11 @@
                             />
                         </div>
                     </div>
-                    <div class="">
+                    <div class="font-franklin">
                         <label for="last_name" class="text-[24px]"
                             >Last Name</label
                         >
-                        <div class="">
+                        <div class="font-franklin">
                             <input
                                 id="last_name"
                                 type="last_name"
@@ -41,9 +41,9 @@
                             />
                         </div>
                     </div>
-                    <div class="">
-                        <label for="email" class="text-[24px]">Email</label>
-						<div class="text-[15px]">Preferably use your Wheeler High/Magnet email, or an email accessible from gmail.</div>
+                    <div class="font-franklin">
+                        <label for="email" class="text-[24px] font-franklin">Email</label>
+						<div class="text-xl font-franklin">Preferably use your Wheeler High/Magnet email, or an email accessible from gmail.</div>
                         <div class="">
                             <input
                                 id="email"
@@ -58,7 +58,7 @@
                         </div>
                     </div>
 
-                    <div class="">
+                    <div class="font-franklin">
                         <label for="password" class="text-[24px]"
                             >Password</label
                         >
@@ -74,12 +74,12 @@
                             />
                         </div>
                     </div>
-                    <div class="">
+                    <div class="font-franklin">
                         <label for="phone" class="text-[24px]"
                             >Phone Number</label
                         >
 						<div class="text-[15px]">Leave blank if you don't have one.</div>
-                        <div class="">
+                        <div class="font-franklin">
                             <input
                                 id="phone"
                                 type="phone"
@@ -91,7 +91,7 @@
                             />
                         </div>
                     </div>
-                    <div class="">
+                    <div class="font-franklin">
                         <label for="grad_year" class="text-[24px]"
                             >Graduation Year</label
                         >
@@ -108,7 +108,7 @@
                             />
                         </div>
                     </div>
-                    <div class="">
+                    <div class="font-franklin">
                         <label for="previous_experience" class="text-[24px]"
                             >Have you been in CR before?</label
                         >
@@ -125,7 +125,7 @@
                             />
                         </div>
                     </div>
-                    <div class="">
+                    <div class="font-franklin">
                         <label for="first_experience" class="text-[24px]"
                             >Have you done FIRST before?</label
                         >
@@ -142,27 +142,33 @@
                             />
                         </div>
                     </div>
-                    <div class="">
+                    <div class="font-franklin">
                         <label for="useful_skills" class="text-[24px]"
                             >Team Preference</label
                         >
 						<div class="text-[15px]">Please drag the teams in the order you wish to join.</div>
-                        <div class="">
-							<draggable
-								:list="team_preference"
-								ghost-class="opacity-0.5"
-								class="dragArea list-group w-full"
-							>
-							   <div v-for="element in team_preference" :key="element.order">{{element.name}}</div>
-							</draggable>
+                        <div class="flex flex-row justify-center">
+                            <div class="flex justify-center align-center">
+                                <img class="pr-5" src="../../assets/scale.png" />
+                            </div>
+                            <div>
+                                <draggable
+                                    :list="team_preference"
+                                    ghost-class="opacity-0.5"
+                                    class="dragArea list-group w-full"
+                                >
+                                <div class="p-3" v-for="element in team_preference" :key="element.order">{{element.name}}</div>
+                                </draggable>
+                            </div>
+
                         </div>
                     </div>
-                    <div class="">
+                    <div class="font-franklin">
                         <label for="useful_skills" class="text-[24px]"
                             >Do you have any relevant skills?</label
                         >
-						<div class="text-[15px]">If you have any experience with shop tools or related items, please list them here.</div>
-                        <div class="">
+						<div class="text-[15px] font-franklin">If you have any experience with shop tools or related items, please list them here.</div>
+                        <div class="font-franklin">
                             <input
                                 id="useful_skills"
                                 type="useful_skills"
@@ -175,7 +181,7 @@
                         </div>
                     </div>
                     <div class="text-red-200 text-[15px]">{{ message }}</div>
-                    <div class="mt-8">
+                    <div class="mt-8 font-franklin">
                         <div class="col-md-8 offset-md-4">
                             <button type="submit" class="btn btn-primary">
                                 Register
@@ -186,7 +192,7 @@
             </h2>
         </div>
         <FooterComp class="fixed bottom-0 w-screen" />
-    </div>
+
 </template>
 
 <script lang="ts">
