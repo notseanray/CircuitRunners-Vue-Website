@@ -12,13 +12,17 @@ import {
     where,
 } from "firebase/firestore";
 import { db } from "./router/index";
+import { RegistrationInformation } from "./types";
 
 const REGISTERED_COLLECTION = {
     collection: "registered",
     document: "ypL3sI9CcxUyuC21lpcN",
 };
 
-type String_Array = Array<String>;
+const REGISTERED_DATA = {
+    collection: "registration_data",
+    document: "zxP7Hu8DuuKZXOHXeU2o",
+};
 
 const is_registered = async (): Promise<boolean> => {
     const registered_users = await getDoc(
@@ -32,16 +36,35 @@ const is_registered = async (): Promise<boolean> => {
         // handle error
         return false;
     }
-	const data = registered_users.data();
-	const email = useStore().email;
-	for (const e in data) {
-		console.log(data[e] + ":" + email)
-		if (data[e] === email) {
-			console.log("test")
-			return true;
-		}
-	}
-	return false;
+    const data = registered_users.data();
+    const email = useStore().email;
+    for (const e in data) {
+        console.log(data[e] + ":" + email);
+        if (data[e] === email) {
+            console.log("test");
+            return true;
+        }
+    }
+    return false;
+};
+
+export const register_user = async (u: RegistrationInformation) => {
+    if (!u.validated) {
+        // must be verified first
+        return;
+    }
+    await setDoc(doc(db, REGISTERED_DATA.collection, u.email), {
+        first_name: u.first_name,
+        last_name: u.last_name,
+        email: u.email,
+        phone: u.phone,
+        grad_year: u.grad_year,
+        previous_experience: u.previous_experience,
+        first_experience: u.first_experience,
+        team_preference: u.team_preference,
+        useful_skills: u.useful_skills,
+        registered: false, // this is kinda janky, but we are just gonna assume they are not registered
+    });
 };
 
 // maybe store events by id + "|" + date string?

@@ -10,6 +10,7 @@ export interface RegistrationInformation {
     team_preference: string[];
     useful_skills: string;
     registered: boolean;
+	validated: boolean;
 }
 
 export const register = (
@@ -63,5 +64,11 @@ export const register = (
     if (problems.length > 0) {
         return problems.join("\n");
     }
+	r.validated = true;
+
+	// we HATE NULL DATA!!!!!!!!1
+	if (!r.useful_skills) {
+		r.useful_skills = "";
+	}
     return r;
 };

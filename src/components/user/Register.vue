@@ -230,6 +230,7 @@ import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { RegistrationInformation, register } from "../../types";
 import { VueDraggableNext } from "vue-draggable-next";
 import { useStore } from "../../store";
+import { register_user } from "../../database";
 const TEAMS = [
     { name: "FRC1002", order: 1 },
     { name: "FTC1002", order: 2 },
@@ -275,7 +276,7 @@ export default {
         async submit() {
             console.log("s");
             console.log(this.email + ":" + this.password);
-            const info = {
+            const info: RegistrationInformation = {
                 first_name: this.first_name,
                 last_name: this.last_name,
                 email: this.email,
@@ -286,6 +287,8 @@ export default {
                 first_experience: this.first_experience,
                 team_preference: this.team_preference,
                 useful_skills: this.useful_skills,
+                validated: false,
+                registered: false,
             };
             const validated = register(info as RegistrationInformation);
             console.log(validated);
@@ -299,6 +302,7 @@ export default {
                     .then((userCredential) => {
                         // Signed in
                         const user = userCredential.user;
+                        register_user(validated);
                         console.log(user);
                         console.log("signed");
                         // ...
