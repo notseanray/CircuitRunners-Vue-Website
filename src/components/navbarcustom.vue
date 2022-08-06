@@ -141,7 +141,21 @@ export default {
   },
   methods: {
     displayName() {
-      return useStore().auth ? "Welcome " + useStore().displayName : "";
+		let display_name = useStore().displayName;
+		// if there isn't a display name (happens when not signing up with google oauth),
+		// show the email in the navbar
+		if (display_name == null || !!display_name) {
+			const email =  useStore().email;
+			if (email.length < 1) {
+				// if nothing is set, just say Welcome!
+				display_name = "!";
+			} else {
+				display_name = " " + email;
+			}
+		} else {
+			display_name = " " + display_name
+		}
+      return useStore().auth ? "Welcome" + display_name : "";
     },
     toabout() {
       this.$router.push("/about");
