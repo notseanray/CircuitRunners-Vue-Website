@@ -19,12 +19,12 @@ app.use(pinia);
 app.use(router);
 app.use(PrimeVue);
 app.use(Quasar, {
-  iconSet: iconSet,
-  config: {
-    brand: {
-      primary: "#20D54D",
+    iconSet: iconSet,
+    config: {
+        brand: {
+            primary: "#20D54D",
+        },
     },
-  },
-  plugins: {}, // import Quasar plugins and add here
+    plugins: {}, // import Quasar plugins and add here
 });
 app.mount("#app");

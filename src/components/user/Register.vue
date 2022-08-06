@@ -44,6 +44,12 @@
                     <div class="font-franklin">
                         <label for="email" class="text-[24px] font-franklin">Email</label>
 						<div class="text-xl font-franklin">Preferably use your Wheeler High/Magnet email, or an email accessible from gmail.</div>
+                    <div class="">
+                        <label for="email" class="text-[24px]">Email</label>
+                        <div class="text-[15px]">
+                            Preferably use your Wheeler High/Magnet email, or an
+                            email accessible from gmail.
+                        </div>
                         <div class="">
                             <input
                                 id="email"
@@ -62,7 +68,10 @@
                         <label for="password" class="text-[24px]"
                             >Password</label
                         >
-						<div class="text-[15px]">Must be at least 8 long, contain 1 captial letter, 1 lowercase, and 1 number.</div>
+                        <div class="text-[15px]">
+                            Must be at least 8 long, contain 1 captial letter, 1
+                            lowercase, and 1 number.
+                        </div>
                         <div class="">
                             <input
                                 id="password"
@@ -80,6 +89,10 @@
                         >
 						<div class="text-[15px]">Leave blank if you don't have one.</div>
                         <div class="font-franklin">
+                        <div class="text-[15px]">
+                            Leave blank if you don't have one.
+                        </div>
+                        <div class="">
                             <input
                                 id="phone"
                                 type="phone"
@@ -95,7 +108,9 @@
                         <label for="grad_year" class="text-[24px]"
                             >Graduation Year</label
                         >
-						<div class="text-[15px]">The year you are graduating High School.</div>
+                        <div class="text-[15px]">
+                            The year you are graduating High School.
+                        </div>
                         <div class="">
                             <input
                                 id="grad_year"
@@ -112,7 +127,9 @@
                         <label for="previous_experience" class="text-[24px]"
                             >Have you been in CR before?</label
                         >
-						<div class="text-[15px]">Returning members should check this.</div>
+                        <div class="text-[15px]">
+                            Returning members should check this.
+                        </div>
                         <div class="">
                             <input
                                 id="previous_experience"
@@ -129,7 +146,10 @@
                         <label for="first_experience" class="text-[24px]"
                             >Have you done FIRST before?</label
                         >
-						<div class="text-[15px]">Please check if you've participated in FIRST events before.</div>
+                        <div class="text-[15px]">
+                            Please check if you've participated in FIRST events
+                            before.
+                        </div>
                         <div class="">
                             <input
                                 id="first_experience"
@@ -161,6 +181,22 @@
                                 </draggable>
                             </div>
 
+                        <div class="text-[15px]">
+                            Please drag the teams in the order you wish to join.
+                        </div>
+                        <div class="">
+                            <draggable
+                                :list="team_preference"
+                                ghost-class="opacity-0.5"
+                                class="dragArea list-group w-full"
+                            >
+                                <div
+                                    v-for="element in team_preference"
+                                    :key="element.order"
+                                >
+                                    {{ element.name }}
+                                </div>
+                            </draggable>
                         </div>
                     </div>
                     <div class="font-franklin">
@@ -169,6 +205,11 @@
                         >
 						<div class="text-[15px] font-franklin">If you have any experience with shop tools or related items, please list them here.</div>
                         <div class="font-franklin">
+                        <div class="text-[15px]">
+                            If you have any experience with shop tools or
+                            related items, please list them here.
+                        </div>
+                        <div class="">
                             <input
                                 id="useful_skills"
                                 type="useful_skills"
@@ -200,7 +241,7 @@ import FooterComp from "../FooterComp.vue";
 import navbarcustom from "../navbarcustom.vue";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { RegistrationInformation, register } from "../../types";
-import { VueDraggableNext } from 'vue-draggable-next'
+import { VueDraggableNext } from "vue-draggable-next";
 const TEAMS = [
     { name: "FRC1002", order: 1 },
     { name: "FTC1002", order: 2 },
@@ -221,25 +262,29 @@ export default {
             team_preference: TEAMS,
             useful_skills: "",
             message: "",
-			drag: false,
+            drag: false,
         };
     },
     components: {
         FooterComp: FooterComp,
         navbarcustom: navbarcustom,
-		draggable: VueDraggableNext,
+        draggable: VueDraggableNext,
     },
     methods: {
-		onUpdate(e: any) {
-			 this.team_preference.splice(e.newIndex, 0, this.list.splice(e.oldIndex, 1)[0])
-			 this.team_preference.forEach((item: any, index: number) => {
-					 item.order = index;
-			 });
-		},
-		checkMove: function(e: any) {
-		  window.console.log("Future index: " + e.draggedContext.futureIndex);
-		},
-        submit() {
+        onUpdate(e: any) {
+            this.team_preference.splice(
+                e.newIndex,
+                0,
+                this.list.splice(e.oldIndex, 1)[0]
+            );
+            this.team_preference.forEach((item: any, index: number) => {
+                item.order = index;
+            });
+        },
+        checkMove: function (e: any) {
+            window.console.log("Future index: " + e.draggedContext.futureIndex);
+        },
+        async submit() {
             console.log("s");
             console.log(this.email + ":" + this.password);
             const info = {
@@ -257,31 +302,23 @@ export default {
             const validated = register(info as RegistrationInformation);
             console.log(validated);
             if (typeof validated === "string") {
-                console.log("issue");
                 this.message = validated as string;
                 console.log(validated);
             } else {
                 this.message = "";
-                console.log(info);
-                //login
+                const auth = getAuth();
+                createUserWithEmailAndPassword(auth, this.email, this.password)
+                    .then((userCredential) => {
+                        // Signed in
+                        const user = userCredential.user;
+                        console.log(user);
+                        console.log("signed");
+                        // ...
+                    })
+                    .catch((error) => {
+						console.log(error)
+                    });
             }
-
-            /*
-            const auth = getAuth();
-            createUserWithEmailAndPassword(auth, this.email, this.password)
-                .then((userCredential) => {
-                    // Signed in
-                    const user = userCredential.user;
-                    console.log(user);
-                    console.log("signed");
-                    // ...
-                })
-                .catch((error) => {
-                    const errorCode = error.code;
-                    const errorMessage = error.message;
-                    // ..
-                });
-				*/
         },
         gotoabout() {
             this.$router.push("/register");

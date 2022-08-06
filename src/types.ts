@@ -53,8 +53,7 @@ export const register = (
         problems.push("Invalid Email. ");
     }
 
-    const phonePattern =
-        /^(([0-9]{3}))?[-.s]?([0-9]{3})[-.s]?([0-9]{4})$/;
+    const phonePattern = /^(([0-9]{3}))?[-.s]?([0-9]{3})[-.s]?([0-9]{4})$/;
     if (r.phone.length > 0 && !phonePattern.test(r.phone)) {
         problems.push(
             "Invalid Phone Number, please enter a valid phone number or leave blank if you have none. "

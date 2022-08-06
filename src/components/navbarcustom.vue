@@ -99,7 +99,6 @@
 <script>
 import dropdown from "primevue/dropdown";
 import axios from "axios";
-import { ref } from "vue";
 import { getAuth, signOut } from "firebase/auth";
 import { store_login, clear_login } from "../database";
 import { useStore } from "../store";
@@ -116,15 +115,15 @@ export default {
       const auth = getAuth();
       auth.onAuthStateChanged((u) => {
         if (u && !useStore().auth) {
-          console.log("wasn't logged in, is now");
+			// wasn't logged in, is now
           useStore().userdata = false;
           store_login(u);
           // change page
         } else if (u && useStore().auth && useStore().userdata) {
-          console.log("already logged in");
+			// already logged in
           store_login(u);
         } else {
-          console.log("not logged in");
+			// not logged in
           clear_login();
         }
       });
