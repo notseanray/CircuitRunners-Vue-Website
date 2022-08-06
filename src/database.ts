@@ -1,20 +1,57 @@
 import { useStore } from "./store";
-import { collection, doc, DocumentData, getDoc, getDocs, getFirestore, Query, query, setDoc, where } from "firebase/firestore"; 
-import { db } from "./router/index";  
+import {
+    collection,
+    doc,
+    DocumentData,
+    getDoc,
+    getDocs,
+    getFirestore,
+    Query,
+    query,
+    setDoc,
+    where,
+} from "firebase/firestore";
+import { db } from "./router/index";
+
+const REGISTERED_COLLECTION = {
+    collection: "registered",
+    document: "ypL3sI9CcxUyuC21lpcN",
+};
+
+type String_Array = Array<String>;
 
 const is_registered = async (): Promise<boolean> => {
-    const registered_users = await getDoc(doc(db, "register", "ypL3sI9CcxUyuC21lpcN"));
+    const registered_users = await getDoc(
+        doc(
+            db,
+            REGISTERED_COLLECTION.collection,
+            REGISTERED_COLLECTION.document
+        )
+    );
     if (!registered_users) {
         // handle error
+        return false;
     }
-    return registered_users.data()?.users.includes(useStore().email);
-}
+	const data = registered_users.data();
+	const email = useStore().email;
+	for (const e in data) {
+		console.log(data[e] + ":" + email)
+		if (data[e] === email) {
+			console.log("test")
+			return true;
+		}
+	}
+	return false;
+};
 
 // maybe store events by id + "|" + date string?
 export const club_events = async (public_access: boolean): Promise<boolean> => {
     let q: Query<DocumentData>;
     if (public_access) {
-        q = query(collection(db, "events"), where("public", "==", public_access.toString()));
+        q = query(
+            collection(db, "events"),
+            where("public", "==", public_access.toString())
+        );
     } else {
         q = query(collection(db, "events"));
     }
@@ -22,37 +59,41 @@ export const club_events = async (public_access: boolean): Promise<boolean> => {
     query_snapshot.forEach((doc) => {
         // doc.data() is never undefined for query doc snapshots
         console.log(doc.id, " => ", doc.data());
-    }); 
+    });
     return true;
-}
+};
 
-const shop_schedule = async () => {}
+const shop_schedule = async () => {};
 
 // also has payment
-const form_table = async () => {}
+const form_table = async () => {};
 
 // probably won't do this, need people to maintain it
-const inventory = async () => {}
+const inventory = async () => {};
 
-export const store_login = async (u: { email: string; displayName: string; }) => {
+export const store_login = async (u: {
+    email: string;
+    displayName: string;
+}) => {
     const admins_data = await getDoc(doc(db, "admin", "8Sz2vYqsP9j1etDGD48e"));
     if (!admins_data) {
         // handle error
     }
     const admins = admins_data.data()?.users;
     // add proper error handling ^
-    console.log(admins);
+    console.log("admins " + admins);
     useStore().admin = admins.includes(u.email);
-    console.log(admins.includes(u.email))
+    console.log("is admin " + admins.includes(u.email));
     useStore().auth = true;
     useStore().registered = await is_registered();
+    console.log(useStore().registered);
     useStore().email = u.email;
     useStore().displayName = u.displayName;
-}
+};
 
 export const clear_login = () => {
     useStore().auth = false;
     useStore().registered = false;
     useStore().email = "";
     useStore().displayName = "";
-}
+};

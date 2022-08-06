@@ -182,13 +182,6 @@ export default {
 		window.location.reload();
       });
     },
-    login() {
-      axios
-        .get("https://api.coinbase.com/v2/prices/spot?currency=USD")
-        .then((response) => {
-          console.log(response.data.data.amount);
-        });
-    },
     twitter() {
       window.location.href = "http://twitter.com/circuitrunners";
     },

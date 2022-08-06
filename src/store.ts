@@ -8,5 +8,9 @@ export const useStore = defineStore("user", {
     userdata: false,
     email: "",
     displayName: "",
+	first_name: "",
+	last_name: "",
+	teams: [],
+	grad_year: 0,
   }),
 });
