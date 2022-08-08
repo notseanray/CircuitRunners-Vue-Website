@@ -9,7 +9,9 @@ export interface RegistrationInformation {
     first_experience: string;
     team_preference: string[];
     useful_skills: string;
-    registered: boolean;
+    registered: string;
+	// this is not stored on the server and is just used to keep
+	// track of the info while we are
 	validated: boolean;
 }
 

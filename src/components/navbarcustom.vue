@@ -7,7 +7,7 @@
             <q-btn class="mr-10" round v-on:click="tohome">
                 <q-icon size="81px">
                     <img
-                        src="https://cdn.discordapp.com/attachments/966089783044628540/988834097277317200/CircuitRunner-Logo-680x843_1.png"
+                        src="../assets/running-man.png"
                     />
                 </q-icon>
             </q-btn>
@@ -179,7 +179,7 @@
 import dropdown from "primevue/dropdown";
 import axios from "axios";
 import { getAuth, signOut } from "firebase/auth";
-import { store_login, clear_login } from "../database";
+import { store_login, clear_login, is_registered } from "../database";
 import { useStore } from "../store";
 
 export default {
@@ -198,12 +198,21 @@ export default {
                     useStore().userdata = false;
                     store_login(u);
                     // change page
+					console.log("logged in")
+					is_registered(u.email).then((r) => {
+						console.log(r)
+					});
                 } else if (u && useStore().auth && useStore().userdata) {
                     // already logged in
+					console.log("already logged in")
                     store_login(u);
+					is_registered(u.email).then((r) => {
+						console.log(r)
+					});
                 } else {
                     // not logged in
                     clear_login();
+					return;
                 }
             });
         } else if (!useStore().userdata) {

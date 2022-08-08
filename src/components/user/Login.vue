@@ -48,9 +48,17 @@
 
                     <div class="mb-3">
                         <div class="col-md-8 offset-md-4">
-                            <button type="submit" class="mt-4 btn btn-primary">
-                                Login
-                            </button>
+							<div class="text-[20px] text-red-200">
+								{{ message }}
+							</div>
+							<q-btn
+								color="primary"
+								size="large"
+								text-color="black"
+								label="Login"
+								v-on:click="submit"
+								class="btn btn-primary"
+							/>
                         </div>
                     </div>
                 </form>
@@ -85,6 +93,7 @@ export default {
         return {
             email: "",
             password: "",
+			message: "",
         };
     },
     components: {
@@ -103,14 +112,13 @@ export default {
             setPersistence(auth, browserLocalPersistence);
             signInWithPopup(auth, new GoogleAuthProvider())
                 .then((result) => {
+					this.message = "";
                     // This gives you a Google Access Token. You can use it to access the Google API.
                     const credential =
                         GoogleAuthProvider.credentialFromResult(result);
-                    const token = credential.accessToken;
+                    const _token = credential.accessToken;
                     // The signed-in user info.
                     const user = result.user;
-                    console.log("google authed");
-                    console.log(user);
                     const userData = useStore();
                     userData.auth = true;
                     userData.email = user.email;
@@ -118,16 +126,8 @@ export default {
                     this.$router.push("/dashboard");
                     // ...
                 })
-                .catch((error) => {
-                    // Handle Errors here.
-                    const errorCode = error.code;
-                    const errorMessage = error.message;
-                    // The email of the user's account used.
-                    const email = error.customData.email;
-                    // The AuthCredential type that was used.
-                    const credential =
-                        GoogleAuthProvider.credentialFromError(error);
-                    // ...
+                .catch((_) => {
+					this.message = "Invalid username or password";
                 });
         },
         submit() {
@@ -135,10 +135,9 @@ export default {
             setPersistence(auth, browserLocalPersistence);
             signInWithEmailAndPassword(auth, this.email, this.password)
                 .then((userCredential) => {
+					this.message = "";
                     // Signed in
                     const user = userCredential.user;
-                    console.log(user);
-                    console.log("test");
                     const userData = useStore();
                     userData.auth = true;
                     userData.email = user.email;
@@ -146,9 +145,8 @@ export default {
                     this.$router.push("/dashboard");
                     // ...
                 })
-                .catch((error) => {
-                    const errorCode = error.code;
-                    const errorMessage = error.message;
+                .catch((_) => {
+					this.message = "Invalid username or password";
                 });
         },
     },

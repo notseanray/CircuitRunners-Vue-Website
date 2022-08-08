@@ -1,10 +1,13 @@
 import { defineStore } from "pinia";
+import { RegistrationStatus } from "./database";
 
 export const useStore = defineStore("user", {
   state: () => ({
     auth: false,
     admin: false,
-    registered: false,
+    register_status: RegistrationStatus, 
+	// this just makes it easier to do conditional rendering, only true if RegistrationStatus is "Complete"
+	registered: false,
     userdata: false,
     email: "",
     displayName: "",
