@@ -48,17 +48,17 @@
 
                     <div class="mb-3">
                         <div class="col-md-8 offset-md-4">
-							<div class="text-[20px] text-red-200">
-								{{ message }}
-							</div>
-							<q-btn
-								color="primary"
-								size="large"
-								text-color="black"
-								label="Login"
-								v-on:click="submit"
-								class="btn btn-primary"
-							/>
+                            <div class="text-[20px] text-red-200">
+                                {{ message }}
+                            </div>
+                            <q-btn
+                                color="primary"
+                                size="large"
+                                text-color="black"
+                                label="Login"
+                                v-on:click="submit"
+                                class="btn btn-primary"
+                            />
                         </div>
                     </div>
                 </form>
@@ -93,7 +93,7 @@ export default {
         return {
             email: "",
             password: "",
-			message: "",
+            message: "",
         };
     },
     components: {
@@ -112,7 +112,7 @@ export default {
             setPersistence(auth, browserLocalPersistence);
             signInWithPopup(auth, new GoogleAuthProvider())
                 .then((result) => {
-					this.message = "";
+                    this.message = "";
                     // This gives you a Google Access Token. You can use it to access the Google API.
                     const credential =
                         GoogleAuthProvider.credentialFromResult(result);
@@ -127,7 +127,7 @@ export default {
                     // ...
                 })
                 .catch((_) => {
-					this.message = "Invalid username or password";
+                    this.message = "Invalid username or password";
                 });
         },
         submit() {
@@ -135,7 +135,7 @@ export default {
             setPersistence(auth, browserLocalPersistence);
             signInWithEmailAndPassword(auth, this.email, this.password)
                 .then((userCredential) => {
-					this.message = "";
+                    this.message = "";
                     // Signed in
                     const user = userCredential.user;
                     const userData = useStore();
@@ -146,7 +146,7 @@ export default {
                     // ...
                 })
                 .catch((_) => {
-					this.message = "Invalid username or password";
+                    this.message = "Invalid username or password";
                 });
         },
     },

@@ -1,3 +1,9 @@
+interface Skill {
+    name: string;
+    check: boolean;
+    level: number;
+}
+
 export interface RegistrationInformation {
     first_name: string;
     last_name: string;
@@ -10,10 +16,43 @@ export interface RegistrationInformation {
     team_preference: string[];
     useful_skills: string;
     registered: string;
-	// this is not stored on the server and is just used to keep
-	// track of the info while we are
-	validated: boolean;
+    // CAD software
+    fusion360: number;
+    // this is not stored on the server and is just used to keep
+    // track of the info while we are
+    validated: boolean;
+    cad_skills: Array<Skill>;
+    programing_skills: Array<Skill>;
+	cad_fill_in: string;
+	programming_fill_in: string;
 }
+
+export const cad_skills = [
+	"Fusion 360",
+	"Onshape",
+	"SolidWorks or Inventor",
+	"AutoCAD or LibreCAD",
+].map((c) => {
+    return {
+        name: c,
+        check: false,
+        level: 0,
+    };
+});
+
+export const programming_skills = [
+    "Java",
+    "JavaScript",
+    "TypeScript",
+    "Rust",
+    "TailwindCSS",
+].map((c) => {
+    return {
+        name: c,
+        check: false,
+        level: 0,
+    };
+});
 
 export const register = (
     r: RegistrationInformation
@@ -66,11 +105,11 @@ export const register = (
     if (problems.length > 0) {
         return problems.join("\n");
     }
-	r.validated = true;
+    r.validated = true;
 
-	// we HATE NULL DATA!!!!!!!!1
-	if (!r.useful_skills) {
-		r.useful_skills = "";
-	}
+    // we HATE NULL DATA!!!!!!!!1
+    if (!r.useful_skills) {
+        r.useful_skills = "";
+    }
     return r;
 };

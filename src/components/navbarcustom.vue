@@ -50,6 +50,7 @@
         <img class="h-20" src="../assets/logo.svg" />
 
         <div class="flex flex-center q-gutter-md mr-10">
+			<div v-if="!this.authed">
             <q-btn
                 v-on:click="tocontact"
                 class="mr-5"
@@ -79,20 +80,23 @@
                 text-color="black"
                 icon="fa-brands fa-facebook"
             />
+			</div>
             <h1 class="text-sm text-bold">{{ this.displayName() }}</h1>
-            <div v-if="this.authed" class="grid">
-                <q-btn
-                    color="primary"
-                    text-color="black"
-                    label="signout"
-                    v-on:click="signout"
-                />
-                <q-btn
-                    color="primary"
-                    text-color="black"
-                    label="dashboard"
-                    v-on:click="dashboard"
-                />
+            <div v-if="this.authed">
+				<q-btn
+					class="mx-2"
+					color="primary"
+					text-color="black"
+					label="dashboard"
+					v-on:click="dashboard"
+				/>
+				<q-btn
+					class="mx-2"
+					color="primary"
+					text-color="black"
+					label="signout"
+					v-on:click="signout"
+				/>
             </div>
             <div v-else>
                 <q-btn
@@ -146,38 +150,33 @@
                     </q-list>
                 </q-menu>
             </q-btn>
-
-            <q-btn
-                v-on:click="twitter"
-                round
-                color="primary"
-                text-color="black"
-                icon="fa-brands fa-twitter"
-            />
-            <q-btn
-                v-on:click="instagram"
-                round
-                color="primary"
-                text-color="black"
-                icon="fa-brands fa-instagram"
-            />
-            <q-btn
-                v-on:click="facebook"
-                round
-                color="primary"
-                text-color="black"
-                icon="fa-brands fa-facebook"
-            />
-            <h1 class="text-sm text-center text-bold">
-                {{ this.displayName() }}
-            </h1>
+				<q-btn
+					v-on:click="twitter"
+					round
+					color="primary"
+					text-color="black"
+					icon="fa-brands fa-twitter"
+				/>
+				<q-btn
+					v-on:click="instagram"
+					round
+					color="primary"
+					text-color="black"
+					icon="fa-brands fa-instagram"
+				/>
+				<q-btn
+					v-on:click="facebook"
+					round
+					color="primary"
+					text-color="black"
+					icon="fa-brands fa-facebook"
+				/>
         </div>
     </div>
 </template>
 
 <script>
 import dropdown from "primevue/dropdown";
-import axios from "axios";
 import { getAuth, signOut } from "firebase/auth";
 import { store_login, clear_login, is_registered } from "../database";
 import { useStore } from "../store";
@@ -186,6 +185,7 @@ export default {
     data() {
         return {
             authed: useStore().auth,
+			show_media: true,
             isMobile: false,
         };
     },
@@ -198,7 +198,6 @@ export default {
                     useStore().userdata = false;
                     store_login(u);
                     // change page
-					console.log("logged in")
 					is_registered(u.email).then((r) => {
 						console.log(r)
 					});
@@ -243,6 +242,7 @@ export default {
             } else {
                 display_name = " " + display_name;
             }
+			this.show_media = false;
             return useStore().auth ? "Welcome" + display_name : "";
         },
         toabout() {

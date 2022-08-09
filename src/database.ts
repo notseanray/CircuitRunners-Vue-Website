@@ -14,8 +14,8 @@ import { db } from "./router/index";
 import { RegistrationInformation } from "./types";
 
 const REGISTERED_COLLECTION = {
-	collection: "registered",
-	document: "ypL3sI9CcxUyuC21lpcN",
+    collection: "registered",
+    document: "ypL3sI9CcxUyuC21lpcN",
 };
 
 const REGISTERED_DATA = {
@@ -24,70 +24,74 @@ const REGISTERED_DATA = {
 };
 
 const ADMIN_COLLECTION = {
-	collection: "admin",
-	document: "8Sz2vYqsP9j1etDGD48e",
+    collection: "admin",
+    document: "8Sz2vYqsP9j1etDGD48e",
 };
 
 export enum RegistrationStatus {
-	NotRegistered = "NotRegistered",
-	PaymentPending = "PaymentPending",
-	PendingTeamAssignment = "PendingTeamAssignment",
-	Complete = "Complete",
-};
-
-export const registration_status_to_message = (r: RegistrationStatus): string => {
-	switch (r) {
-		case RegistrationStatus.PaymentPending:
-			return "Payment Pending";
-		case RegistrationStatus.PendingTeamAssignment:
-			return "Pending Team Assignment";
-		case RegistrationStatus.Complete:
-			useStore().registered = true;
-			return "Complete";
-		default:
-			return "Not Registered";
-	};
+    NotRegistered = "NotRegistered",
+    PaymentPending = "PaymentPending",
+    PendingTeamAssignment = "PendingTeamAssignment",
+    Complete = "Complete",
 }
 
-export const is_registered = async (email: String): Promise<RegistrationStatus> => {
+export const registration_status_to_message = (
+    r: RegistrationStatus
+): string => {
+    switch (r) {
+        case RegistrationStatus.PaymentPending:
+            return "Payment Pending";
+        case RegistrationStatus.PendingTeamAssignment:
+            return "Pending Team Assignment";
+        case RegistrationStatus.Complete:
+            useStore().registered = true;
+            return "Complete";
+        default:
+            return "Not Registered";
+    }
+};
+
+export const is_registered = async (
+    email: String
+): Promise<RegistrationStatus> => {
     const registered_users = await getDoc(
         doc(
             db,
             REGISTERED_COLLECTION.collection,
-			REGISTERED_COLLECTION.document,
+            REGISTERED_COLLECTION.document
         )
     );
     if (!registered_users) {
         // handle error
-		return RegistrationStatus.NotRegistered;
+        return RegistrationStatus.NotRegistered;
     }
-	const data = registered_users.data();
+    const data = registered_users.data();
     if (!data) {
         // handle error
-		return RegistrationStatus.NotRegistered;
+        return RegistrationStatus.NotRegistered;
     }
-	for (const d in data) {
-		const info = data[d].split("|");
-		if (!info || info.length < 2) {
-			return RegistrationStatus.NotRegistered;
-		}
-		if (info[0] == email) {
-			console.log(info)
-			switch (info[1]) {
-				case "NotRegistered":
-					return RegistrationStatus.NotRegistered;
-				case "PaymentPending":
-					return RegistrationStatus.PaymentPending;
-				case "PendingTeamAssignment":
-					return RegistrationStatus.PendingTeamAssignment;
-				case "Complete":
-					// only if it's complete do we set it to true
-					useStore().registered = true;
-					return RegistrationStatus.Complete;
-			}
-		}
-	}
-	return RegistrationStatus.NotRegistered;
+    for (const d in data) {
+        const info = data[d].split("|");
+        if (!info || info.length < 2) {
+            return RegistrationStatus.NotRegistered;
+        }
+        if (info[0] == email) {
+            console.log(info);
+            switch (info[1]) {
+                case "NotRegistered":
+                    return RegistrationStatus.NotRegistered;
+                case "PaymentPending":
+                    return RegistrationStatus.PaymentPending;
+                case "PendingTeamAssignment":
+                    return RegistrationStatus.PendingTeamAssignment;
+                case "Complete":
+                    // only if it's complete do we set it to true
+                    useStore().registered = true;
+                    return RegistrationStatus.Complete;
+            }
+        }
+    }
+    return RegistrationStatus.NotRegistered;
 };
 
 export const register_user = async (u: RegistrationInformation) => {
@@ -95,6 +99,7 @@ export const register_user = async (u: RegistrationInformation) => {
         // must be verified first
         return;
     }
+	console.log("TODO UPDATE STORED DATA")
     await setDoc(doc(db, REGISTERED_DATA.collection, u.email), {
         first_name: u.first_name,
         last_name: u.last_name,
@@ -140,7 +145,9 @@ export const store_login = async (u: {
     email: string;
     displayName: string;
 }) => {
-    const admins_data = await getDoc(doc(db, ADMIN_COLLECTION.collection, ADMIN_COLLECTION.document));
+    const admins_data = await getDoc(
+        doc(db, ADMIN_COLLECTION.collection, ADMIN_COLLECTION.document)
+    );
     if (!admins_data) {
         // handle error
     }
@@ -150,7 +157,7 @@ export const store_login = async (u: {
     useStore().admin = admins.includes(u.email);
     console.log("is admin " + admins.includes(u.email));
     useStore().auth = true;
-	const registration = await is_registered(u.email);
+    const registration = await is_registered(u.email);
     useStore().register_status = registration;
     console.log(useStore().registered);
     useStore().email = u.email;

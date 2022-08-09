@@ -3,7 +3,7 @@
     <div class="grid grid-flow-row pb-48">
         <h1 class="text-center mt-6">Club Registration</h1>
         <h2
-            class="grid gap-[10px] pb-8 text-center mx-[400px] border-4 bg-black relative top-10 text-medium"
+            class="grid gap-[10px] pb-8 text-center mx-[150px] border-4 bg-black relative top-10 text-medium"
         >
             <div v-if="!acknowledge">
                 <div class="mt-8 font-franklin">
@@ -202,7 +202,7 @@
                             <input
                                 id="first_experience"
                                 type="checkbox"
-                                class="form-control bg-slate-500 w-4/12 h-8 text-[18px]"
+                                class="form-control bg-slate-500 w-4/12 h-6 text-[18px]"
                                 name="first_experience"
                                 value
                                 autofocus
@@ -251,13 +251,147 @@
                                 <input
                                     id="useful_skills"
                                     type="useful_skills"
-                                    class="form-control bg-slate-500 w-7/12 h-8 text-[18px]"
+                                    class="form-control bg-slate-500 w-7/12 h-6 text-[16px]"
                                     name="useful_skills"
                                     value
                                     autofocus
                                     v-model="useful_skills"
                                 />
                             </div>
+                        </div>
+                        <label for="useful_skills" class="text-[30px]">
+                            For the following section rank each entry on a scale
+                            of 1-5, with 5 being experienced in and 1 being
+                            inexperienced in.
+                        </label>
+                        <br />
+                        <label for="useful_skills" class="text-[24px]"
+                            >Please check any applicable CAD software experience
+                            here</label
+                        >
+                        <div
+                            class="p-1 select-none"
+                            v-for="e in cad_skills"
+                            :key="e.name"
+                        >
+							<div class="text-[20px] mt-2">
+								{{ e.name }}
+								<input
+									id="cad_skill"
+									type="checkbox"
+									class="bg-slate-500 w-4/12 h-6 text-[16px] float-right mr-36"
+									name="cad_skill"
+									value
+									autofocus
+									v-model="e.check"
+								/>
+							</div>
+                            <div v-if="e.check" class="text-sm mx-[200px]">
+                                <q-slider
+                                    v-model="e.level"
+                                    inner-track-color="green-8"
+                                    track-color="grey-2"
+                                    markers
+                                    marker-labels
+                                    :min="0"
+                                    :max="5"
+                                />
+                            </div>
+                        </div>
+                        <br />
+                        <label for="useful_skills" class="text-[18px]"
+                            >If you have any additional CAD experience you would
+                            like to mention please list it here</label
+                        >
+                        <br />
+                        <input
+                            id="cad_fill_in"
+                            type="cad_fill_in"
+                            class="form-control bg-slate-500 w-4/12 h-6 text-[16px]"
+                            name="cad-fill_in"
+                            value
+                            autofocus
+                            v-on:keypress="show_slider_cad"
+                            v-model="cad_fill_in"
+                        />
+                        <div
+                            v-if="cad_fill_in_slider"
+                            class="text-sm mx-[200px]"
+                        >
+                            <q-slider
+                                v-model="cad_fill_in_skill"
+                                inner-track-color="green-8"
+                                track-color="grey-2"
+                                markers
+                                marker-labels
+                                :min="0"
+                                :max="5"
+                            />
+                        </div>
+                        <br />
+                        <label for="useful_skills" class="text-[24px]"
+                            >Please check any applicable Programming experience
+                            here</label
+                        >
+                        <div
+                            class="p-1 select-none"
+                            v-for="e in programming_skills"
+                            :key="e.name"
+                        >
+                            <div class="text-[20px] mt-2">
+                                {{ e.name }}
+								<input
+									id="programming_skill"
+									type="checkbox"
+									class="bg-slate-500 w-4/12 h-6 float-right mr-36"
+									name="programming_skill"
+									value
+									autofocus
+									v-model="e.check"
+								/>
+                            </div>
+                            <div v-if="e.check" class="text-sm mx-[200px]">
+                                <q-slider
+                                    v-model="e.level"
+                                    inner-track-color="green-8"
+                                    track-color="grey-2"
+                                    markers
+                                    marker-labels
+                                    :min="0"
+                                    :max="5"
+                                />
+                            </div>
+                        </div>
+                        <br />
+                        <label for="useful_skills" class="text-[18px]"
+                            >Please fill in here if you have any additional
+                            programming experience you would like to
+                            mention</label
+                        >
+                        <br />
+                        <input
+                            id="programming_fill_in"
+                            type="programming_fill_in"
+                            class="form-control bg-slate-500 w-4/12 h-8 text-[18px]"
+                            name="programming_fill_in"
+                            value
+                            autofocus
+                            v-on:keypress="show_slider_programming"
+                            v-model="programming_fill_in"
+                        />
+                        <div
+                            v-if="programming_fill_in_slider"
+                            class="text-sm mx-[200px]"
+                        >
+                            <q-slider
+                                v-model="programming_fill_in_skill"
+                                inner-track-color="green-8"
+                                track-color="grey-2"
+                                markers
+                                marker-labels
+                                :min="0"
+                                :max="5"
+                            />
                         </div>
                     </div>
                     <div class="text-red-200 text-[15px]">{{ message }}</div>
@@ -281,10 +415,16 @@
 </template>
 
 <script lang="ts">
+import { ref } from "vue";
 import FooterComp from "../FooterComp.vue";
 import navbarcustom from "../navbarcustom.vue";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-import { RegistrationInformation, register } from "../../types";
+import {
+    RegistrationInformation,
+    register,
+    cad_skills,
+    programming_skills,
+} from "../../types";
 import { VueDraggableNext } from "vue-draggable-next";
 import { useStore } from "../../store";
 import { register_user } from "../../database";
@@ -307,7 +447,20 @@ export default {
             first_experience: false,
             team_preference: TEAMS,
             useful_skills: "",
+            cad_skills: cad_skills,
+
+            cad_fill_in: "",
+            cad_fill_in_skill: 0,
+            cad_fill_in_slider: false,
+
+            programming_skills: programming_skills,
+
+            programming_fill_in: "",
+            programming_fill_in_skill: 0,
+            programming_fill_in_slider: false,
+            // error message to show people if they do invalid input
             message: "",
+            // activate when dragging the teams in order
             drag: false,
             // we want to make sure that anyone registering understands that
             // they will have to pay $250 before being able to actually do anything
@@ -332,6 +485,13 @@ export default {
                 item.order = index;
             });
         },
+        show_slider_cad() {
+            this.cad_fill_in_slider = this.cad_fill_in.length > 1;
+        },
+        show_slider_programming() {
+            this.programming_fill_in_slider =
+                this.programming_fill_in.length > 1;
+        },
         accept_message() {
             this.acknowledge = true;
         },
@@ -349,6 +509,10 @@ export default {
                 useful_skills: this.useful_skills,
                 validated: false,
                 registered: "",
+                cad_skills: this.cad_skills,
+                programming_skills: this.programming_skills,
+				cad_fill_in: this.cad_fill_in,
+				programming_fill_in: this.programming_fill_in,
             };
             const validated = register(info as RegistrationInformation);
             // this means that there's an error message, so we should report it
@@ -360,7 +524,6 @@ export default {
                 const auth = getAuth();
                 createUserWithEmailAndPassword(auth, this.email, this.password)
                     .then((userCredential) => {
-                        this.message = "";
                         // Signed in
                         const user = userCredential.user;
                         register_user(validated);
