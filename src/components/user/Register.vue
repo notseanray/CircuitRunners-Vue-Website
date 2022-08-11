@@ -11,13 +11,14 @@
                         <ul>
                             <li>
                                 Club dues are $250 and are required to
-                                participate, we use Paypal to play but to
-                                arrange alternative payment methods please
-                                contact blah blah
+                                participate. We use Paypal to pay for convience,
+                                however, any credit/debit card should be
+                                accepted.
                             </li>
                             <li>
-                                In order to participate you must have your
-                                parent sign the participation form
+                                Student and Parent Code of Conduct forms must be
+                                signed by both the student and parent to
+                                participate
                             </li>
                         </ul>
                     </div>
@@ -68,6 +69,7 @@
                                 value
                                 required
                                 autofocus
+								v-on:keypress="save_input"
                                 v-model="first_name"
                             />
                         </div>
@@ -85,6 +87,7 @@
                                 value
                                 required
                                 autofocus
+								v-on:keypress="save_input"
                                 v-model="last_name"
                             />
                         </div>
@@ -107,6 +110,7 @@
                                     value
                                     required
                                     autofocus
+									v-on:keypress="save_input"
                                     v-model="email"
                                 />
                             </div>
@@ -127,6 +131,7 @@
                                 class="form-control bg-slate-500 w-4/12 h-8 text-[18px]"
                                 name="password"
                                 required
+								v-on:keypress="save_input"
                                 v-model="password"
                             />
                         </div>
@@ -274,18 +279,18 @@
                             v-for="e in cad_skills"
                             :key="e.name"
                         >
-							<div class="text-[20px] mt-2">
-								{{ e.name }}
-								<input
-									id="cad_skill"
-									type="checkbox"
-									class="bg-slate-500 w-4/12 h-6 text-[16px] float-right mr-36"
-									name="cad_skill"
-									value
-									autofocus
-									v-model="e.check"
-								/>
-							</div>
+                            <div class="text-[20px] mt-2">
+                                {{ e.name }}
+                                <input
+                                    id="cad_skill"
+                                    type="checkbox"
+                                    class="bg-slate-500 w-4/12 h-6 text-[16px] float-right mr-36"
+                                    name="cad_skill"
+                                    value
+                                    autofocus
+                                    v-model="e.check"
+                                />
+                            </div>
                             <div v-if="e.check" class="text-sm mx-[200px]">
                                 <q-slider
                                     v-model="e.level"
@@ -293,7 +298,7 @@
                                     track-color="grey-2"
                                     markers
                                     marker-labels
-                                    :min="0"
+                                    :min="1"
                                     :max="5"
                                 />
                             </div>
@@ -324,7 +329,7 @@
                                 track-color="grey-2"
                                 markers
                                 marker-labels
-                                :min="0"
+                                :min="1"
                                 :max="5"
                             />
                         </div>
@@ -340,15 +345,15 @@
                         >
                             <div class="text-[20px] mt-2">
                                 {{ e.name }}
-								<input
-									id="programming_skill"
-									type="checkbox"
-									class="bg-slate-500 w-4/12 h-6 float-right mr-36"
-									name="programming_skill"
-									value
-									autofocus
-									v-model="e.check"
-								/>
+                                <input
+                                    id="programming_skill"
+                                    type="checkbox"
+                                    class="bg-slate-500 w-4/12 h-6 float-right mr-36"
+                                    name="programming_skill"
+                                    value
+                                    autofocus
+                                    v-model="e.check"
+                                />
                             </div>
                             <div v-if="e.check" class="text-sm mx-[200px]">
                                 <q-slider
@@ -357,7 +362,7 @@
                                     track-color="grey-2"
                                     markers
                                     marker-labels
-                                    :min="0"
+                                    :min="1"
                                     :max="5"
                                 />
                             </div>
@@ -389,7 +394,7 @@
                                 track-color="grey-2"
                                 markers
                                 marker-labels
-                                :min="0"
+                                :min="1"
                                 :max="5"
                             />
                         </div>
@@ -415,7 +420,6 @@
 </template>
 
 <script lang="ts">
-import { ref } from "vue";
 import FooterComp from "../FooterComp.vue";
 import navbarcustom from "../navbarcustom.vue";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
@@ -492,6 +496,10 @@ export default {
             this.programming_fill_in_slider =
                 this.programming_fill_in.length > 1;
         },
+		// can add debounce
+		save_input() {
+			console.log("saved")
+		},
         accept_message() {
             this.acknowledge = true;
         },
@@ -511,8 +519,8 @@ export default {
                 registered: "",
                 cad_skills: this.cad_skills,
                 programming_skills: this.programming_skills,
-				cad_fill_in: this.cad_fill_in,
-				programming_fill_in: this.programming_fill_in,
+                cad_fill_in: this.cad_fill_in,
+                programming_fill_in: this.programming_fill_in,
             };
             const validated = register(info as RegistrationInformation);
             // this means that there's an error message, so we should report it
