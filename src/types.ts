@@ -14,16 +14,15 @@ export interface RegistrationInformation {
     previous_experience: boolean;
     first_experience: string;
     team_preference: string[];
-    useful_skills: string;
     registered: string;
-    // CAD software
-    fusion360: number;
+	change_teams: boolean;
+	change_reason: string;
     // this is not stored on the server and is just used to keep
     // track of the info while we are
     validated: boolean;
     cad_skills: Array<Skill>;
-    programing_skills: Array<Skill>;
 	cad_fill_in: string;
+    programming_skills: Array<Skill>;
 	programming_fill_in: string;
 }
 
@@ -42,8 +41,7 @@ export const cad_skills = [
 
 export const programming_skills = [
     "Java",
-    "JavaScript",
-    "TypeScript",
+    "JavaScript or TypeScript",
     "Rust",
     "TailwindCSS",
 ].map((c) => {
@@ -55,7 +53,7 @@ export const programming_skills = [
 });
 
 export const register = (
-    r: RegistrationInformation
+    r: any
 ): RegistrationInformation | string => {
     // keep an array of what the user might need to fix with their information
     let problems = [];
@@ -105,11 +103,14 @@ export const register = (
     if (problems.length > 0) {
         return problems.join("\n");
     }
+	let teams = [];
+	for (const team of r.team_preference) {
+		teams.push(team.name);
+	}
+	r.team_preference = teams;
+	if (r.change_teams && r.previous_experience && r.change_reason.length < 2) {
+		problems.push("Please provide a reason for your team change.")
+	}
     r.validated = true;
-
-    // we HATE NULL DATA!!!!!!!!1
-    if (!r.useful_skills) {
-        r.useful_skills = "";
-    }
     return r;
 };

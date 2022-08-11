@@ -30,6 +30,7 @@ const ADMIN_COLLECTION = {
 
 export enum RegistrationStatus {
     NotRegistered = "NotRegistered",
+	FormsPending = "FormsPending",
     PaymentPending = "PaymentPending",
     PendingTeamAssignment = "PendingTeamAssignment",
     Complete = "Complete",
@@ -41,6 +42,8 @@ export const registration_status_to_message = (
     switch (r) {
         case RegistrationStatus.PaymentPending:
             return "Payment Pending";
+		case RegistrationStatus.FormsPending:
+			return "Forms Pending";
         case RegistrationStatus.PendingTeamAssignment:
             return "Pending Team Assignment";
         case RegistrationStatus.Complete:
@@ -80,6 +83,8 @@ export const is_registered = async (
             switch (info[1]) {
                 case "NotRegistered":
                     return RegistrationStatus.NotRegistered;
+				case "FormsPending":
+					return RegistrationStatus.FormsPending;
                 case "PaymentPending":
                     return RegistrationStatus.PaymentPending;
                 case "PendingTeamAssignment":
@@ -99,7 +104,7 @@ export const register_user = async (u: RegistrationInformation) => {
         // must be verified first
         return;
     }
-	console.log("TODO UPDATE STORED DATA")
+	console.log(u)
     await setDoc(doc(db, REGISTERED_DATA.collection, u.email), {
         first_name: u.first_name,
         last_name: u.last_name,
@@ -109,8 +114,12 @@ export const register_user = async (u: RegistrationInformation) => {
         previous_experience: u.previous_experience,
         first_experience: u.first_experience,
         team_preference: u.team_preference,
-        useful_skills: u.useful_skills,
-        registered: false, // this is kinda janky, but we are just gonna assume they are not registered
+		cad_skills: u.cad_skills,
+		change_teams: u.change_teams,
+		cad_fill_in: u.cad_fill_in,
+		programming_skills: u.programming_skills,
+		programming_fill_in: u.programming_fill_in,
+        registered: "FormsPending",
     });
 };
 

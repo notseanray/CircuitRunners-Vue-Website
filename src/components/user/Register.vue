@@ -69,7 +69,7 @@
                                 value
                                 required
                                 autofocus
-								v-on:keypress="save_input"
+                                v-on:keypress="save_input"
                                 v-model="first_name"
                             />
                         </div>
@@ -87,7 +87,7 @@
                                 value
                                 required
                                 autofocus
-								v-on:keypress="save_input"
+                                v-on:keypress="save_input"
                                 v-model="last_name"
                             />
                         </div>
@@ -110,7 +110,7 @@
                                     value
                                     required
                                     autofocus
-									v-on:keypress="save_input"
+                                    v-on:keypress="save_input"
                                     v-model="email"
                                 />
                             </div>
@@ -131,7 +131,7 @@
                                 class="form-control bg-slate-500 w-4/12 h-8 text-[18px]"
                                 name="password"
                                 required
-								v-on:keypress="save_input"
+                                v-on:keypress="save_input"
                                 v-model="password"
                             />
                         </div>
@@ -195,105 +195,185 @@
                             />
                         </div>
                     </div>
-                    <div class="font-franklin">
-                        <label for="first_experience" class="text-[24px]"
-                            >Have you been in FIRST before?</label
-                        >
-                        <div class="text-[15px]">
-                            Please check if you've participated in FIRST events
-                            before.
-                        </div>
-                        <div class="">
-                            <input
-                                id="first_experience"
-                                type="checkbox"
-                                class="form-control bg-slate-500 w-4/12 h-6 text-[18px]"
-                                name="first_experience"
-                                value
-                                autofocus
-                                v-model="first_experience"
-                            />
-                        </div>
-                    </div>
-                    <div class="font-franklin">
-                        <label for="useful_skills" class="text-[24px]"
-                            >Team Preference</label
-                        >
-                        <div class="text-[15px]">
-                            Please drag the teams in the order you wish to join,
-                            with the first position being the team you want to
-                            be placed in the most. These are preferences and are
-                            not guaranteed to be fufilled.
-                        </div>
-                        <div class="flex flex-row justify-center">
-                            <div>
-                                <draggable
-                                    :list="team_preference"
-                                    ghost-class="opacity-0.5"
-                                    class="dragArea list-group w-full"
-                                >
-                                    <div
-                                        class="p-3 select-none"
-                                        v-for="(element, i) in team_preference"
-                                        :key="element.order"
-                                    >
-                                        {{ i + 1 + ". " + element.name }}
-                                    </div>
-                                </draggable>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="font-franklin">
-                        <label for="useful_skills" class="text-[24px]"
-                            >Do you have any relevant skills?</label
-                        >
+                    <div v-if="!previous_experience">
                         <div class="font-franklin">
+                            <label for="first_experience" class="text-[24px]"
+                                >Have you been in FIRST before?</label
+                            >
                             <div class="text-[15px]">
-                                If you have any experience with shop tools or
-                                related items, please list them here.
+                                Please check if you've participated in FIRST
+                                events before.
                             </div>
                             <div class="">
                                 <input
-                                    id="useful_skills"
-                                    type="useful_skills"
-                                    class="form-control bg-slate-500 w-7/12 h-6 text-[16px]"
-                                    name="useful_skills"
+                                    id="first_experience"
+                                    type="checkbox"
+                                    class="form-control bg-slate-500 w-4/12 h-8 text-[18px]"
+                                    name="first_experience"
                                     value
                                     autofocus
-                                    v-model="useful_skills"
+                                    v-model="first_experience"
                                 />
                             </div>
                         </div>
-                        <label for="useful_skills" class="text-[30px]">
-                            For the following section rank each entry on a scale
-                            of 1-5, with 5 being experienced in and 1 being
-                            inexperienced in.
-                        </label>
-                        <br />
-                        <label for="useful_skills" class="text-[24px]"
-                            >Please check any applicable CAD software experience
-                            here</label
-                        >
-                        <div
-                            class="p-1 select-none"
-                            v-for="e in cad_skills"
-                            :key="e.name"
-                        >
-                            <div class="text-[20px] mt-2">
-                                {{ e.name }}
-                                <input
-                                    id="cad_skill"
-                                    type="checkbox"
-                                    class="bg-slate-500 w-4/12 h-6 text-[16px] float-right mr-36"
-                                    name="cad_skill"
-                                    value
-                                    autofocus
-                                    v-model="e.check"
+                        <div class="font-franklin">
+                            <label for="useful_skills" class="text-[24px]"
+                                >Team Preference</label
+                            >
+                            <div class="text-[15px]">
+                                Please drag the teams in the order you wish to
+                                join, with the first position being the team you
+                                want to be placed in the most. These are
+                                preferences and are not guaranteed to be
+                                fufilled.
+                            </div>
+                            <div class="flex flex-row justify-center">
+                                <div>
+                                    <draggable
+                                        :list="team_preference"
+                                        ghost-class="opacity-0.5"
+                                        class="dragArea list-group w-full"
+                                    >
+                                        <div
+                                            class="p-3 select-none"
+                                            v-for="(
+                                                element, i
+                                            ) in team_preference"
+                                            :key="element.order"
+                                        >
+                                            {{ i + 1 + ". " + element.name }}
+                                        </div>
+                                    </draggable>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="font-franklin">
+                            <label for="useful_skills" class="text-[30px]">
+                                For the following section rank each entry on a
+                                scale of 1-5, with 5 being experienced in and 1
+                                being inexperienced in.
+                            </label>
+                            <br />
+                            <label for="useful_skills" class="text-[24px]"
+                                >Please check any applicable CAD software
+                                experience here</label
+                            >
+                            <div
+                                class="p-1 select-none"
+                                v-for="e in cad_skills"
+                                :key="e.name"
+                            >
+                                <div class="text-[20px] mt-2">
+                                    {{ e.name }}
+                                    <input
+                                        id="cad_skill"
+                                        type="checkbox"
+                                        class="bg-slate-500 w-4/12 h-6 text-[16px] float-right mr-36"
+                                        name="cad_skill"
+                                        value
+                                        autofocus
+                                        v-model="e.check"
+                                    />
+                                </div>
+                                <div v-if="e.check" class="text-sm mx-[200px]">
+                                    <q-slider
+                                        v-model="e.level"
+                                        inner-track-color="green-8"
+                                        track-color="grey-2"
+                                        markers
+                                        marker-labels
+                                        :min="1"
+                                        :max="5"
+                                    />
+                                </div>
+                            </div>
+                            <br />
+                            <label for="useful_skills" class="text-[18px]"
+                                >If you have any additional CAD experience you
+                                would like to mention please list it here</label
+                            >
+                            <br />
+                            <input
+                                id="cad_fill_in"
+                                type="cad_fill_in"
+                                class="form-control bg-slate-500 w-4/12 h-6 text-[16px]"
+                                name="cad-fill_in"
+                                value
+                                autofocus
+                                v-on:keypress="show_slider_cad"
+                                v-model="cad_fill_in"
+                            />
+                            <div
+                                v-if="cad_fill_in_slider"
+                                class="text-sm mx-[200px]"
+                            >
+                                <q-slider
+                                    v-model="cad_fill_in_skill"
+                                    inner-track-color="green-8"
+                                    track-color="grey-2"
+                                    markers
+                                    marker-labels
+                                    :min="1"
+                                    :max="5"
                                 />
                             </div>
-                            <div v-if="e.check" class="text-sm mx-[200px]">
+                            <br />
+                            <label for="useful_skills" class="text-[24px]"
+                                >Please check any applicable Programming
+                                experience here</label
+                            >
+                            <div
+                                class="p-1 select-none"
+                                v-for="e in programming_skills"
+                                :key="e.name"
+                            >
+                                <div class="text-[20px] mt-2">
+                                    {{ e.name }}
+                                    <input
+                                        id="programming_skill"
+                                        type="checkbox"
+                                        class="bg-slate-500 w-4/12 h-6 float-right mr-36"
+                                        name="programming_skill"
+                                        value
+                                        autofocus
+                                        v-model="e.check"
+                                    />
+                                </div>
+                                <div v-if="e.check" class="text-sm mx-[200px]">
+                                    <q-slider
+                                        v-model="e.level"
+                                        inner-track-color="green-8"
+                                        track-color="grey-2"
+                                        markers
+                                        marker-labels
+                                        :min="1"
+                                        :max="5"
+                                    />
+                                </div>
+                            </div>
+                            <br />
+                            <label for="useful_skills" class="text-[18px]"
+                                >Please fill in here if you have any additional
+                                programming experience you would like to
+                                mention</label
+                            >
+                            <br />
+                            <input
+                                id="programming_fill_in"
+                                type="programming_fill_in"
+                                class="form-control bg-slate-500 w-4/12 h-8 text-[18px]"
+                                name="programming_fill_in"
+                                value
+                                autofocus
+                                v-on:keypress="show_slider_programming"
+                                v-model="programming_fill_in"
+                            />
+                            <div
+                                v-if="programming_fill_in_slider"
+                                class="text-sm mx-[200px]"
+                            >
                                 <q-slider
-                                    v-model="e.level"
+                                    v-model="programming_fill_in_skill"
                                     inner-track-color="green-8"
                                     track-color="grey-2"
                                     markers
@@ -303,100 +383,79 @@
                                 />
                             </div>
                         </div>
-                        <br />
-                        <label for="useful_skills" class="text-[18px]"
-                            >If you have any additional CAD experience you would
-                            like to mention please list it here</label
-                        >
-                        <br />
-                        <input
-                            id="cad_fill_in"
-                            type="cad_fill_in"
-                            class="form-control bg-slate-500 w-4/12 h-6 text-[16px]"
-                            name="cad-fill_in"
-                            value
-                            autofocus
-                            v-on:keypress="show_slider_cad"
-                            v-model="cad_fill_in"
-                        />
-                        <div
-                            v-if="cad_fill_in_slider"
-                            class="text-sm mx-[200px]"
-                        >
-                            <q-slider
-                                v-model="cad_fill_in_skill"
-                                inner-track-color="green-8"
-                                track-color="grey-2"
-                                markers
-                                marker-labels
-                                :min="1"
-                                :max="5"
-                            />
-                        </div>
-                        <br />
-                        <label for="useful_skills" class="text-[24px]"
-                            >Please check any applicable Programming experience
-                            here</label
-                        >
-                        <div
-                            class="p-1 select-none"
-                            v-for="e in programming_skills"
-                            :key="e.name"
-                        >
-                            <div class="text-[20px] mt-2">
-                                {{ e.name }}
+                    </div>
+                    <div v-else>
+                        <div class="font-franklin">
+                            <label for="first_experience" class="text-[24px]"
+                                >Would you like to change your team?</label
+                            >
+                            <div class="text-[15px]">
+                                Returning members will stay on the same team
+                                unless they request it here.
+                            </div>
+                            <div class="">
                                 <input
-                                    id="programming_skill"
+                                    id="change_teams"
                                     type="checkbox"
-                                    class="bg-slate-500 w-4/12 h-6 float-right mr-36"
-                                    name="programming_skill"
+                                    class="form-control bg-slate-500 w-4/12 h-8 text-[18px]"
+                                    name="change_teams"
                                     value
                                     autofocus
-                                    v-model="e.check"
+                                    v-model="change_teams"
                                 />
                             </div>
-                            <div v-if="e.check" class="text-sm mx-[200px]">
-                                <q-slider
-                                    v-model="e.level"
-                                    inner-track-color="green-8"
-                                    track-color="grey-2"
-                                    markers
-                                    marker-labels
-                                    :min="1"
-                                    :max="5"
-                                />
+                            <div v-if="change_teams">
+                                <div class="font-franklin">
+                                    <label
+                                        for="useful_skills"
+                                        class="text-[24px]"
+                                        >Team Preference</label
+                                    >
+                                    <div class="text-[15px]">
+                                        Please drag the teams in the order you
+                                        wish to join, with the first position
+                                        being the team you want to be placed in
+                                        the most. These are preferences and are
+                                        not guaranteed to be fufilled.
+                                    </div>
+                                    <div class="flex flex-row justify-center">
+                                        <div>
+                                            <draggable
+                                                :list="team_preference"
+                                                ghost-class="opacity-0.5"
+                                                class="dragArea list-group w-full"
+                                            >
+                                                <div
+                                                    class="p-3 select-none"
+                                                    v-for="(
+                                                        element, i
+                                                    ) in team_preference"
+                                                    :key="element.order"
+                                                >
+                                                    {{
+                                                        i +
+                                                        1 +
+                                                        ". " +
+                                                        element.name
+                                                    }}
+                                                </div>
+                                            </draggable>
+                                        </div>
+                                    </div>
+                                    <div class="text-[15px]">
+                                        Please state a reason for the change
+                                    </div>
+                                    <input
+                                        id="change_reason"
+                                        type="change_reason"
+                                        class="form-control bg-slate-500 w-4/12 h-8 text-[18px]"
+                                        name="password"
+                                        required
+                                        v-on:keypress="save_input"
+                                        v-model="change_reason"
+                                    />
+                                </div>
                             </div>
-                        </div>
-                        <br />
-                        <label for="useful_skills" class="text-[18px]"
-                            >Please fill in here if you have any additional
-                            programming experience you would like to
-                            mention</label
-                        >
-                        <br />
-                        <input
-                            id="programming_fill_in"
-                            type="programming_fill_in"
-                            class="form-control bg-slate-500 w-4/12 h-8 text-[18px]"
-                            name="programming_fill_in"
-                            value
-                            autofocus
-                            v-on:keypress="show_slider_programming"
-                            v-model="programming_fill_in"
-                        />
-                        <div
-                            v-if="programming_fill_in_slider"
-                            class="text-sm mx-[200px]"
-                        >
-                            <q-slider
-                                v-model="programming_fill_in_skill"
-                                inner-track-color="green-8"
-                                track-color="grey-2"
-                                markers
-                                marker-labels
-                                :min="1"
-                                :max="5"
-                            />
                         </div>
                     </div>
                     <div class="text-red-200 text-[15px]">{{ message }}</div>
@@ -450,8 +509,10 @@ export default {
             previous_experience: false,
             first_experience: false,
             team_preference: TEAMS,
-            useful_skills: "",
             cad_skills: cad_skills,
+            // if someone wants the change the team they are on
+            change_teams: false,
+            change_reason: "",
 
             cad_fill_in: "",
             cad_fill_in_skill: 0,
@@ -496,15 +557,15 @@ export default {
             this.programming_fill_in_slider =
                 this.programming_fill_in.length > 1;
         },
-		// can add debounce
-		save_input() {
-			console.log("saved")
-		},
+        // can add debounce
+        save_input() {
+            console.log("saved");
+        },
         accept_message() {
             this.acknowledge = true;
         },
         async submit() {
-            const info: RegistrationInformation = {
+            const info = {
                 first_name: this.first_name,
                 last_name: this.last_name,
                 email: this.email,
@@ -514,15 +575,16 @@ export default {
                 previous_experience: this.previous_experience,
                 first_experience: this.first_experience,
                 team_preference: this.team_preference,
-                useful_skills: this.useful_skills,
+                change_teams: this.change_teams,
                 validated: false,
-                registered: "",
+                registered: "FormsPending",
                 cad_skills: this.cad_skills,
                 programming_skills: this.programming_skills,
                 cad_fill_in: this.cad_fill_in,
                 programming_fill_in: this.programming_fill_in,
+                team_change_reason: this.change_reason,
             };
-            const validated = register(info as RegistrationInformation);
+            const validated = register(info);
             // this means that there's an error message, so we should report it
             // otherwise we can ago ahead and submit to firebase
             if (typeof validated === "string") {
@@ -537,9 +599,16 @@ export default {
                         register_user(validated);
                         console.log(user);
                         console.log("signed");
+                        this.$router.push("/dashboard");
                         // ...
                     })
                     .catch((_) => {
+                        // already logged in so we failed to create an account, but we can push the data
+                        if (useStore().auth) {
+                            register_user(validated);
+                            this.$router.push("/dashboard");
+                            return;
+                        }
                         this.message =
                             "Unable to create account, please contact club staff";
                     });
