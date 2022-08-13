@@ -28,6 +28,32 @@ export interface RegistrationInformation {
 	programming_fill_in: string;
 }
 
+export interface SavableFormData {
+	first_name: string,
+	last_name: string,
+	email: string,
+	password: string,
+	phone: string,
+	parent_name: string,
+	parent_email: string,
+	grad_year: number,
+	previous_experience: boolean,
+	first_experience: boolean,
+	team_preference: Array<string>,
+	cad_skills: Array<{ name: string, check: boolean, level: number}>,
+	change_teams: string,
+	change_reason: string,
+	cad_fill_in: string,
+	cad_fill_in_skill: number,
+	cad_fill_in_slider: boolean,
+	programming_skills: Array<{ name: string, check: boolean, level: number}>,
+	programming_fill_in: string,
+	programming_fill_in_skill: number,
+	programming_fill_in_slider: boolean,
+	acknowledge: boolean,
+	accept_acknowledge: boolean,
+}
+
 export const cad_skills = [
 	"Fusion 360",
 	"Onshape",

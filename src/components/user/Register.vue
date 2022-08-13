@@ -1,6 +1,7 @@
 <template>
     <navbarcustom />
     <div class="grid grid-flow-row pb-48">
+        {{ load_input() }}
         <h1 class="text-center mt-6">Club Registration</h1>
         <h2
             class="grid gap-[10px] pb-8 text-center mx-[150px] border-4 bg-black relative top-10 text-medium"
@@ -29,11 +30,12 @@
                         <input
                             id="accept_acknowledge"
                             type="checkbox"
+                            v-on:change="save_input"
                             class="bg-slate-500 w-4/12 h-8"
                             name="accept_acknowledge"
                             value
                             autofocus
-                            v-model="accept_acknowledge"
+                            v-model.trim="accept_acknowledge"
                         />
                     </div>
                     <div v-if="accept_acknowledge">
@@ -69,8 +71,8 @@
                                 value
                                 required
                                 autofocus
-                                v-on:keypress="save_input"
-                                v-model="first_name"
+                                v-on:keyup="save_input"
+                                v-model.trim="first_name"
                             />
                         </div>
                     </div>
@@ -87,8 +89,8 @@
                                 value
                                 required
                                 autofocus
-                                v-on:keypress="save_input"
-                                v-model="last_name"
+                                v-on:keyup="save_input"
+                                v-model.trim="last_name"
                             />
                         </div>
                     </div>
@@ -110,8 +112,8 @@
                                     value
                                     required
                                     autofocus
-                                    v-on:keypress="save_input"
-                                    v-model="email"
+                                    v-on:keyup="save_input"
+                                    v-model.trim="email"
                                 />
                             </div>
                         </div>
@@ -131,8 +133,8 @@
                                 class="form-control bg-slate-500 w-4/12 h-8 text-[18px]"
                                 name="password"
                                 required
-                                v-on:keypress="save_input"
-                                v-model="password"
+                                v-on:keyup="save_input"
+                                v-model.trim="password"
                             />
                         </div>
                     </div>
@@ -147,8 +149,8 @@
                                 class="form-control bg-slate-500 w-4/12 h-8 text-[18px]"
                                 name="parent_name"
                                 required
-                                v-on:keypress="save_input"
-                                v-model="parent_name"
+                                v-on:keyup="save_input"
+                                v-model.trim="parent_name"
                             />
                         </div>
                     </div>
@@ -163,8 +165,8 @@
                                 class="form-control bg-slate-500 w-4/12 h-8 text-[18px]"
                                 name="parent_phone"
                                 required
-                                v-on:keypress="save_input"
-                                v-model="parent_phone"
+                                v-on:keyup="save_input"
+                                v-model.trim="parent_phone"
                             />
                         </div>
                     </div>
@@ -179,8 +181,8 @@
                                 class="form-control bg-slate-500 w-4/12 h-8 text-[18px]"
                                 name="parent_email"
                                 required
-                                v-on:keypress="save_input"
-                                v-model="parent_email"
+                                v-on:keyup="save_input"
+                                v-model.trim="parent_email"
                             />
                         </div>
                     </div>
@@ -196,11 +198,12 @@
                                 <input
                                     id="phone"
                                     type="phone"
+                                    v-on:keyup="save_input"
                                     class="form-control bg-slate-500 w-4/12 h-8 text-[18px]"
                                     name="phone"
                                     value
                                     autofocus
-                                    v-model="phone"
+                                    v-model.trim="phone"
                                 />
                             </div>
                         </div>
@@ -218,9 +221,10 @@
                                 type="grad_year"
                                 class="form-control bg-slate-500 w-4/12 h-8 text-[18px]"
                                 name="grad_year"
+                                v-on:keyup="save_input"
                                 value
                                 autofocus
-                                v-model="grad_year"
+                                v-model.trim="grad_year"
                             />
                         </div>
                     </div>
@@ -237,6 +241,7 @@
                                 type="checkbox"
                                 class="form-control bg-slate-500 w-4/12 h-8 text-[18px]"
                                 name="previous_experience"
+                                v-on:change="save_input"
                                 value
                                 autofocus
                                 v-model="previous_experience"
@@ -256,6 +261,7 @@
                                 <input
                                     id="first_experience"
                                     type="checkbox"
+                                    v-on:change="save_input"
                                     class="form-control bg-slate-500 w-4/12 h-8 text-[18px]"
                                     name="first_experience"
                                     value
@@ -281,6 +287,7 @@
                                         :list="team_preference"
                                         ghost-class="opacity-0.5"
                                         class="dragArea list-group w-full"
+                                        v-on:change="save_input"
                                     >
                                         <div
                                             class="p-3 select-none"
@@ -316,6 +323,7 @@
                                     <input
                                         id="cad_skill"
                                         type="checkbox"
+                                        v-on:change="save_input"
                                         class="bg-slate-500 w-4/12 h-6 text-[16px] float-right mr-36"
                                         name="cad_skill"
                                         value
@@ -327,6 +335,7 @@
                                     <q-slider
                                         v-model="e.level"
                                         inner-track-color="green-8"
+                                        v-on:change="save_input"
                                         track-color="grey-2"
                                         markers
                                         marker-labels
@@ -348,8 +357,8 @@
                                 name="cad-fill_in"
                                 value
                                 autofocus
-                                v-on:keypress="show_slider_cad"
-                                v-model="cad_fill_in"
+                                v-on:keyup="show_slider_cad"
+                                v-model.trim="cad_fill_in"
                             />
                             <div
                                 v-if="cad_fill_in_slider"
@@ -358,6 +367,7 @@
                                 <q-slider
                                     v-model="cad_fill_in_skill"
                                     inner-track-color="green-8"
+                                    v-on:change="save_input"
                                     track-color="grey-2"
                                     markers
                                     marker-labels
@@ -384,6 +394,7 @@
                                         name="programming_skill"
                                         value
                                         autofocus
+                                        v-on:change="save_input"
                                         v-model="e.check"
                                     />
                                 </div>
@@ -392,6 +403,7 @@
                                         v-model="e.level"
                                         inner-track-color="green-8"
                                         track-color="grey-2"
+                                        v-on:change="save_input"
                                         markers
                                         marker-labels
                                         :min="1"
@@ -413,8 +425,8 @@
                                 name="programming_fill_in"
                                 value
                                 autofocus
-                                v-on:keypress="show_slider_programming"
-                                v-model="programming_fill_in"
+                                v-on:keyup="show_slider_programming"
+                                v-model.trim="programming_fill_in"
                             />
                             <div
                                 v-if="programming_fill_in_slider"
@@ -424,6 +436,7 @@
                                     v-model="programming_fill_in_skill"
                                     inner-track-color="green-8"
                                     track-color="grey-2"
+                                    v-on:keyup="save_input"
                                     markers
                                     marker-labels
                                     :min="1"
@@ -445,6 +458,7 @@
                                 <input
                                     id="change_teams"
                                     type="checkbox"
+                                    v-on:change="save_input"
                                     class="form-control bg-slate-500 w-4/12 h-8 text-[18px]"
                                     name="change_teams"
                                     value
@@ -470,6 +484,7 @@
                                         <div>
                                             <draggable
                                                 :list="team_preference"
+                                                v-on:change="save_input"
                                                 ghost-class="opacity-0.5"
                                                 class="dragArea list-group w-full"
                                             >
@@ -499,8 +514,8 @@
                                         class="form-control bg-slate-500 w-4/12 h-8 text-[18px]"
                                         name="password"
                                         required
-                                        v-on:keypress="save_input"
-                                        v-model="change_reason"
+                                        v-on:keyup="save_input"
+                                        v-model.trim="change_reason"
                                     />
                                 </div>
                             </div>
@@ -531,6 +546,7 @@ import FooterComp from "../FooterComp.vue";
 import navbarcustom from "../navbarcustom.vue";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import {
+    SavableFormData,
     register,
     cad_skills,
     programming_skills,
@@ -582,6 +598,7 @@ export default {
             acknowledge: false,
             // this is to make sure people actually read the message
             accept_acknowledge: false,
+            already_loaded: false,
         };
     },
     components: {
@@ -601,20 +618,84 @@ export default {
             });
         },
         show_slider_cad() {
+            this.save_input();
             this.cad_fill_in_slider = this.cad_fill_in.length > 1;
         },
         show_slider_programming() {
+            this.save_input();
             this.programming_fill_in_slider =
                 this.programming_fill_in.length > 1;
         },
         // can add debounce
         save_input() {
-            console.log("saved");
+            const data = {
+                first_name: this.first_name,
+                last_name: this.last_name,
+                email: this.email,
+                password: this.password,
+                phone: this.phone,
+                parent_name: this.parent_name,
+                parent_email: this.parent_email,
+                grad_year: this.grad_year,
+                previous_experience: this.previous_experience,
+                first_experience: this.first_experience,
+                team_preference: this.team_preference,
+                cad_skills: this.cad_skills,
+                change_teams: this.change_teams,
+                change_reason: this.change_reason,
+                cad_fill_in: this.cad_fill_in,
+                cad_fill_in_skill: this.cad_fill_in_skill,
+                cad_fill_in_slider: this.cad_fill_in_slider,
+                programming_skills: this.programming_skills,
+                programming_fill_in: this.programming_fill_in,
+                programming_fill_in_skill: this.programming_fill_in_skill,
+                programming_fill_in_slider: this.programming_fill_in_slider,
+                acknowledge: this.acknowledge,
+                accept_acknowledge: this.accept_acknowledge,
+            };
+            localStorage.setItem("form_data", JSON.stringify(data));
+        },
+        load_input() {
+            const data = localStorage.getItem("form_data");
+            if (data && data.length > 0 && !this.already_loaded) {
+                try {
+                    const json: SavableFormData = JSON.parse(data);
+                    this.first_name = json.first_name;
+                    this.last_name = json.last_name;
+                    this.email = json.email;
+                    this.password = json.password;
+                    this.phone = json.phone;
+                    this.parent_name = json.parent_name;
+                    this.parent_email = json.parent_email;
+                    this.grad_year = json.grad_year;
+                    this.previous_experience = json.previous_experience;
+                    this.first_experience = json.first_experience;
+                    this.team_preference = json.team_preference;
+                    this.cad_skills = json.cad_skills;
+                    this.change_teams = json.change_teams;
+                    this.change_reason = json.change_reason;
+                    this.cad_fill_in = json.cad_fill_in;
+                    this.cad_fill_in_skill = json.cad_fill_in_skill;
+                    this.cad_fill_in_slider = json.cad_fill_in_slider;
+                    this.programming_skills = json.programming_skills;
+                    this.programming_fill_in = json.programming_fill_in;
+                    this.programming_fill_in_skill =
+                        json.programming_fill_in_skill;
+                    this.programming_fill_in_slider =
+                        json.programming_fill_in_slider;
+                    this.acknowledge = json.acknowledge;
+                    this.accept_acknowledge = json.accept_acknowledge;
+                } catch {
+                    localStorage.removeItem("form_data");
+                }
+            }
+            this.already_loaded = true;
         },
         validate_input() {
             console.log("test");
         },
         accept_message() {
+            this.save_input();
             this.acknowledge = true;
         },
         async submit() {
@@ -652,24 +733,27 @@ export default {
                         // Signed in
                         const user = userCredential.user;
                         store_login(user);
-                        is_registered(user.email).then((r) => {
-                            console.log(r);
-                        });
                         register_user(validated);
-                        console.log(user);
-                        console.log("signed");
-                        this.$router.push("/dashboard");
+                        // no top level await
+                        is_registered(user.email).then((_: any) => {
+                            this.$router.push("/dashboard");
+                            localStorage.removeItem("form_data");
+                        });
                         // ...
                     })
                     .catch((_) => {
                         // already logged in so we failed to create an account, but we can push the data
                         if (useStore().auth) {
                             register_user(validated);
-                            this.$router.push("/dashboard");
+                            // no top level await
+                            is_registered(this.email).then((_: any) => {
+                                this.$router.push("/dashboard");
+                                localStorage.removeItem("form_data");
+                            });
                             return;
                         }
                         this.message =
-                            "Unable to create account, please contact club staff";
+                            "Unable to create account, do you already have one? Please contact club staff.";
                     });
             }
         },

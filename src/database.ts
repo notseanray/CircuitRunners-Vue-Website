@@ -6,13 +6,11 @@ import {
     getDoc,
     getDocs,
     updateDoc,
-    collectionGroup,
 	arrayUnion,
     Query,
     query,
     setDoc,
     where,
-    FieldValue,
 } from "firebase/firestore";
 import { db } from "./router/index";
 import { RegistrationInformation } from "./types";
@@ -30,28 +28,9 @@ const REGISTERED_DATA = {
 export enum RegistrationStatus {
     NotRegistered = "NotRegistered",
     FormsPending = "FormsPending",
-    PaymentPending = "PaymentPending",
     PendingTeamAssignment = "PendingTeamAssignment",
     Complete = "Complete",
 }
-
-export const registration_status_to_message = (
-    r: RegistrationStatus
-): string => {
-    switch (r) {
-        case RegistrationStatus.PaymentPending:
-            return "Payment Pending";
-        case RegistrationStatus.FormsPending:
-            return "Forms Pending";
-        case RegistrationStatus.PendingTeamAssignment:
-            return "Pending Team Assignment";
-        case RegistrationStatus.Complete:
-            useStore().registered = true;
-            return "Complete";
-        default:
-            return "Not Registered";
-    }
-};
 
 export const is_registered = async (
     email: String
@@ -68,20 +47,18 @@ export const is_registered = async (
 		if (info.length < 2) {
 			continue;
 		}
-		if (info[0] == email) {
-			if (info.length > 2 && info[3] == "admin") {
+		const [e, i, admin] = info;
+		if (e == email) {
+			if (info.length > 2 && admin && admin == "admin") {
 				useStore().admin = true;
 			}
-            switch (info[1]) {
+            switch (i) {
                 case "NotRegistered":
 					useStore().register_status = "Not Registered";
 					return "Not Registered";
                 case "FormsPending":
 					useStore().register_status = "Forms Pending";
 					return "Forms Pending";
-                case "PaymentPending":
-					useStore().register_status = "Payment Pending";
-					return "Payment Pending";
                 case "PendingTeamAssignment":
 					useStore().register_status = "Pending Team Assignment";
 					return "Pending Team Assignment";
@@ -172,6 +149,8 @@ export const register_user = async (u: RegistrationInformation) => {
         cad_fill_in: u.cad_fill_in,
         programming_skills: u.programming_skills,
         programming_fill_in: u.programming_fill_in,
+		forms: false,
+		paid: false,
 		admin: false,
     });
 	await updateDoc(doc(db, REGISTERED_USERS.collection, REGISTERED_USERS.document), {
