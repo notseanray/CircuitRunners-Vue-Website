@@ -186,6 +186,7 @@ export default {
             authed: useStore().auth,
             show_media: true,
             isMobile: false,
+            first_reload: false,
         };
     },
     components: {
@@ -214,6 +215,10 @@ export default {
                         store_login(u);
                     } else {
                         // not logged in
+                        if (this.first_reload) {
+                            this.first_reload = true;
+                            this.$router.push("/");
+                        }
                         clear_login();
                         return;
                     }
@@ -276,7 +281,6 @@ export default {
             signOut(auth).then(() => {
                 // set unlogged in store
                 this.$router.push("/");
-                window.location.reload();
             });
         },
         twitter() {

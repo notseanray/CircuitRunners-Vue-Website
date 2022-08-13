@@ -531,7 +531,6 @@ import FooterComp from "../FooterComp.vue";
 import navbarcustom from "../navbarcustom.vue";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import {
-    RegistrationInformation,
     register,
     cad_skills,
     programming_skills,
