@@ -137,6 +137,54 @@
                         </div>
                     </div>
                     <div class="font-franklin">
+                        <label for="password" class="text-[24px]"
+                            >Parent Name</label
+                        >
+                        <div class="">
+                            <input
+                                id="parent_name"
+                                type="parent_name"
+                                class="form-control bg-slate-500 w-4/12 h-8 text-[18px]"
+                                name="parent_name"
+                                required
+                                v-on:keypress="save_input"
+                                v-model="parent_name"
+                            />
+                        </div>
+                    </div>
+                    <div class="font-franklin">
+                        <label for="password" class="text-[24px]"
+                            >Parent Phone Number</label
+                        >
+                        <div class="">
+                            <input
+                                id="parent_phone"
+                                type="parent_phone"
+                                class="form-control bg-slate-500 w-4/12 h-8 text-[18px]"
+                                name="parent_phone"
+                                required
+                                v-on:keypress="save_input"
+                                v-model="parent_phone"
+                            />
+                        </div>
+                    </div>
+                    <div class="font-franklin">
+                        <label for="password" class="text-[24px]"
+                            >Parent Email</label
+                        >
+                        <div class="">
+                            <input
+                                id="parent_email"
+                                type="parent_email"
+                                class="form-control bg-slate-500 w-4/12 h-8 text-[18px]"
+                                name="parent_email"
+                                required
+                                v-on:keypress="save_input"
+                                v-model="parent_email"
+                            />
+                        </div>
+                    </div>
+                    <div class="font-franklin">
                         <label for="phone" class="text-[24px]"
                             >Phone Number</label
                         >
@@ -490,7 +538,7 @@ import {
 } from "../../types";
 import { VueDraggableNext } from "vue-draggable-next";
 import { useStore } from "../../store";
-import { register_user } from "../../database";
+import { is_registered, register_user, store_login } from "../../database";
 const TEAMS = [
     { name: "FRC1002", order: 1 },
     { name: "FTC1002", order: 2 },
@@ -505,6 +553,9 @@ export default {
             email: useStore().email,
             password: "",
             phone: "",
+            parent_name: "",
+            parent_phone: "",
+            parent_email: "",
             grad_year: new Date().getUTCFullYear() + 4,
             previous_experience: false,
             first_experience: false,
@@ -561,6 +612,9 @@ export default {
         save_input() {
             console.log("saved");
         },
+        validate_input() {
+            console.log("test");
+        },
         accept_message() {
             this.acknowledge = true;
         },
@@ -576,8 +630,10 @@ export default {
                 first_experience: this.first_experience,
                 team_preference: this.team_preference,
                 change_teams: this.change_teams,
+                parent_email: this.parent_email,
+                parent_phone: this.parent_phone,
+                parent_name: this.parent_name,
                 validated: false,
-                registered: "FormsPending",
                 cad_skills: this.cad_skills,
                 programming_skills: this.programming_skills,
                 cad_fill_in: this.cad_fill_in,
@@ -596,6 +652,10 @@ export default {
                     .then((userCredential) => {
                         // Signed in
                         const user = userCredential.user;
+                        store_login(user);
+                        is_registered(user.email).then((r) => {
+                            console.log(r);
+                        });
                         register_user(validated);
                         console.log(user);
                         console.log("signed");

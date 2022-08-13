@@ -5,17 +5,21 @@ import {
     DocumentData,
     getDoc,
     getDocs,
+    updateDoc,
+    collectionGroup,
+	arrayUnion,
     Query,
     query,
     setDoc,
     where,
+    FieldValue,
 } from "firebase/firestore";
 import { db } from "./router/index";
 import { RegistrationInformation } from "./types";
 
-const REGISTERED_COLLECTION = {
-    collection: "registered",
-    document: "ypL3sI9CcxUyuC21lpcN",
+const REGISTERED_USERS = {
+	collection: "registered_users",
+	document: "root",
 };
 
 const REGISTERED_DATA = {
@@ -23,14 +27,9 @@ const REGISTERED_DATA = {
     document: "zxP7Hu8DuuKZXOHXeU2o",
 };
 
-const ADMIN_COLLECTION = {
-    collection: "admin",
-    document: "8Sz2vYqsP9j1etDGD48e",
-};
-
 export enum RegistrationStatus {
     NotRegistered = "NotRegistered",
-	FormsPending = "FormsPending",
+    FormsPending = "FormsPending",
     PaymentPending = "PaymentPending",
     PendingTeamAssignment = "PendingTeamAssignment",
     Complete = "Complete",
@@ -42,8 +41,8 @@ export const registration_status_to_message = (
     switch (r) {
         case RegistrationStatus.PaymentPending:
             return "Payment Pending";
-		case RegistrationStatus.FormsPending:
-			return "Forms Pending";
+        case RegistrationStatus.FormsPending:
+            return "Forms Pending";
         case RegistrationStatus.PendingTeamAssignment:
             return "Pending Team Assignment";
         case RegistrationStatus.Complete:
@@ -56,47 +55,98 @@ export const registration_status_to_message = (
 
 export const is_registered = async (
     email: String
-): Promise<RegistrationStatus> => {
-    const registered_users = await getDoc(
-        doc(
-            db,
-            REGISTERED_COLLECTION.collection,
-            REGISTERED_COLLECTION.document
-        )
+): Promise<string> => {
+    const user_data = await getDoc(
+		doc(db, REGISTERED_USERS.collection, REGISTERED_USERS.document)
     );
-    if (!registered_users) {
-        // handle error
-        return RegistrationStatus.NotRegistered;
-    }
-    const data = registered_users.data();
-    if (!data) {
-        // handle error
-        return RegistrationStatus.NotRegistered;
-    }
-    for (const d in data) {
-        const info = data[d].split("|");
-        if (!info || info.length < 2) {
-            return RegistrationStatus.NotRegistered;
-        }
-        if (info[0] == email) {
-            console.log(info);
+	if (!user_data) {
+		return "Not Registered";
+	}
+	const data = user_data.data();
+	for (const user of data.users) {
+		const info = user.split("|");
+		if (info.length < 2) {
+			continue;
+		}
+		if (info[0] == email) {
+			if (info.length > 2 && info[3] == "admin") {
+				useStore().admin = true;
+			}
             switch (info[1]) {
                 case "NotRegistered":
-                    return RegistrationStatus.NotRegistered;
-				case "FormsPending":
-					return RegistrationStatus.FormsPending;
+					useStore().register_status = "Not Registered";
+					return "Not Registered";
+                case "FormsPending":
+					useStore().register_status = "Forms Pending";
+					return "Forms Pending";
                 case "PaymentPending":
-                    return RegistrationStatus.PaymentPending;
+					useStore().register_status = "Payment Pending";
+					return "Payment Pending";
                 case "PendingTeamAssignment":
-                    return RegistrationStatus.PendingTeamAssignment;
+					useStore().register_status = "Pending Team Assignment";
+					return "Pending Team Assignment";
                 case "Complete":
                     // only if it's complete do we set it to true
                     useStore().registered = true;
-                    return RegistrationStatus.Complete;
+					useStore().register_status = "Complete";
+					return "Complete";
+				default:
+					useStore().register_status = "Not Registered";
+					return "Not Registered";
+            }
+		}
+	}
+
+	/*
+    registered_users.forEach((u) => {
+        const data = u.data();
+        if (data.email && data.email == email) {
+			if (data.admin) {
+				useStore().admin = true;
+			}
+			//
+            console.log(data.registered);
+            console.log(data.registered == "FormsPending");
+            if (data.registered == "NotRegistered") {
+                return RegistrationStatus.NotRegistered;
+            } else if (data.registered == "FormsPending") {
+                return RegistrationStatus.FormsPending;
+            } else if (data.registered == "PaymentPending") {
+                return RegistrationStatus.PaymentPending;
+            } else if (data.registered == "PendingTeamAssignment") {
+                return RegistrationStatus.PendingTeamAssignment;
+            } else if (data.registered == "Complete") {
+                return RegistrationStatus.Complete;
+            }
+            return RegistrationStatus.NotRegistered;
+			//
+            // why is this not working?
+            switch (data.registered) {
+                case "NotRegistered":
+					useStore().register_status = "Not Registered";
+					return "Not Registered";
+                case "FormsPending":
+					useStore().register_status = "Forms Pending";
+					return "Forms Pending";
+                case "PaymentPending":
+					useStore().register_status = "Payment Pending";
+					return "Payment Pending";
+                case "PendingTeamAssignment":
+					useStore().register_status = "Pending Team Assignment";
+					return "Pending Team Assignment";
+                case "Complete":
+                    // only if it's complete do we set it to true
+                    useStore().registered = true;
+					useStore().register_status = "Complete";
+					return "Complete";
+				default:
+					useStore().register_status = "Not Registered";
+					return "Not Registered";
             }
         }
-    }
-    return RegistrationStatus.NotRegistered;
+    });
+	*/
+    return "Not Registered";
 };
 
 export const register_user = async (u: RegistrationInformation) => {
@@ -104,23 +154,29 @@ export const register_user = async (u: RegistrationInformation) => {
         // must be verified first
         return;
     }
-	console.log(u)
+    console.log(u);
     await setDoc(doc(db, REGISTERED_DATA.collection, u.email), {
         first_name: u.first_name,
         last_name: u.last_name,
         email: u.email,
         phone: u.phone,
+        parent_name: u.parent_name,
+        parent_phone: u.parent_phone,
+        parent_email: u.parent_email,
         grad_year: u.grad_year,
         previous_experience: u.previous_experience,
         first_experience: u.first_experience,
         team_preference: u.team_preference,
-		cad_skills: u.cad_skills,
-		change_teams: u.change_teams,
-		cad_fill_in: u.cad_fill_in,
-		programming_skills: u.programming_skills,
-		programming_fill_in: u.programming_fill_in,
-        registered: "FormsPending",
+        cad_skills: u.cad_skills,
+        change_teams: u.change_teams,
+        cad_fill_in: u.cad_fill_in,
+        programming_skills: u.programming_skills,
+        programming_fill_in: u.programming_fill_in,
+		admin: false,
     });
+	await updateDoc(doc(db, REGISTERED_USERS.collection, REGISTERED_USERS.document), {
+		users: arrayUnion(`${u.email}|FormsPending`)
+	});
 };
 
 // maybe store events by id + "|" + date string?
@@ -154,28 +210,16 @@ export const store_login = async (u: {
     email: string;
     displayName: string;
 }) => {
-    const admins_data = await getDoc(
-        doc(db, ADMIN_COLLECTION.collection, ADMIN_COLLECTION.document)
-    );
-    if (!admins_data) {
-        // handle error
-    }
-    const admins = admins_data.data()?.users;
-    // add proper error handling ^
-    console.log("admins " + admins);
-    useStore().admin = admins.includes(u.email);
-    console.log("is admin " + admins.includes(u.email));
     useStore().auth = true;
-    const registration = await is_registered(u.email);
-    useStore().register_status = registration;
-    console.log(useStore().registered);
+    await is_registered(u.email);
     useStore().email = u.email;
     useStore().displayName = u.displayName;
 };
 
 export const clear_login = () => {
     useStore().auth = false;
-    useStore().registered = RegistrationStatus.NotRegistered;
+    useStore().register_status = "Not Registered";
+	useStore().registered = false;
     useStore().email = "";
     useStore().displayName = "";
 };

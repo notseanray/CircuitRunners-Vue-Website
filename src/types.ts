@@ -14,9 +14,11 @@ export interface RegistrationInformation {
     previous_experience: boolean;
     first_experience: string;
     team_preference: string[];
-    registered: string;
 	change_teams: boolean;
 	change_reason: string;
+	parent_name: string;
+	parent_phone: string;
+	parent_email: string;
     // this is not stored on the server and is just used to keep
     // track of the info while we are
     validated: boolean;
@@ -93,12 +95,32 @@ export const register = (
         problems.push("Invalid Email. ");
     }
 
+	if (!emailPattern.test(r.parent_email)) {
+		problems.push("Invalid Parent Email. ");
+	}
+
     const phonePattern = /^(([0-9]{3}))?[-.s]?([0-9]{3})[-.s]?([0-9]{4})$/;
     if (r.phone.length > 0 && !phonePattern.test(r.phone)) {
         problems.push(
             "Invalid Phone Number, please enter a valid phone number or leave blank if you have none. "
         );
     }
+
+	if (!phonePattern.test(r.parent_phone)) {
+		problems.push("Invalid Parent Phone Number, please enter a valid phone number. ");
+	}
+
+	if (r.parent_email == r.email) {
+		problems.push("Parent and Student email must be different. ");
+	}
+
+	if (r.parent_phone == r.phone && r.phone.length >= 10) {
+		problems.push("Parent and Student phone number must not be the same. ");
+	}
+
+	if (r.change_teams && r.previous_experience && r.change_reason.length < 2) {
+		problems.push("Please provide a reason for your team change.")
+	}
 
     if (problems.length > 0) {
         return problems.join("\n");
@@ -108,9 +130,6 @@ export const register = (
 		teams.push(team.name);
 	}
 	r.team_preference = teams;
-	if (r.change_teams && r.previous_experience && r.change_reason.length < 2) {
-		problems.push("Please provide a reason for your team change.")
-	}
     r.validated = true;
     return r;
 };

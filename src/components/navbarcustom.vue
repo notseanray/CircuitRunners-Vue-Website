@@ -3,12 +3,11 @@
         v-if="!isMobile"
         class="flex flex-center justify-between border-b-[.5px] bg-black border-[#20d54d]"
     >
+        {{ relogin() }}
         <div class="q-pa-md q-gutter-sm">
             <q-btn class="mr-10" round v-on:click="tohome">
                 <q-icon size="81px">
-                    <img
-                        src="../assets/running-man.png"
-                    />
+                    <img src="../assets/running-man.png" />
                 </q-icon>
             </q-btn>
 
@@ -50,53 +49,53 @@
         <img class="h-20" src="../assets/logo.svg" />
 
         <div class="flex flex-center q-gutter-md mr-10">
-			<div v-if="!this.authed">
-            <q-btn
-                v-on:click="tocontact"
-                class="mr-5"
-                color="primary"
-                text-color="black"
-                icon="fa-solid fa-address-card"
-                label="Contact"
-            />
-            <q-btn
-                v-on:click="twitter"
-                round
-                color="primary"
-                text-color="black"
-                icon="fa-brands fa-twitter"
-            />
-            <q-btn
-                v-on:click="instagram"
-                round
-                color="primary"
-                text-color="black"
-                icon="fa-brands fa-instagram"
-            />
-            <q-btn
-                v-on:click="facebook"
-                round
-                color="primary"
-                text-color="black"
-                icon="fa-brands fa-facebook"
-            />
-			</div>
-            <h1 class="text-sm text-bold">{{ this.displayName() }}</h1>
-            <div v-if="this.authed">
-				<q-btn
-					class="mx-2"
-					color="primary"
-					text-color="black"
-					label="dashboard"
-					v-on:click="dashboard"
-				/>
-				<q-btn
-					class="mx-2"
-					color="primary"
-					text-color="black"
-					label="signout"
-					v-on:click="signout"
-				/>
+            <div v-if="!authed">
+                <q-btn
+                    v-on:click="tocontact"
+                    class="mr-5"
+                    color="primary"
+                    text-color="black"
+                    icon="fa-solid fa-address-card"
+                    label="Contact"
+                />
+                <q-btn
+                    v-on:click="twitter"
+                    round
+                    color="primary"
+                    text-color="black"
+                    icon="fa-brands fa-twitter"
+                />
+                <q-btn
+                    v-on:click="instagram"
+                    round
+                    color="primary"
+                    text-color="black"
+                    icon="fa-brands fa-instagram"
+                />
+                <q-btn
+                    v-on:click="facebook"
+                    round
+                    color="primary"
+                    text-color="black"
+                    icon="fa-brands fa-facebook"
+                />
+            </div>
+            <h1 class="text-sm text-bold">{{ displayName() }}</h1>
+            <div v-if="authed">
+                <q-btn
+                    class="mx-2"
+                    color="primary"
+                    text-color="black"
+                    label="dashboard"
+                    v-on:click="dashboard"
+                />
+                <q-btn
+                    class="mx-2"
+                    color="primary"
+                    text-color="black"
+                    label="signout"
+                    v-on:click="signout"
+                />
             </div>
             <div v-else>
                 <q-btn
@@ -150,83 +149,79 @@
                     </q-list>
                 </q-menu>
             </q-btn>
-				<q-btn
-					v-on:click="twitter"
-					round
-					color="primary"
-					text-color="black"
-					icon="fa-brands fa-twitter"
-				/>
-				<q-btn
-					v-on:click="instagram"
-					round
-					color="primary"
-					text-color="black"
-					icon="fa-brands fa-instagram"
-				/>
-				<q-btn
-					v-on:click="facebook"
-					round
-					color="primary"
-					text-color="black"
-					icon="fa-brands fa-facebook"
-				/>
+            <q-btn
+                v-on:click="twitter"
+                round
+                color="primary"
+                text-color="black"
+                icon="fa-brands fa-twitter"
+            />
+            <q-btn
+                v-on:click="instagram"
+                round
+                color="primary"
+                text-color="black"
+                icon="fa-brands fa-instagram"
+            />
+            <q-btn
+                v-on:click="facebook"
+                round
+                color="primary"
+                text-color="black"
+                icon="fa-brands fa-facebook"
+            />
         </div>
     </div>
 </template>
 
-<script>
+<script lang="ts">
 import dropdown from "primevue/dropdown";
 import { getAuth, signOut } from "firebase/auth";
-import { store_login, clear_login, is_registered } from "../database";
+import { store_login, clear_login } from "../database";
 import { useStore } from "../store";
 
 export default {
     data() {
         return {
             authed: useStore().auth,
-			show_media: true,
+            show_media: true,
             isMobile: false,
         };
-    },
-    setup() {
-        if (!useStore().auth && !useStore().userdata) {
-            const auth = getAuth();
-            auth.onAuthStateChanged((u) => {
-                if (u && !useStore().auth) {
-                    // wasn't logged in, is now
-                    useStore().userdata = false;
-                    store_login(u);
-                    // change page
-					is_registered(u.email).then((r) => {
-						console.log(r)
-					});
-                } else if (u && useStore().auth && useStore().userdata) {
-                    // already logged in
-					console.log("already logged in")
-                    store_login(u);
-					is_registered(u.email).then((r) => {
-						console.log(r)
-					});
-                } else {
-                    // not logged in
-                    clear_login();
-					return;
-                }
-            });
-        } else if (!useStore().userdata) {
-            useStore().userdata = true;
-        }
     },
     components: {
         dropdown: dropdown,
     },
-
     mounted() {
         this.onResize();
         window.addEventListener("resize", this.onResize, { passive: true });
     },
     methods: {
+        relogin() {
+            if (!useStore().auth && !useStore().userdata) {
+                const auth = getAuth();
+                auth.onAuthStateChanged((u) => {
+                    if (u && !useStore().auth) {
+                        // wasn't logged in, is now
+                        useStore().userdata = false;
+                        this.authed = true;
+                        store_login(u);
+                        // change page
+                        console.log(u.email);
+                    } else if (u && useStore().auth && useStore().userdata) {
+                        // already logged in
+                        this.authed = true;
+                        console.log("already logged in");
+                        store_login(u);
+                    } else {
+                        // not logged in
+                        clear_login();
+                        return;
+                    }
+                });
+            } else if (!useStore().userdata) {
+                useStore().userdata = true;
+            }
+        },
         displayName() {
             let display_name = useStore().displayName;
             // if there isn't a display name (happens when not signing up with google oauth),
@@ -242,7 +237,7 @@ export default {
             } else {
                 display_name = " " + display_name;
             }
-			this.show_media = false;
+            this.show_media = false;
             return useStore().auth ? "Welcome" + display_name : "";
         },
         toabout() {
