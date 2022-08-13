@@ -198,17 +198,17 @@ export default {
     },
     methods: {
         relogin() {
-            if (!useStore().auth && !useStore().userdata) {
+            if (!useStore().auth && !useStore().user_data) {
                 const auth = getAuth();
                 auth.onAuthStateChanged((u) => {
                     if (u && !useStore().auth) {
                         // wasn't logged in, is now
-                        useStore().userdata = false;
+                        useStore().user_data = false;
                         this.authed = true;
                         store_login(u);
                         // change page
                         console.log(u.email);
-                    } else if (u && useStore().auth && useStore().userdata) {
+                    } else if (u && useStore().auth && useStore().user_data) {
                         // already logged in
                         this.authed = true;
                         console.log("already logged in");
@@ -223,12 +223,17 @@ export default {
                         return;
                     }
                 });
-            } else if (!useStore().userdata) {
-                useStore().userdata = true;
+            } else if (!useStore().user_data) {
+                useStore().user_data = true;
             }
         },
         displayName() {
-            let display_name = useStore().displayName;
+			let display_name = "";
+			if (useStore().userdata == null) {
+				display_name = useStore().displayName;
+			} else {
+				display_name = `${useStore().userdata.first_name} ${useStore().userdata.last_name}`;
+			}
             // if there isn't a display name (happens when not signing up with google oauth),
             // show the email in the navbar
             if (display_name == null || !display_name) {

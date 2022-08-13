@@ -28,6 +28,34 @@ export interface RegistrationInformation {
 	programming_fill_in: string;
 }
 
+export interface SavableUserData {
+    first_name: string;
+    last_name: string;
+    email: string;
+    phone: string;
+    grad_year: number;
+    previous_experience: boolean;
+    first_experience: string;
+    team_preference: string[];
+	change_teams: boolean;
+	change_reason: string;
+	parent_name: string;
+	parent_phone: string;
+	parent_email: string;
+    // this is not stored on the server and is just used to keep
+    // track of the info while we are
+    validated: boolean;
+    cad_skills: Array<Skill>;
+	cad_fill_in: string;
+    programming_skills: Array<Skill>;
+	programming_fill_in: string;
+	registration_status: string;
+	parent_coc: false,
+	student_coc: false,
+	permission_form: false,
+	admin: boolean,
+}
+
 export interface SavableFormData {
 	first_name: string,
 	last_name: string,

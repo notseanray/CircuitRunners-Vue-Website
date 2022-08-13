@@ -5,19 +5,17 @@ import {
     DocumentData,
     getDoc,
     getDocs,
-    updateDoc,
-	arrayUnion,
     Query,
     query,
     setDoc,
     where,
 } from "firebase/firestore";
 import { db } from "./router/index";
-import { RegistrationInformation } from "./types";
+import { RegistrationInformation, SavableUserData } from "./types";
 
 const REGISTERED_USERS = {
-	collection: "registered_users",
-	document: "root",
+    collection: "registered_users",
+    document: "root",
 };
 
 const REGISTERED_DATA = {
@@ -32,9 +30,36 @@ export enum RegistrationStatus {
     Complete = "Complete",
 }
 
-export const is_registered = async (
-    email: String
-): Promise<string> => {
+export const is_registered = async (email: String): Promise<string> => {
+    const user_data = await getDoc(doc(db, REGISTERED_DATA.collection, email));
+    if (!user_data) {
+        return "Not Registered";
+    }
+    const data = user_data.data();
+	console.log(data)
+	useStore().userdata = data as SavableUserData;
+	useStore().admin = data.admin;
+	useStore().displayName = `${data.first_name} ${data.last_name}`;
+	switch (data.registration_status) {
+		case "NotRegistered":
+			useStore().register_status = "Not Registered";
+			return "Not Registered";
+		case "FormsPending":
+			useStore().register_status = "Forms Pending";
+			return "Forms Pending";
+		case "PendingTeamAssignment":
+			useStore().register_status = "Pending Team Assignment";
+			return "Pending Team Assignment";
+		case "Complete":
+			// only if it's complete do we set it to true
+			useStore().registered = true;
+			useStore().register_status = "Complete";
+			return "Complete";
+		default:
+			useStore().register_status = "Not Registered";
+			return "Not Registered";
+	}
+    /*
     const user_data = await getDoc(
 		doc(db, REGISTERED_USERS.collection, REGISTERED_USERS.document)
     );
@@ -73,8 +98,9 @@ export const is_registered = async (
             }
 		}
 	}
+	*/
 
-	/*
+    /*
     registered_users.forEach((u) => {
         const data = u.data();
         if (data.email && data.email == email) {
@@ -146,16 +172,25 @@ export const register_user = async (u: RegistrationInformation) => {
         team_preference: u.team_preference,
         cad_skills: u.cad_skills,
         change_teams: u.change_teams,
+		change_reason: u.change_reason,
         cad_fill_in: u.cad_fill_in,
         programming_skills: u.programming_skills,
         programming_fill_in: u.programming_fill_in,
-		forms: false,
-		paid: false,
-		admin: false,
+        registration_status: "FormsPending",
+        parent_coc: false,
+        student_coc: false,
+        permission_form: false,
+        admin: false,
     });
-	await updateDoc(doc(db, REGISTERED_USERS.collection, REGISTERED_USERS.document), {
-		users: arrayUnion(`${u.email}|FormsPending`)
-	});
+	const data = {
+		admin: false,
+        registration_status: "FormsPending",
+        parent_coc: false,
+        student_coc: false,
+        permission_form: false,
+		...u
+	} as SavableUserData;
+	useStore().user_data = data;
 };
 
 // maybe store events by id + "|" + date string?
@@ -190,15 +225,16 @@ export const store_login = async (u: {
     displayName: string;
 }) => {
     useStore().auth = true;
-    await is_registered(u.email);
     useStore().email = u.email;
     useStore().displayName = u.displayName;
+	// we overwrite display name if it's set in here
+    await is_registered(u.email);
 };
 
 export const clear_login = () => {
     useStore().auth = false;
     useStore().register_status = "Not Registered";
-	useStore().registered = false;
+    useStore().registered = false;
     useStore().email = "";
     useStore().displayName = "";
 };
