@@ -665,6 +665,7 @@ export default {
                     this.email = json.email;
                     this.password = json.password;
                     this.phone = json.phone;
+					this.parent_phone = json.parent_phone;
                     this.parent_name = json.parent_name;
                     this.parent_email = json.parent_email;
                     this.grad_year = json.grad_year;

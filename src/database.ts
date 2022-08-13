@@ -8,15 +8,11 @@ import {
     Query,
     query,
     setDoc,
+    updateDoc,
     where,
 } from "firebase/firestore";
 import { db } from "./router/index";
 import { RegistrationInformation, SavableUserData } from "./types";
-
-const REGISTERED_USERS = {
-    collection: "registered_users",
-    document: "root",
-};
 
 const REGISTERED_DATA = {
     collection: "registration_data",
@@ -28,7 +24,7 @@ export enum RegistrationStatus {
     FormsPending = "FormsPending",
     PendingTeamAssignment = "PendingTeamAssignment",
     Complete = "Complete",
-}
+};
 
 export const is_registered = async (email: String): Promise<string> => {
     const user_data = await getDoc(doc(db, REGISTERED_DATA.collection, email));
@@ -37,28 +33,54 @@ export const is_registered = async (email: String): Promise<string> => {
     }
     const data = user_data.data();
 	console.log(data)
-	useStore().userdata = data as SavableUserData;
-	useStore().admin = data.admin;
-	useStore().displayName = `${data.first_name} ${data.last_name}`;
-	switch (data.registration_status) {
-		case "NotRegistered":
-			useStore().register_status = "Not Registered";
-			return "Not Registered";
-		case "FormsPending":
-			useStore().register_status = "Forms Pending";
-			return "Forms Pending";
-		case "PendingTeamAssignment":
-			useStore().register_status = "Pending Team Assignment";
-			return "Pending Team Assignment";
-		case "Complete":
-			// only if it's complete do we set it to true
-			useStore().registered = true;
-			useStore().register_status = "Complete";
-			return "Complete";
-		default:
-			useStore().register_status = "Not Registered";
-			return "Not Registered";
+	if (!data) {
+		return "Not Registered";
 	}
+    useStore().userdata = JSON.parse(JSON.stringify(data)) as SavableUserData;
+    useStore().admin = data.admin;
+    useStore().fetched = true;
+    useStore().displayName = `${data.first_name} ${data.last_name}`;
+	let actual_registered = "";
+    if (
+        data.paid &&
+        data.parent_coc &&
+        data.student_coc &&
+        data.permission_form
+    ) {
+		actual_registered = "Complete";
+	} else {
+		actual_registered = "FormsPending";
+	}
+	console.log(actual_registered)
+	if (actual_registered != data.register_status && actual_registered.length > 0) {
+		await updateDoc(
+            doc(db, REGISTERED_DATA.collection, useStore().userdata.email),
+            {
+                registration_status: actual_registered,
+            }
+		)
+		useStore().register_status = actual_registered;
+		useStore().userdata.register_status = actual_registered;
+	}
+    switch (data.registration_status) {
+        case "NotRegistered":
+            useStore().register_status = "Not Registered";
+            return "Not Registered";
+        case "FormsPending":
+            useStore().register_status = "Forms Pending";
+            return "Forms Pending";
+        case "PendingTeamAssignment":
+            useStore().register_status = "Pending Team Assignment";
+            return "Pending Team Assignment";
+        case "Complete":
+            // only if it's complete do we set it to true
+            useStore().registered = true;
+            useStore().register_status = "Complete";
+            return "Complete";
+        default:
+            useStore().register_status = "Not Registered";
+            return "Not Registered";
+    }
     /*
     const user_data = await getDoc(
 		doc(db, REGISTERED_USERS.collection, REGISTERED_USERS.document)
@@ -172,25 +194,28 @@ export const register_user = async (u: RegistrationInformation) => {
         team_preference: u.team_preference,
         cad_skills: u.cad_skills,
         change_teams: u.change_teams,
-		change_reason: u.change_reason,
+        change_reason: u.change_reason,
         cad_fill_in: u.cad_fill_in,
         programming_skills: u.programming_skills,
         programming_fill_in: u.programming_fill_in,
         registration_status: "FormsPending",
+        paid: false,
         parent_coc: false,
         student_coc: false,
         permission_form: false,
         admin: false,
     });
-	const data = {
-		admin: false,
+    const data = {
+        admin: false,
         registration_status: "FormsPending",
         parent_coc: false,
         student_coc: false,
         permission_form: false,
-		...u
-	} as SavableUserData;
-	useStore().user_data = data;
+        paid: false,
+		notified: false,
+        ...u,
+    } as SavableUserData;
+    useStore().userdata = data;
 };
 
 // maybe store events by id + "|" + date string?
@@ -212,6 +237,64 @@ export const club_events = async (public_access: boolean): Promise<boolean> => {
     return true;
 };
 
+export const check_registration = async () => {
+    if (
+        useStore().userdata.paid &&
+        useStore().userdata.parent_coc &&
+        useStore().userdata.student_coc &&
+        useStore().userdata.permission_form
+    ) {
+        await updateDoc(
+            doc(db, REGISTERED_DATA.collection, useStore().userdata.email),
+            {
+                registration_status: "Complete",
+            }
+        );
+        useStore().userdata.registration_status = "Complete";
+		useStore().register_status = "Complete";
+		return true;
+    } else {
+		return false;
+	}
+};
+
+export const paid_for = async (email: string, status: boolean) => {
+    await updateDoc(doc(db, REGISTERED_DATA.collection, email), {
+        paid: status,
+    });
+    useStore().userdata.paid = status;
+	await check_registration();
+};
+export const parent_coc_complete = async (email: string, status: boolean) => {
+    await updateDoc(doc(db, REGISTERED_DATA.collection, email), {
+        parent_coc: status,
+    });
+    useStore().userdata.parent_coc = status;
+	await check_registration();
+};
+export const student_coc_complete = async (email: string, status: boolean) => {
+    await updateDoc(doc(db, REGISTERED_DATA.collection, email), {
+        student_coc: status,
+    });
+    useStore().userdata.student_coc = status;
+	await check_registration();
+};
+export const notified = async (email: string, status: boolean) => {
+    await updateDoc(doc(db, REGISTERED_DATA.collection, email), {
+        notified: status,
+    });
+    useStore().userdata.notified = status;
+};
+export const permission_form_complete = async (
+    email: string,
+    status: boolean
+) => {
+    await updateDoc(doc(db, REGISTERED_DATA.collection, email), {
+        permission_form: status,
+    });
+    useStore().userdata.permission_form = status;
+};
+
 const shop_schedule = async () => {};
 
 // also has payment
@@ -227,7 +310,7 @@ export const store_login = async (u: {
     useStore().auth = true;
     useStore().email = u.email;
     useStore().displayName = u.displayName;
-	// we overwrite display name if it's set in here
+    // we overwrite display name if it's set in here
     await is_registered(u.email);
 };
 

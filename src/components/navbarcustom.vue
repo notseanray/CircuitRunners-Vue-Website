@@ -216,7 +216,7 @@ export default {
                     } else {
                         // not logged in
                         if (this.first_reload) {
-                            this.first_reload = true;
+                            this.first_reload = false;
                             this.$router.push("/");
                         }
                         clear_login();
@@ -228,12 +228,14 @@ export default {
             }
         },
         displayName() {
-			let display_name = "";
-			if (useStore().userdata == null) {
-				display_name = useStore().displayName;
-			} else {
-				display_name = `${useStore().userdata.first_name} ${useStore().userdata.last_name}`;
-			}
+            let display_name = "";
+            if (useStore().userdata == null) {
+                display_name = useStore().displayName;
+            } else {
+                display_name = `${useStore().userdata.first_name} ${
+                    useStore().userdata.last_name
+                }`;
+            }
             // if there isn't a display name (happens when not signing up with google oauth),
             // show the email in the navbar
             if (display_name == null || !display_name) {
@@ -248,7 +250,7 @@ export default {
                 display_name = " " + display_name;
             }
             this.show_media = false;
-            return useStore().auth ? "Welcome" + display_name : "";
+            return useStore().auth ? "Welcome" + display_name + "!" : "";
         },
         toabout() {
             this.$router.push("/about");
