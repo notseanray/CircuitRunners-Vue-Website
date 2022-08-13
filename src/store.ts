@@ -15,6 +15,7 @@ export const useStore = defineStore("user", {
 	last_name: "",
 	teams: [],
 	userdata: null,
+	loaded: false,
 	fetched: false,
   }),
 });

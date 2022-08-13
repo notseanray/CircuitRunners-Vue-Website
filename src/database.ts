@@ -27,18 +27,18 @@ export enum RegistrationStatus {
 };
 
 export const is_registered = async (email: String): Promise<string> => {
+	useStore().loaded = true;
     const user_data = await getDoc(doc(db, REGISTERED_DATA.collection, email));
     if (!user_data) {
         return "Not Registered";
     }
     const data = user_data.data();
-	console.log(data)
 	if (!data) {
 		return "Not Registered";
 	}
+    useStore().fetched = true;
     useStore().userdata = JSON.parse(JSON.stringify(data)) as SavableUserData;
     useStore().admin = data.admin;
-    useStore().fetched = true;
     useStore().displayName = `${data.first_name} ${data.last_name}`;
 	let actual_registered = "";
     if (
@@ -307,6 +307,7 @@ export const store_login = async (u: {
     email: string;
     displayName: string;
 }) => {
+	useStore().loaded = true;
     useStore().auth = true;
     useStore().email = u.email;
     useStore().displayName = u.displayName;
@@ -315,6 +316,7 @@ export const store_login = async (u: {
 };
 
 export const clear_login = () => {
+	useStore().loaded = false;
     useStore().auth = false;
     useStore().register_status = "Not Registered";
     useStore().registered = false;
