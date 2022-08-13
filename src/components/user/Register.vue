@@ -637,6 +637,7 @@ export default {
                 parent_name: this.parent_name,
                 parent_email: this.parent_email,
                 grad_year: this.grad_year,
+                parent_phone: this.parent_phone,
                 previous_experience: this.previous_experience,
                 first_experience: this.first_experience,
                 team_preference: this.team_preference,
@@ -653,19 +654,26 @@ export default {
                 acknowledge: this.acknowledge,
                 accept_acknowledge: this.accept_acknowledge,
             };
-            localStorage.setItem("form_data", JSON.stringify(data));
+            const string_data = "data_tag:" + JSON.stringify(data);
+            localStorage.setItem(btoa("form_data"), btoa(string_data));
         },
         load_input() {
-            const data = localStorage.getItem("form_data");
+            const data = localStorage.getItem(btoa("form_data"));
             if (data && data.length > 0 && !this.already_loaded) {
                 try {
-                    const json: SavableFormData = JSON.parse(data);
+                    const string_data = localStorage.getItem(btoa("form_data"));
+                    const decoded = atob(string_data);
+                    if (!decoded.startsWith("data_tag:")) {
+                        localStorage.removeItem(btoa("form_data"));
+                        return;
+                    }
+                    const json: SavableFormData = JSON.parse(decoded.slice(9));
                     this.first_name = json.first_name;
                     this.last_name = json.last_name;
                     this.email = json.email;
                     this.password = json.password;
                     this.phone = json.phone;
-					this.parent_phone = json.parent_phone;
+                    this.parent_phone = json.parent_phone;
                     this.parent_name = json.parent_name;
                     this.parent_email = json.parent_email;
                     this.grad_year = json.grad_year;
@@ -687,7 +695,7 @@ export default {
                     this.acknowledge = json.acknowledge;
                     this.accept_acknowledge = json.accept_acknowledge;
                 } catch {
-                    localStorage.removeItem("form_data");
+                    localStorage.removeItem(btoa("form_data"));
                 }
             }
             this.already_loaded = true;
@@ -738,7 +746,7 @@ export default {
                         // no top level await
                         is_registered(user.email).then((_: any) => {
                             this.$router.push("/dashboard");
-                            localStorage.removeItem("form_data");
+                            localStorage.removeItem(btoa("form_data"));
                         });
                         // ...
                     })
@@ -749,7 +757,7 @@ export default {
                             // no top level await
                             is_registered(this.email).then((_: any) => {
                                 this.$router.push("/dashboard");
-                                localStorage.removeItem("form_data");
+                                localStorage.removeItem(btoa("form_data"));
                             });
                             return;
                         }
