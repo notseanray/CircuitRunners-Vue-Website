@@ -12,7 +12,6 @@
     "buffer": "^6.0.3",
     "firebase": "^9.9.0",
     "google-spreadsheet": "^3.3.0",
-    "magiccrypt": "^3.0.7",
     "pinia": "^2.0.16",
     "postcss-remove-declaration": "^1.0.0",
     "primeicons": "^5.0.0",
