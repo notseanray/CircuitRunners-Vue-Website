@@ -207,11 +207,9 @@ export default {
                         this.authed = true;
                         store_login(u);
                         // change page
-                        console.log(u.email);
                     } else if (u && useStore().auth && useStore().user_data) {
                         // already logged in
                         this.authed = true;
-                        console.log("already logged in");
                         store_login(u);
                     } else {
                         // not logged in
@@ -282,9 +280,7 @@ export default {
         },
         signout() {
             const auth = getAuth();
-            console.log("signed out");
             useStore().auth = false;
-            console.log(useStore().auth);
             signOut(auth).then(() => {
                 // set unlogged in store
                 this.$router.push("/");

@@ -11,21 +11,31 @@
                     <div class="text-[20px]">
                         <ul>
                             <li>
-                                Club dues are $250 and are required to
+                                Club dues are $250 and must be paid to
                                 participate. We use Paypal to pay for convience,
-                                however, any credit/debit card should be
-                                accepted.
+                                if you are unable to pay with this method please
+                                contact
+
+                                <a
+                                    class="text-green-300"
+                                    href="mailto:info@circuitrunners.com"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
+                                    info@circuitrunners.com </a
+                                >.
                             </li>
                             <li>
-                                Student and Parent Code of Conduct forms must be
-                                signed by both the student and parent to
-                                participate
+                                The Club Permission form, Student Code of
+                                Conduct, and Parent Code of Conduct forms must
+                                be signed by both the student and parent to
+                                participate.
                             </li>
                         </ul>
                     </div>
                     <div class="mt-4">
                         <div class="text-[15px]">
-                            I have read the information
+                            I have read this information:
                         </div>
                         <input
                             id="accept_acknowledge"
@@ -60,7 +70,11 @@
                 >
                     <div class="font-franklin">
                         <label for="first_name" class="text-[24px]"
-                            >First Name</label
+                            >Fields marked with  a * MUST be filled out to register.</label
+                        >
+						<br />
+                        <label for="first_name" class="text-[24px]"
+                            >First Name*</label
                         >
                         <div class="font-franklin">
                             <input
@@ -78,7 +92,7 @@
                     </div>
                     <div class="font-franklin">
                         <label for="last_name" class="text-[24px]"
-                            >Last Name</label
+                            >Last Name*</label
                         >
                         <div class="font-franklin">
                             <input
@@ -96,11 +110,13 @@
                     </div>
                     <div class="font-franklin">
                         <label for="email" class="text-[24px] font-franklin"
-                            >Email</label
+                            >Email*</label
                         >
-                        <div class="text-xl font-franklin">
-                            Preferably use your Wheeler High/Magnet email, or an
-                            email accessible from gmail.
+                        <div class="text-[15px] font-franklin mx-[10%]">
+                            Preferably use your Wheeler High/Magnet email. If
+                            this is unavailable any Google account will work.
+                            Once the club begins everyone will recieve their own
+                            club emails.
                         </div>
                         <div class="">
                             <div class="">
@@ -120,11 +136,13 @@
                     </div>
                     <div class="font-franklin">
                         <label for="password" class="text-[24px]"
-                            >Password</label
+                            >Password*</label
                         >
-                        <div class="text-[15px]">
+                        <div class="text-[15px] mx-[10%]">
                             Must be at least 8 long, contain 1 captial letter, 1
-                            lowercase, and 1 number.
+                            lowercase, and 1 number. Once this is set you can
+                            login either with either these credentials or
+                            through your Google account.
                         </div>
                         <div class="">
                             <input
@@ -140,7 +158,7 @@
                     </div>
                     <div class="font-franklin">
                         <label for="password" class="text-[24px]"
-                            >Parent Name</label
+                            >Parent Name*</label
                         >
                         <div class="">
                             <input
@@ -156,7 +174,7 @@
                     </div>
                     <div class="font-franklin">
                         <label for="password" class="text-[24px]"
-                            >Parent Phone Number</label
+                            >Parent Phone Number*</label
                         >
                         <div class="">
                             <input
@@ -172,7 +190,7 @@
                     </div>
                     <div class="font-franklin">
                         <label for="password" class="text-[24px]"
-                            >Parent Email</label
+                            >Parent Email*</label
                         >
                         <div class="">
                             <input
@@ -192,7 +210,7 @@
                         >
                         <div class="font-franklin">
                             <div class="text-[15px]">
-                                Leave blank if you don't have one.
+								If you do not have a phone number, leave this field blank. Otherwise format the number as 123-123-1234.
                             </div>
                             <div class="">
                                 <input
@@ -210,10 +228,10 @@
                     </div>
                     <div class="font-franklin">
                         <label for="grad_year" class="text-[24px]"
-                            >Graduation Year</label
+                            >Graduation Year*</label
                         >
                         <div class="text-[15px]">
-                            The year you are graduating High School.
+                            The year you are graduating/graduated High School.
                         </div>
                         <div class="">
                             <input
@@ -233,7 +251,7 @@
                             >Have you been in CR before?</label
                         >
                         <div class="text-[15px]">
-                            Returning members should check this.
+                            Only returning members should check this.
                         </div>
                         <div class="">
                             <input
@@ -254,7 +272,15 @@
                                 >Have you been in FIRST before?</label
                             >
                             <div class="text-[15px]">
-                                Please check if you've participated in FIRST
+                                Please check if you've participated in
+                    <a
+                        class="text-green-300"
+                        href="https://www.firstinspires.org/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+						FIRST
+                    </a>
                                 events before.
                             </div>
                             <div class="">
@@ -274,7 +300,7 @@
                             <label for="useful_skills" class="text-[24px]"
                                 >Team Preference</label
                             >
-                            <div class="text-[15px]">
+                            <div class="text-[15px] mx-[10%]">
                                 Please drag the teams in the order you wish to
                                 join, with the first position being the team you
                                 want to be placed in the most. These are
@@ -303,7 +329,7 @@
                             </div>
                         </div>
                         <div class="font-franklin">
-                            <label for="useful_skills" class="text-[30px]">
+                            <label for="useful_skills" class="text-[15px] mx-[10%]">
                                 For the following section rank each entry on a
                                 scale of 1-5, with 5 being experienced in and 1
                                 being inexperienced in.
@@ -473,12 +499,12 @@
                                         class="text-[24px]"
                                         >Team Preference</label
                                     >
-                                    <div class="text-[15px]">
+                                    <div class="text-[15px] mx-[10%]">
                                         Please drag the teams in the order you
                                         wish to join, with the first position
                                         being the team you want to be placed in
                                         the most. These are preferences and are
-                                        not guaranteed to be fufilled.
+                                        NOT guaranteed to be fufilled.
                                     </div>
                                     <div class="flex flex-row justify-center">
                                         <div>
@@ -506,7 +532,7 @@
                                         </div>
                                     </div>
                                     <div class="text-[15px]">
-                                        Please state a reason for the change
+                                        Why do you want to change teams?*
                                     </div>
                                     <input
                                         id="change_reason"
