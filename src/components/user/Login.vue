@@ -13,7 +13,11 @@
                     label="Sign In With Google"
                     v-on:click="signInWithGoogle"
                 />
-                <form class="grid text-center mx-[10%]" action="#" @submit.prevent="submit">
+                <form
+                    class="grid text-center mx-[10%]"
+                    action="#"
+                    @submit.prevent="submit"
+                >
                     <div class="">
                         <label for="email" class="text-[30px]">Email</label>
 
@@ -32,7 +36,9 @@
                     </div>
 
                     <div class="">
-                        <label for="password" class="text-[30px]">Password</label>
+                        <label for="password" class="text-[30px]"
+                            >Password</label
+                        >
 
                         <div class="">
                             <input

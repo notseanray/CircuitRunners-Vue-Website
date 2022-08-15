@@ -762,9 +762,6 @@ export default {
             }
             this.already_loaded = true;
         },
-        validate_input() {
-            console.log("test");
-        },
         accept_message() {
             this.save_input();
             this.acknowledge = true;
