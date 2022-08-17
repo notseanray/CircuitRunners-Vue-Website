@@ -25,7 +25,7 @@
                             <input
                                 id="email"
                                 type="email"
-                                class="bg-slate-300 text-[24px] w-11/12"
+                                class="bg-slate-900 text-[24px] w-11/12"
                                 name="email"
                                 value
                                 required
@@ -44,7 +44,7 @@
                             <input
                                 id="password"
                                 type="password"
-                                class="bg-slate-300 text-[24px] w-11/12"
+                                class="bg-slate-900 text-[24px] w-11/12"
                                 name="password"
                                 required
                                 v-model="password"
