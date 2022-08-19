@@ -114,7 +114,7 @@
     >
         <div class="q-pa-md q-gutter-sm">
             <div class="navbar">
-                <div class="container nav-container">
+                <div class="container nav-container mb-10">
                     <input
                         v-model="hamburger"
                         class="checkbox"
@@ -122,14 +122,10 @@
                         name=""
                         id=""
                     />
-                    <div class="p-2 rounded-sm">
-                        <div
-                            class="hamburger-lines bg-black border-slate-400"
-                        >
-                            <span class="line line1"></span>
-                            <span class="line line2"></span>
-                            <span class="line line3"></span>
-                        </div>
+                    <div class="hamburger-lines">
+                        <span class="line line1"></span>
+                        <span class="line line2"></span>
+                        <span class="line line3"></span>
                     </div>
                     <div class="menu-items font-bold">
                         <q-item clickable v-close-popup v-on:click="tohome">
@@ -229,8 +225,8 @@ export default {
     },
     methods: {
         onResize() {
-			const mobile = window.innerWidth < MOBILE_WIDTH;
-			useStore().mobile = mobile;
+            const mobile = window.innerWidth < MOBILE_WIDTH;
+            useStore().mobile = mobile;
             this.isMobile = mobile;
         },
         debounce(fn: Function, interval: number) {
@@ -400,6 +396,7 @@ export default {
 
 .nav-container .checkbox {
     position: absolute;
+    display: block;
     height: 32px;
     width: 32px;
     top: 20px;
@@ -409,7 +406,7 @@ export default {
     cursor: pointer;
 }
 
-.hamburger-lines {
+.nav-container .hamburger-lines {
     display: block;
     height: 26px;
     width: 32px;
