@@ -80,7 +80,7 @@
                             <input
                                 id="first_name"
                                 type="first_name"
-                                class="form-control bg-slate-500 w-4/12 h-8 text-[18px] min-w-[200px]"
+                                class="form-control bg-slate-500 w-4/12 h-8 text-sm min-w-[200px]"
                                 name="first_name"
                                 value
                                 required
@@ -98,7 +98,7 @@
                             <input
                                 id="last_name"
                                 type="last_name"
-                                class="form-control bg-slate-500 w-4/12 h-8 text-[18px] min-w-[200px]"
+                                class="form-control bg-slate-500 w-4/12 h-8 text-sm min-w-[200px]"
                                 name="last_name"
                                 value
                                 required
@@ -123,7 +123,7 @@
                                 <input
                                     id="email"
                                     type="email"
-                                    class="form-control bg-slate-500 w-4/12 h-8 text-[18px] min-w-[200px]"
+                                    class="form-control bg-slate-500 w-4/12 h-8 text-sm min-w-[200px]"
                                     name="email"
                                     value
                                     required
@@ -148,7 +148,7 @@
                             <input
                                 id="password"
                                 type="password"
-                                class="form-control bg-slate-500 w-4/12 h-8 text-[18px] min-w-[200px]"
+                                class="form-control bg-slate-500 w-4/12 h-8 text-sm min-w-[200px]"
                                 name="password"
                                 required
                                 v-on:keyup="save_input"
@@ -167,7 +167,7 @@
                             <input
                                 id="password2"
                                 type="password"
-                                class="form-control bg-slate-500 w-4/12 h-8 text-[18px] min-w-[200px]"
+                                class="form-control bg-slate-500 w-4/12 h-8 text-sm min-w-[200px]"
                                 name="password2"
                                 required
                                 v-model.trim="password2"
@@ -182,7 +182,7 @@
                             <input
                                 id="parent_name"
                                 type="parent_name"
-                                class="form-control bg-slate-500 w-4/12 h-8 text-[18px] min-w-[200px]"
+                                class="form-control bg-slate-500 w-4/12 h-8 text-sm min-w-[200px]"
                                 name="parent_name"
                                 required
                                 v-on:keyup="save_input"
@@ -202,7 +202,7 @@
                             <input
                                 id="parent_phone"
                                 type="parent_phone"
-                                class="form-control bg-slate-500 w-4/12 h-8 text-[18px] min-w-[200px]"
+                                class="form-control bg-slate-500 w-4/12 h-8 text-sm min-w-[200px]"
                                 name="parent_phone"
                                 required
                                 v-on:keyup="save_input"
@@ -218,7 +218,7 @@
                             <input
                                 id="parent_email"
                                 type="parent_email"
-                                class="form-control bg-slate-500 w-4/12 h-8 text-[18px] min-w-[200px]"
+                                class="form-control bg-slate-500 w-4/12 h-8 text-sm min-w-[200px]"
                                 name="parent_email"
                                 required
                                 v-on:keyup="save_input"
@@ -241,7 +241,7 @@
                                     id="phone"
                                     type="phone"
                                     v-on:keyup="save_input"
-                                    class="form-control bg-slate-500 w-4/12 h-8 text-[18px] min-w-[200px]"
+                                    class="form-control bg-slate-500 w-4/12 h-8 text-sm min-w-[200px]"
                                     name="phone"
                                     value
                                     autofocus
@@ -261,7 +261,7 @@
                             <input
                                 id="grad_year"
                                 type="grad_year"
-                                class="form-control bg-slate-500 w-3/12 h-8 text-[18px] min-w-[100px]"
+                                class="form-control bg-slate-500 w-3/12 h-8 text-sm min-w-[100px]"
                                 name="grad_year"
                                 v-on:keyup="save_input"
                                 value
@@ -281,7 +281,7 @@
                             <input
                                 id="previous_experience"
                                 type="checkbox"
-                                class="form-control bg-slate-500 w-4/12 h-8 text-[18px]"
+                                class="form-control bg-slate-500 w-4/12 h-8 text-sm"
                                 name="previous_experience"
                                 v-on:change="save_input"
                                 value
@@ -312,7 +312,7 @@
                                     id="first_experience"
                                     type="checkbox"
                                     v-on:change="save_input"
-                                    class="form-control bg-slate-500 w-4/12 h-8 text-[18px]"
+                                    class="form-control bg-slate-500 w-4/12 h-8 text-sm"
                                     name="first_experience"
                                     value
                                     autofocus
@@ -371,7 +371,7 @@
                                 v-for="e in cad_skills"
                                 :key="e.name"
                             >
-                                <div class="text-[18px] mt-2">
+                                <div class="text-sm mt-2">
                                     <div class="grid grid-cols-2">
                                         {{ e.name }}
                                         <input
@@ -402,7 +402,7 @@
                             <br />
                             <label
                                 for="useful_skills"
-                                class="text-[18px] mx-[10%]"
+                                class="text-sm mx-[10%]"
                                 >If you have any additional CAD experience you
                                 would like to mention please list it here</label
                             >
@@ -442,7 +442,7 @@
                                 v-for="e in programming_skills"
                                 :key="e.name"
                             >
-                                <div class="text-[18px] mt-2">
+                                <div class="text-sm mt-2">
                                     <div class="grid grid-cols-2">
                                         {{ e.name }}
                                         <input
@@ -473,7 +473,7 @@
                             <br />
                             <label
                                 for="useful_skills"
-                                class="text-[18px] mx-[10%]"
+                                class="text-sm mx-[10%]"
                                 >Please fill in here if you have any additional
                                 programming experience you would like to
                                 mention</label
@@ -482,7 +482,7 @@
                             <input
                                 id="programming_fill_in"
                                 type="programming_fill_in"
-                                class="form-control bg-slate-500 w-8/12 h-8 text-[18px]"
+                                class="form-control bg-slate-500 w-8/12 h-8 text-sm"
                                 name="programming_fill_in"
                                 value
                                 autofocus
@@ -520,7 +520,7 @@
                                     id="change_teams"
                                     type="checkbox"
                                     v-on:change="save_input"
-                                    class="form-control bg-slate-500 w-8/12 h-8 text-[18px]"
+                                    class="form-control bg-slate-500 w-8/12 h-8 text-sm"
                                     name="change_teams"
                                     value
                                     autofocus
@@ -572,7 +572,7 @@
                                     <input
                                         id="change_reason"
                                         type="change_reason"
-                                        class="form-control bg-slate-500 w-8/12 h-8 text-[18px]"
+                                        class="form-control bg-slate-500 w-8/12 h-8 text-sm"
                                         name="password"
                                         required
                                         v-on:keyup="save_input"

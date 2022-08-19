@@ -14,7 +14,7 @@
                     v-on:click="signInWithGoogle"
                 />
                 <form
-                    class="grid text-center mx-[10%]"
+                    class="grid text-center mx-[5%]"
                     action="#"
                     @submit.prevent="submit"
                 >
@@ -68,7 +68,7 @@
                         </div>
                     </div>
                 </form>
-                Don't have an account?
+                <div class="text-sm">Don't have an account?</div>
                 <q-btn
                     class="mx-[10%]"
                     color="primary"
@@ -77,6 +77,7 @@
                     v-on:click="toRegister"
                 />
             </h2>
+            <div class="pb-48" />
         </div>
         <FooterComp class="fixed bottom-0 w-screen" />
     </div>

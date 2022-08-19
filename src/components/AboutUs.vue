@@ -4,7 +4,7 @@
         <div class="flex flex-center containerwrap">
             <h1 class="text-bold mt-8 mb-6">About Us</h1>
             <h2
-                class="mx-[400px] font-franklin p-3 border-4 bg-black top-20 text-lg rounded-lg"
+                class="mx-[15%] font-franklin p-3 border-4 bg-black top-20 text-lg rounded-lg"
             >
                 CircuitRunners Robotics is a nonprofit robotics organization at
                 Wheeler High School in Marietta, Georgia. While we compete as
@@ -24,42 +24,39 @@
                 of experience under our belt, we are not finished yet – we aim
                 to keep shooting higher and higher!
             </h2>
-            <h2 class="container text-center mt-5">Executive Leadership</h2>
+            <h2 class="container text-center mt-5 mb-5">Executive Leadership</h2>
             <div
-                class="flex mx-[25%] divide-black flex-row justify-evenly my-10"
+                class="flex mx-[20%] divide-black flex-row justify-evenly my-10 text-[10px]"
             >
-                <div class="text-center flex flex-col rounded-lg">
+                <div class="text-center flex flex-col rounded-lg p-2">
                     Executive Director – Graeme Flaherty
                     <img
                         src="../assets/graeme.jpg"
                         class="mt-4 w-[150px] self-center borderw rounded-lg"
                     />
                 </div>
-                <div class="text-center flex flex-col">
+                <div class="text-center flex flex-col p-2">
                     Director of Operations – Cody Goh
                     <img
                         src="../assets/mrgoh.png"
                         class="mt-4 w-[150px] self-center borderw rounded-lg"
                     />
                 </div>
-            </div>
-
-            <div class="flex w-1/2 justify-evenly divide-black flex-row mb-10">
-                <div class="text-center flex flex-col">
+                <div class="text-center flex flex-col p-2">
                     Director of Fundraising – Declan Amerault
                     <img
                         src="../assets/dez.png"
                         class="mt-4 w-[150px] self-center borderw rounded-lg"
                     />
                 </div>
-                <div class="text-center flex flex-col">
+                <div class="text-center flex flex-col p-2">
                     Director of Outreach – Paloma Carignano
                     <img
                         src="../assets/paloma.png"
                         class="mt-4 w-[150px] borderw self-center rounded-lg"
                     />
                 </div>
-                <div class="text-center flex flex-col">
+                <div class="text-center flex flex-col p-2">
                     Director of Marketing – Saahas Swaroop
                     <img
                         src="../assets/SAAAAAAAAAAAHAAAAAAAAAAAAS.png"
@@ -69,7 +66,7 @@
             </div>
             <h2 class="container text-center mt-5">History</h2>
             <h2
-                class="my-8 mx-[400px] font-franklin p-3 border-4 bg-black top-20 text-lg rounded-lg"
+                class="my-8 mx-[15%] font-franklin p-3 border-4 bg-black top-20 text-lg rounded-lg"
             >
                 In 2002, CircuitRunners Robotics joined the robotics community
                 with a mission of giving high school students the best hands-on

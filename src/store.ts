@@ -17,5 +17,6 @@ export const useStore = defineStore("user", {
 	userdata: null,
 	loaded: false,
 	fetched: false,
+	mobile: false,
   }),
 });
