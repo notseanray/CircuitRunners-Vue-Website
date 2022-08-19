@@ -1,5 +1,5 @@
 <template>
-    <div v-if="!mobile">
+    <div v-if="!mobile" class="overflow-x-hidden">
         <footer>
             <div class="bottom-0 text-center w-screen p-5 bg-[#131314] z-10">
                 <span className="copyright"
