@@ -82,6 +82,15 @@
             </div>
             <h1 class="text-sm text-bold">{{ displayName() }}</h1>
             <div v-if="authed">
+                <div v-if="this.admin" class="inline mx-2">
+                    <q-btn
+                        class=""
+                        color="primary"
+                        text-color="black"
+                        label="data"
+                        v-on:click="dataview"
+                    />
+                </div>
                 <q-btn
                     class="mx-2"
                     color="primary"
@@ -172,6 +181,17 @@
                                     >SIGNOUT</q-item-section
                                 >
                             </q-item>
+                            <div v-if="this.admin && this.authed">
+                                <q-item
+                                    clickable
+                                    v-close-popup
+                                    v-on:click="dataview"
+                                >
+                                    <q-item-section text-color="black"
+                                        >VIEW DATA</q-item-section
+                                    >
+                                </q-item>
+                            </div>
                         </div>
                         <div v-else>
                             <q-item
@@ -208,6 +228,7 @@ export default {
     data() {
         return {
             authed: useStore().auth,
+            admin: false,
             show_media: true,
             isMobile: screen.width < MOBILE_WIDTH,
             first_reload: false,
@@ -242,16 +263,33 @@ export default {
             if (!useStore().auth && !useStore().user_data) {
                 const auth = getAuth();
                 auth.onAuthStateChanged((u) => {
+                    const updateAdmin = () => {
+                        let counter = 0;
+                        const interval = setInterval(() => {
+                            if (
+                                useStore().userdata &&
+                                useStore().userdata.admin
+                            ) {
+                                clearInterval(interval);
+                                this.admin = true;
+                            }
+                            if (counter > 10) {
+                                clearInterval(interval);
+                            }
+                            counter++;
+                        }, 100);
+                    };
                     if (u && !useStore().auth) {
                         // wasn't logged in, is now
                         useStore().user_data = false;
                         this.authed = true;
                         store_login(u);
-                        // change page
+                        updateAdmin();
                     } else if (u && useStore().auth && useStore().user_data) {
                         // already logged in
                         this.authed = true;
                         store_login(u);
+                        updateAdmin();
                     } else {
                         // not logged in
                         if (this.first_reload) {
@@ -324,6 +362,9 @@ export default {
         },
         dashboard() {
             this.$router.push("/dashboard");
+        },
+        dataview() {
+            this.$router.push("/data");
         },
         signout() {
             this.hamburger = false;

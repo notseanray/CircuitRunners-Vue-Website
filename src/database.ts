@@ -14,7 +14,7 @@ import {
 import { db } from "./router/index";
 import { RegistrationInformation, SavableUserData } from "./types";
 
-const REGISTERED_DATA = {
+export const REGISTERED_DATA = {
     collection: "registration_data",
     document: "zxP7Hu8DuuKZXOHXeU2o",
 };
@@ -36,7 +36,6 @@ export const is_registered = async (email: String): Promise<string> => {
     if (!data) {
         return "Not Registered";
     }
-    useStore().fetched = true;
     useStore().userdata = JSON.parse(JSON.stringify(data)) as SavableUserData;
     useStore().admin = data.admin;
     useStore().displayName = `${data.first_name} ${data.last_name}`;
@@ -64,6 +63,7 @@ export const is_registered = async (email: String): Promise<string> => {
         useStore().register_status = actual_registered;
         useStore().userdata.register_status = actual_registered;
     }
+    useStore().fetched = true;
     switch (data.registration_status) {
         case "NotRegistered":
             useStore().register_status = "Not Registered";
@@ -319,12 +319,12 @@ export const store_login = async (u: {
     email: string;
     displayName: string;
 }) => {
+    await is_registered(u.email);
     useStore().loaded = true;
     useStore().auth = true;
     useStore().email = u.email;
     useStore().displayName = u.displayName;
     // we overwrite display name if it's set in here
-    await is_registered(u.email);
 };
 
 export const clear_login = () => {
@@ -334,4 +334,19 @@ export const clear_login = () => {
     useStore().registered = false;
     useStore().email = "";
     useStore().displayName = "";
+};
+
+export const checkPage = (admin: boolean, execute: Function) => {
+	let counter = 0;
+    const checker = setInterval(() => {
+		if (useStore().fetched && (admin && useStore().admin || !admin && useStore().auth)) {
+			clearInterval(checker);
+			return;
+		}
+		if (useStore().fetched || counter > 20) {
+			clearInterval(checker);
+			execute();
+		}
+		counter++;
+	}, 100);
 };

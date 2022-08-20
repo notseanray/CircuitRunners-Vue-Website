@@ -615,11 +615,15 @@ import {
 import { VueDraggableNext } from "vue-draggable-next";
 import { useStore } from "../../store";
 import { is_registered, register_user, store_login } from "../../database";
+import ls from 'localstorage-slim';
+
 const TEAMS = [
     { name: "FRC1002", order: 1 },
     { name: "FTC1002", order: 2 },
     { name: "FTC11347", order: 3 },
 ];
+
+const FORM_TTL = 172800;
 // we can add more teams here if needed
 export default {
     data() {
@@ -717,19 +721,17 @@ export default {
                 accept_acknowledge: this.accept_acknowledge,
             };
             const string_data = "data_tag:" + JSON.stringify(data);
-            localStorage.setItem(btoa("form_data"), btoa(string_data));
+            ls.set("form_data", string_data, { encrypt: true, ttl: FORM_TTL });
         },
         load_input() {
-            const data = localStorage.getItem(btoa("form_data"));
-            if (data && data.length > 0 && !this.already_loaded) {
+            const data = ls.get("form_data", { decrypt: true });
+            if (data && data.toString().length > 0 && !this.already_loaded) {
                 try {
-                    const string_data = localStorage.getItem(btoa("form_data"));
-                    const decoded = atob(string_data);
-                    if (!decoded.startsWith("data_tag:")) {
-                        localStorage.removeItem(btoa("form_data"));
+                    if (!data.toString().startsWith("data_tag:")) {
+                        ls.remove("form_data");
                         return;
                     }
-                    const json: SavableFormData = JSON.parse(decoded.slice(9));
+                    const json: SavableFormData = JSON.parse(data.slice(9));
                     this.first_name = json.first_name;
                     this.last_name = json.last_name;
                     this.email = json.email;
@@ -757,7 +759,7 @@ export default {
                     this.acknowledge = json.acknowledge;
                     this.accept_acknowledge = json.accept_acknowledge;
                 } catch {
-                    localStorage.removeItem(btoa("form_data"));
+                    ls.remove("form_data");
                 }
             }
             this.already_loaded = true;
@@ -810,7 +812,7 @@ export default {
                         // no top level await
                         is_registered(user.email).then((_: any) => {
                             this.$router.push("/dashboard");
-                            localStorage.removeItem(btoa("form_data"));
+                            ls.remove(btoa("form_data"));
                         });
                         // ...
                     })
@@ -821,7 +823,7 @@ export default {
                             // no top level await
                             is_registered(this.email).then((_: any) => {
                                 this.$router.push("/dashboard");
-                                localStorage.removeItem(btoa("form_data"));
+                                ls.remove(btoa("form_data"));
                             });
                             return;
                         }
