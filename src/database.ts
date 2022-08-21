@@ -343,7 +343,7 @@ export const checkPage = (admin: boolean, execute: Function) => {
 			clearInterval(checker);
 			return;
 		}
-		if (useStore().fetched || counter > 50) {
+		if (counter > 50) {
 			clearInterval(checker);
 			execute();
 		}
