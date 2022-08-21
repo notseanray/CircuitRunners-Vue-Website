@@ -350,7 +350,7 @@ export const checkPage = (admin: boolean, execute: Function) => {
         }
         if (counter > 50) {
             clearInterval(checker);
-            //execute();
+            execute();
         }
         counter++;
     }, 100);
