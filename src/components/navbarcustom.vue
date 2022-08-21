@@ -312,6 +312,7 @@ export default {
                 display_name = `${useStore().userdata.first_name} ${
                     useStore().userdata.last_name
                 }`;
+				this.admin = useStore().userdata.admin;
             }
             // if there isn't a display name (happens when not signing up with google oauth),
             // show the email in the navbar

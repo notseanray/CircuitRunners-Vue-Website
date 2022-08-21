@@ -812,7 +812,7 @@ export default {
                         // no top level await
                         is_registered(user.email).then((_: any) => {
                             this.$router.push("/dashboard");
-                            ls.remove(btoa("form_data"));
+                            ls.remove("form_data");
                         });
                         // ...
                     })
@@ -823,12 +823,14 @@ export default {
                             // no top level await
                             is_registered(this.email).then((_: any) => {
                                 this.$router.push("/dashboard");
-                                ls.remove(btoa("form_data"));
+                                ls.remove("form_data");
                             });
+							this.$router.push("/dashboard");
                             return;
-                        }
-                        this.message =
-                            "Unable to create account, do you already have one? Please contact club staff.";
+                        } else {
+							this.message =
+								"Unable to create account, do you already have one? Please contact club staff.";
+						}
                     });
             }
         },
