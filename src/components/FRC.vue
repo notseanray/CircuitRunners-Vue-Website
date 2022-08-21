@@ -112,9 +112,7 @@ export default {
         gotoabout() {
             this.$router.push("/about");
         },
-        update() {
-            console.log(this.current);
-        },
+        update() {},
         onResize() {
             this.isMobile = window.innerWidth < 600;
         },

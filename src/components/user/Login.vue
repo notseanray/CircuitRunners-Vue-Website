@@ -2,26 +2,30 @@
     <div class="">
         <navbarcustom />
         <div class="titlecontainer">
-            <h1 class="">Login</h1>
+            <h1 class="text-[30px]">Login</h1>
             <h2
-                class="grid gap-[20px] text-center mx-[400px] p-3 border-4 bg-black relative top-10 text-medium"
+                class="grid gap-[20px] text-center mx-[10%] p-3 border-4 bg-black relative top-10"
             >
                 <q-btn
-                    class="mx-[100px]"
+                    class="mx-[10%]"
                     color="primary"
                     text-color="black"
                     label="Sign In With Google"
                     v-on:click="signInWithGoogle"
                 />
-                <form class="grid gap-0" action="#" @submit.prevent="submit">
+                <form
+                    class="grid text-center mx-[5%]"
+                    action="#"
+                    @submit.prevent="submit"
+                >
                     <div class="">
-                        <label for="email" class="text-3xl">Email</label>
+                        <label for="email" class="text-[30px]">Email</label>
 
                         <div class="">
                             <input
                                 id="email"
                                 type="email"
-                                class="form-control bg-slate-300"
+                                class="bg-slate-900 text-[24px] w-11/12"
                                 name="email"
                                 value
                                 required
@@ -32,13 +36,15 @@
                     </div>
 
                     <div class="">
-                        <label for="password" class="text-3xl">Password</label>
+                        <label for="password" class="text-[30px]"
+                            >Password</label
+                        >
 
                         <div class="">
                             <input
                                 id="password"
                                 type="password"
-                                class="form-control bg-slate-300"
+                                class="bg-slate-900 text-[24px] w-11/12"
                                 name="password"
                                 required
                                 v-model="password"
@@ -62,15 +68,16 @@
                         </div>
                     </div>
                 </form>
-                Don't have an account?
+                <div class="text-sm">Don't have an account?</div>
                 <q-btn
-                    class="mx-[100px]"
+                    class="mx-[10%]"
                     color="primary"
                     text-color="black"
                     label="register"
                     v-on:click="toRegister"
                 />
             </h2>
+            <div class="pb-48" />
         </div>
         <FooterComp class="fixed bottom-0 w-screen" />
     </div>
@@ -152,17 +159,3 @@ export default {
     },
 };
 </script>
-
-<style>
-.titlecontainer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    max-width: 600px;
-}
-
-.border {
-    border: 3px solid white;
-}
-</style>
