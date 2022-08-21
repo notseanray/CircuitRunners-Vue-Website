@@ -273,7 +273,7 @@ export default {
                                 clearInterval(interval);
                                 this.admin = true;
                             }
-                            if (counter > 10) {
+                            if (counter > 50) {
                                 clearInterval(interval);
                             }
                             counter++;

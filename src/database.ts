@@ -337,16 +337,21 @@ export const clear_login = () => {
 };
 
 export const checkPage = (admin: boolean, execute: Function) => {
-	let counter = 0;
+    let counter = 0;
     const checker = setInterval(() => {
-		if (useStore().fetched && (admin && useStore().admin || !admin && useStore().auth)) {
-			clearInterval(checker);
-			return;
-		}
-		if (counter > 50) {
-			clearInterval(checker);
-			execute();
-		}
-		counter++;
-	}, 100);
+        if (
+            useStore().fetched &&
+            ((admin && useStore().admin) ||
+                (!admin && useStore().auth) ||
+                (!admin && useStore().userdata))
+        ) {
+            clearInterval(checker);
+            return;
+        }
+        if (counter > 50) {
+            clearInterval(checker);
+            //execute();
+        }
+        counter++;
+    }, 100);
 };
