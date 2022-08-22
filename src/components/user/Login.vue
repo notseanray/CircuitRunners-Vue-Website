@@ -95,6 +95,7 @@ import {
     browserLocalPersistence,
 } from "firebase/auth";
 import { useStore } from "../../store";
+import { store_login } from "../../database";
 export default {
     data() {
         return {
@@ -127,6 +128,7 @@ export default {
                     // The signed-in user info.
                     const user = result.user;
                     const userData = useStore();
+                    store_login(user);
                     userData.auth = true;
                     userData.email = user.email;
                     userData.displayName = user.displayName;
@@ -146,6 +148,7 @@ export default {
                     // Signed in
                     const user = userCredential.user;
                     const userData = useStore();
+                    store_login(user);
                     userData.auth = true;
                     userData.email = user.email;
                     userData.displayName = user.displayName;
