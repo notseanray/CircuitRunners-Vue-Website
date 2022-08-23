@@ -788,7 +788,7 @@ export default {
                 programming_skills: this.programming_skills,
                 cad_fill_in: this.cad_fill_in,
                 programming_fill_in: this.programming_fill_in,
-                team_change_reason: this.change_reason,
+                change_reason: this.change_reason,
             };
             if (this.password != this.password2) {
                 this.message =

@@ -127,8 +127,8 @@ export default {
                     // token const _ = credential.accessToken;
                     // The signed-in user info.
                     const user = result.user;
-                    const userData = useStore();
                     store_login(user);
+                    const userData = useStore();
                     userData.auth = true;
                     userData.email = user.email;
                     userData.displayName = user.displayName;
@@ -147,8 +147,8 @@ export default {
                     this.message = "";
                     // Signed in
                     const user = userCredential.user;
-                    const userData = useStore();
                     store_login(user);
+                    const userData = useStore();
                     userData.auth = true;
                     userData.email = user.email;
                     userData.displayName = user.displayName;
