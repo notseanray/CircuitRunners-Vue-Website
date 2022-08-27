@@ -1,10 +1,21 @@
-# cr-cad-test
+# CircuitRunners Website (Vue)
 
-This template should help get you started developing with Vue 3 in Vite.
+## New Developer Quickstart
+
+- Use Github Desktop or Clone the Repo.
+- CD into your directory
+- Run `npm run dev` or `yarn dev` (if you have yarn installed)
+
+Required Software / Programs:
+- [NodeJS (NPM) ](https://nodejs.dev/en/download) - Recommended Addon: [Yarn](https://yarnpkg.com/getting-started/install)
+
+
+---
 
 ## Recommended IDE Setup
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.vscode-typescript-vue-plugin).
+- Editor: [VSCode](https://code.visualstudio.com/)
+- Extension/s: [Volar](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.vscode-typescript-vue-plugin).
 
 ## Customize configuration
 
@@ -27,3 +38,5 @@ npm run dev
 ```sh
 npm run build
 ```
+
+---
