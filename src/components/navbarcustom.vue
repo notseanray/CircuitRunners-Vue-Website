@@ -1,9 +1,12 @@
 <template>
+    <div v-if="!isMobile">
+        <img class="top-5 absolute w-screen h-20" src="../assets/logo.svg" /></div>
     <div
         v-if="!isMobile"
         class="flex flex-center justify-between border-b-[.5px] bg-black border-[#20d54d]"
     >
         {{ relogin() }}
+        
         <div class="q-pa-md q-gutter-sm">
             <q-btn class="mr-10" round v-on:click="tohome">
                 <q-icon size="81px">
@@ -46,7 +49,6 @@
                 </q-menu>
             </q-btn>
         </div>
-        <img class="h-20" src="../assets/logo.svg" />
 
         <div class="flex flex-center q-gutter-md mr-10">
             <div v-if="!authed">
