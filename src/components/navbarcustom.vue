@@ -1,12 +1,13 @@
 <template>
     <div v-if="!isMobile">
-        <img class="top-5 absolute w-screen h-20" src="../assets/logo.svg" /></div>
+        <img class="top-5 absolute w-screen h-20" src="../assets/logo.svg" />
+    </div>
     <div
         v-if="!isMobile"
         class="flex flex-center justify-between border-b-[.5px] bg-black border-[#20d54d]"
     >
         {{ relogin() }}
-        
+
         <div class="q-pa-md q-gutter-sm">
             <q-btn class="mr-10" round v-on:click="tohome">
                 <q-icon size="81px">
@@ -314,7 +315,7 @@ export default {
                 display_name = `${useStore().userdata.first_name} ${
                     useStore().userdata.last_name
                 }`;
-				this.admin = useStore().userdata.admin;
+                this.admin = useStore().userdata.admin;
             }
             // if there isn't a display name (happens when not signing up with google oauth),
             // show the email in the navbar
@@ -370,12 +371,15 @@ export default {
             this.$router.push("/data");
         },
         signout() {
-            this.hamburger = false;
             const auth = getAuth();
-            useStore().auth = false;
             signOut(auth).then(() => {
-                // set unlogged in store
-                this.$router.push("/");
+                useStore().auth = false;
+                this.hamburger = false;
+                if (this.$route.name == "/") {
+                    window.location.reload();
+                } else {
+                    this.$router.push("/");
+                }
             });
         },
         twitter() {

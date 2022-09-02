@@ -30,10 +30,12 @@ export const is_registered = async (email: String): Promise<string> => {
     useStore().loaded = true;
     const user_data = await getDoc(doc(db, REGISTERED_DATA.collection, email));
     if (!user_data) {
+		useStore().fetched = true;
         return "Not Registered";
     }
     const data = user_data.data();
     if (!data) {
+		useStore().fetched = true;
         return "Not Registered";
     }
     useStore().userdata = JSON.parse(JSON.stringify(data)) as SavableUserData;
@@ -339,8 +341,9 @@ export const clear_login = () => {
 export const checkPage = (admin: boolean, execute: Function) => {
     let counter = 0;
     const checker = setInterval(() => {
+		const fetched = useStore().fetched;
         if (
-            useStore().fetched &&
+            fetched &&
             ((admin && useStore().admin) ||
                 (!admin && useStore().auth) ||
                 (!admin && useStore().userdata))
@@ -348,7 +351,11 @@ export const checkPage = (admin: boolean, execute: Function) => {
             clearInterval(checker);
             return;
         }
-        if (counter > 20 && !useStore().loaded) {
+		if (fetched) {
+            clearInterval(checker);
+            execute();
+		}
+        if (counter > 30 && !fetched) {
             clearInterval(checker);
             execute();
         }
