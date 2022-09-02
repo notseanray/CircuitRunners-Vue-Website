@@ -104,6 +104,17 @@ export default {
             message: "",
         };
     },
+	mounted() {
+        checkPage(true, () => {
+            this.$router.push("/login");
+        });
+        const checkUpdated = setInterval(() => {
+            if (useStore().fetched) {
+                this.auth = useStore().auth;
+                clearInterval(checkUpdated);
+            }
+        }, 200);
+	},
     components: {
         FooterComp: FooterComp,
         navbarcustom: navbarcustom,
