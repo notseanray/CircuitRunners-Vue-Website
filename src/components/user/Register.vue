@@ -772,7 +772,7 @@ export default {
             const info = {
                 first_name: this.first_name,
                 last_name: this.last_name,
-                email: this.email,
+                email: this.email.toLowerCase(),
                 password: this.password,
                 phone: this.phone,
                 grad_year: this.grad_year,
