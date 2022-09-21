@@ -95,7 +95,7 @@ import {
     browserLocalPersistence,
 } from "firebase/auth";
 import { useStore } from "../../store";
-import { store_login } from "../../database";
+import { store_login, checkPage } from "../../database";
 export default {
     data() {
         return {

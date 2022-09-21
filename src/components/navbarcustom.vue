@@ -85,7 +85,7 @@
             </div>
             <h1 class="text-sm text-bold">{{ displayName() }}</h1>
             <div v-if="authed">
-                <div v-if="this.admin" class="inline mx-2">
+                <div v-if="admin" class="inline mx-2">
                     <q-btn
                         class=""
                         color="primary"
@@ -165,7 +165,7 @@
                                 >FTC 11347</q-item-section
                             >
                         </q-item>
-                        <div v-if="this.authed">
+                        <div v-if="authed">
                             <q-item
                                 clickable
                                 v-close-popup
@@ -184,7 +184,7 @@
                                     >SIGNOUT</q-item-section
                                 >
                             </q-item>
-                            <div v-if="this.admin && this.authed">
+                            <div v-if="admin && authed">
                                 <q-item
                                     clickable
                                     v-close-popup
