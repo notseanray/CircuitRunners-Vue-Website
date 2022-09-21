@@ -341,9 +341,8 @@ export const clear_login = () => {
 export const checkPage = (admin: boolean, execute: Function) => {
     let counter = 0;
     const checker = setInterval(() => {
-		const fetched = useStore().fetched;
         if (
-            fetched &&
+            useStore().fetched &&
             ((admin && useStore().admin) ||
                 (!admin && useStore().auth) ||
                 (!admin && useStore().userdata))
@@ -351,11 +350,11 @@ export const checkPage = (admin: boolean, execute: Function) => {
             clearInterval(checker);
             return;
         }
-		if (fetched) {
+		if (useStore().fetched && !useStore().auth) {
             clearInterval(checker);
             execute();
 		}
-        if (counter > 30 && !fetched) {
+        if (counter > 30 && !useStore().fetched && !useStore().auth) {
             clearInterval(checker);
             execute();
         }
