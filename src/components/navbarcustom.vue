@@ -49,6 +49,15 @@
                     </q-list>
                 </q-menu>
             </q-btn>
+
+            <q-btn
+                color="primary"
+                size="small"
+                text-color="black"
+                label="Sponsors"
+                v-on:click="tosponsors"
+            />
+
         </div>
 
         <div class="flex flex-center q-gutter-md mr-10">
@@ -148,6 +157,11 @@
                         <q-item clickable v-close-popup v-on:click="toabout">
                             <q-item-section text-color="black"
                                 >ABOUT US</q-item-section
+                            >
+                        </q-item>
+                        <q-item clickable v-close-popup v-on:click="tosponsors">
+                            <q-item-section text-color="black"
+                                >SPONSORS</q-item-section
                             >
                         </q-item>
                         <q-item clickable v-close-popup v-on:click="toFRC">
@@ -336,6 +350,10 @@ export default {
         toabout() {
             this.hamburger = false;
             this.$router.push("/about");
+        },
+        tosponsors() {
+            this.hamburger = false;
+            this.$router.push("/sponsors");
         },
         tohome() {
             this.hamburger = false;
