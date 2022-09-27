@@ -1,8 +1,7 @@
 <template>
     <div v-if="!isMobile" class="nooverflow">
-        <navbarcustom />
         <div class="flex flex-center containerwrap">
-            <h1 class="text-bold mt-8 mb-6">About Us</h1>
+            <h1 class="text-bold mt-8 mb-6 text-6xl">About Us</h1>
             <h2
                 class="mx-[15%] font-franklin p-3 border-4 bg-black top-20 text-lg rounded-lg"
             >
@@ -79,11 +78,9 @@
             </h2>
         </div>
 
-        <FooterComp />
     </div>
 
     <div v-else class="nooverflow">
-        <navbarcustom />
         <div class="flex flex-center containerwrap">
             <h1 class="text-bold text-4xl mt-8 mb-6">About Us</h1>
             <h2 class="font-franklin p-3 border-4 bg-black top-20 text-lg">
@@ -159,23 +156,15 @@
             </h2>
         </div>
 
-        <FooterComp />
     </div>
 </template>
 
 <script>
-import FooterComp from "./FooterComp.vue";
-import navbarcustom from "./navbarcustom.vue";
 export default {
     data() {
         return {
             isMobile: false,
         };
-    },
-
-    components: {
-        FooterComp: FooterComp,
-        navbarcustom: navbarcustom,
     },
     mounted() {
         this.onResize();

@@ -1,6 +1,5 @@
 <template>
     <div class="">
-        <navbarcustom />
         <div class="titlecontainer">
             <h1 class="text-[30px]">Login</h1>
             <h2
@@ -79,13 +78,10 @@
             </h2>
             <div class="pb-48" />
         </div>
-        <FooterComp class="fixed bottom-0 w-screen" />
     </div>
 </template>
 
 <script>
-import FooterComp from "../FooterComp.vue";
-import navbarcustom from "../navbarcustom.vue";
 import {
     getAuth,
     signInWithEmailAndPassword,
@@ -115,10 +111,6 @@ export default {
             }
         }, 200);
 	},
-    components: {
-        FooterComp: FooterComp,
-        navbarcustom: navbarcustom,
-    },
     methods: {
         toLogin() {
             this.$router.push("/login");

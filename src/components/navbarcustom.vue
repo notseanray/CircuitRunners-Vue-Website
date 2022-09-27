@@ -1,6 +1,6 @@
 <template>
     <div v-if="!isMobile">
-        <img class="top-5 absolute w-screen h-20" src="../assets/logo.svg" />
+        <img class="top-5 absolute w-screen h-20 pb-5" src="../assets/logo.svg" />
     </div>
     <div
         v-if="!isMobile"
@@ -239,7 +239,7 @@ import { getAuth, signOut } from "firebase/auth";
 import { store_login, clear_login } from "../database";
 import { useStore } from "../store";
 
-export const MOBILE_WIDTH = 1600;
+export const MOBILE_WIDTH = 1700;
 
 export default {
     data() {

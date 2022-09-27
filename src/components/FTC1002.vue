@@ -1,9 +1,8 @@
 <template>
     <div class="nooverflow">
-        <navbarcustom />
 
         <div class="titlecontainer">
-            <h1 v-if="!isMobile" class="mt-6 font-roboto text-bold">
+            <h1 v-if="!isMobile" class="mt-8 text-6xl font-roboto text-bold">
                 FTC 1002
             </h1>
 
@@ -90,8 +89,6 @@
 </template>
 
 <script>
-import FooterComp from "./FooterComp.vue";
-import navbarcustom from "./navbarcustom.vue";
 
 import { ref } from "vue";
 import.meta.hot;
@@ -106,11 +103,6 @@ export default {
         return {
             current: ref(2022),
         };
-    },
-
-    components: {
-        FooterComp: FooterComp,
-        navbarcustom: navbarcustom,
     },
     methods: {
         gotoabout() {
