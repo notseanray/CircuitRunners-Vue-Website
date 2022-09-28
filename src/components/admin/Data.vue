@@ -1,124 +1,129 @@
 <template>
-    <div>
-        <Navbarcustom />
-        <div v-if="render && auth" class="mx-[15%]">
-            <div class="flex flex-wrap justify-center text-center">
-                <div class="w-4/12">
-                    <h1 class="text-slate-100 text-[20px]">First Pick</h1>
-                    <Pie
-                        :width="w - 3 / 12"
-                        :height="w - 3 / 12"
-                        :chartData="chartDataFirstPick"
-                    />
-                </div>
-                <div class="w-4/12">
-                    <h1 class="text-slate-100 text-[20px]">Second Pick</h1>
-                    <Pie
-                        :width="w - 3 / 12"
-                        :height="w - 3 / 12"
-                        :chartData="chartDataSecondPick"
-                    />
-                </div>
-                <div class="w-4/12">
-                    <h1 class="text-slate-100 text-[20px]">Third Pick</h1>
-                    <Pie
-                        :width="w - 3 / 12"
-                        :height="w - 3 / 12"
-                        :chartData="chartDataThirdPick"
-                    />
-                </div>
-                <div class="w-4/12">
-                    <h1 class="text-slate-100 text-[20px]">Graduation Year</h1>
-                    <Pie
-                        :width="w - 3 / 12"
-                        :height="w - 3 / 12"
-                        :chartData="graduationYear"
-                    />
-                </div>
+    <div class="flex flex-wrap justify-center text-center">
+        <h1 class="text-bold mt-8 mb-6 text-6xl">Data View</h1>
+    </div>
+    <div v-if="render && auth" class="mx-[15%]">
+        <div class="flex flex-wrap justify-center text-center">
+            <div class="w-4/12">
+                <h1 class="text-slate-100 text-[20px]">First Pick</h1>
+                <Pie
+                    :width="w - 3 / 12"
+                    :height="w - 3 / 12"
+                    :chartData="chartDataFirstPick"
+                />
             </div>
-            <br />
-            <div class="grid grid-cols-4 gap-1">
-                <h1 class="text-slate-100 text-[18px]">
-                    Missing Permission Form
-                </h1>
-                <h1 class="text-slate-100 text-[18px]">Missing Student COC</h1>
-                <h1 class="text-slate-100 text-[18px]">Missing Parent COC</h1>
-                <h1 class="text-slate-100 text-[18px]">Unpaid Dues</h1>
-                <div>
-                    <div v-for="item in missingPermission">
-                        <div v-html="item" />
-                    </div>
-                </div>
-                <div>
-                    <div v-for="item in missingStudentCOC">
-                        <div v-html="item" />
-                    </div>
-                </div>
-                <div>
-                    <div v-for="item in missingParentCOC">
-                        <div v-html="item" />
-                    </div>
-                </div>
-                <div>
-                    <div v-for="item in missingPay">
-                        <div v-html="item" />
-                    </div>
-                </div>
+            <div class="w-4/12">
+                <h1 class="text-slate-100 text-[20px]">Second Pick</h1>
+                <Pie
+                    :width="w - 3 / 12"
+                    :height="w - 3 / 12"
+                    :chartData="chartDataSecondPick"
+                />
             </div>
-            <div class="grid grid-cols-4 gap-1">
-                <h1 class="text-slate-100 text-[18px]">Has Permission Form</h1>
-                <h1 class="text-slate-100 text-[18px]">Has Student COC</h1>
-                <h1 class="text-slate-100 text-[18px]">Has Parent COC</h1>
-                <h1 class="text-slate-100 text-[18px]">Paid Dues</h1>
-                <div>
-                    <div v-for="item in hasPermission">
-                        <div v-html="item" />
-                    </div>
-                </div>
-                <div>
-                    <div v-for="item in hasStudentCOC">
-                        <div v-html="item" />
-                    </div>
-                </div>
-                <div>
-                    <div v-for="item in hasParentCOC">
-                        <div v-html="item" />
-                    </div>
-                </div>
-                <div>
-                    <div v-for="item in hasPay">
-                        <div v-html="item" />
-                    </div>
-                </div>
+            <div class="w-4/12">
+                <h1 class="text-slate-100 text-[20px]">Third Pick</h1>
+                <Pie
+                    :width="w - 3 / 12"
+                    :height="w - 3 / 12"
+                    :chartData="chartDataThirdPick"
+                />
             </div>
-            <h1 class="text-slate-100 text-[24px] text-center">
-                Completed Registration
+            <div class="w-4/12">
+                <h1 class="text-slate-100 text-[20px]">Graduation Year</h1>
+                <Pie
+                    :width="w - 3 / 12"
+                    :height="w - 3 / 12"
+                    :chartData="graduationYear"
+                />
+            </div>
+        </div>
+        <br />
+        <div class="grid grid-cols-4 gap-1">
+            <h1 class="text-slate-100 text-[18px]">
+                Missing Permission Form
             </h1>
-            <div class="grid grid-cols-6 gap-2">
-                <div v-for="item in completeRegistration">
+            <h1 class="text-slate-100 text-[18px]">Missing Student COC</h1>
+            <h1 class="text-slate-100 text-[18px]">Missing Parent COC</h1>
+            <h1 class="text-slate-100 text-[18px]">Unpaid Dues</h1>
+            <div>
+                <button class="my-2" @click="copy(missingPermissionMailingList)">Copy to Clipboard</button>
+                <div v-for="item in missingPermission">
+                    <div v-html="item" />
+                </div>
+            </div>
+            <div>
+                <button class="my-2" @click="copy(missingStudentMailingList)">Copy to Clipboard</button>
+
+                <div v-for="item in missingStudentCOC">
+                    <div v-html="item" />
+                </div>
+            </div>
+            <div>
+                <button class="my-2" @click="copy(missingParentMailingList)">Copy to Clipboard</button>
+                <div v-for="item in missingParentCOC">
+                    <div v-html="item" />
+                </div>
+            </div>
+            <div>
+                <button class="my-2" @click="copy(missingPaymentMailingList)">Copy to Clipboard</button>
+                <div v-for="item in missingPay">
                     <div v-html="item" />
                 </div>
             </div>
         </div>
-        <div v-if="auth">
-            <q-btn
-                color="primary"
-                size="large"
-                text-color="black"
-                label="Fetch Data"
-                v-on:click="fetchData"
-                class="btn btn-primary my-10 mx-[20%]"
-            />
+        <div class="grid grid-cols-4 gap-1">
+            <h1 class="text-slate-100 text-[18px]">Has Permission Form</h1>
+            <h1 class="text-slate-100 text-[18px]">Has Student COC</h1>
+            <h1 class="text-slate-100 text-[18px]">Has Parent COC</h1>
+            <h1 class="text-slate-100 text-[18px]">Paid Dues</h1>
+            <div>
+                <div v-for="item in hasPermission">
+                    <div v-html="item" />
+                </div>
+            </div>
+            <div>
+                <div v-for="item in hasStudentCOC">
+                    <div v-html="item" />
+                </div>
+            </div>
+            <div>
+                <div v-for="item in hasParentCOC">
+                    <div v-html="item" />
+                </div>
+            </div>
+            <div>
+                <div v-for="item in hasPay">
+                    <div v-html="item" />
+                </div>
+            </div>
         </div>
-        <FooterComp />
+        <h1 class="text-slate-100 text-[24px] text-center">
+            Completed Registration
+        </h1>
+        <p class="text-center">
+            <button class="my-2" @click="copy(totalMailingList)">Copy to Clipboard</button>
+        </p>
+        <div class="grid grid-cols-6 gap-2">
+            <div v-for="item in completeRegistration">
+                <div v-html="item" />
+            </div>
+        </div>
     </div>
+    <q-btn
+        color="primary"
+        size="large"
+        text-color="black"
+        label="Fetch Data"
+        v-on:click="fetchData"
+        class="btn btn-primary my-10 mx-[20%]"
+    />
 </template>
 <script lang="ts">
 import Pie from "../Pie.vue";
 import FooterComp from "../FooterComp.vue";
 import navbarcustom from "../navbarcustom.vue";
 import { REGISTERED_DATA, checkPage } from "../../database";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, documentId, getDocs } from "firebase/firestore";
 import { db } from "../../router/index";
 import ls from "localstorage-slim";
 import { useStore } from "../../store";
@@ -178,6 +183,11 @@ export default {
                     },
                 ],
             },
+            missingPermissionMailingList: [],
+            missingStudentMailingList: [],
+            missingParentMailingList: [],
+            missingPaymentMailingList: [],
+            totalMailingList: [],
             missingPermission: [],
             missingParentCOC: [],
             missingStudentCOC: [],
@@ -190,8 +200,6 @@ export default {
         };
     },
     components: {
-        FooterComp: FooterComp,
-        Navbarcustom: navbarcustom,
         Pie: Pie,
     },
     mounted() {
@@ -220,10 +228,20 @@ export default {
                 missingPermission: Array<string>;
                 missingPay: Array<string>;
                 completeRegistration: Array<string>;
+                missingParentMailingList: Array<string>;
+                missingStudentMailingList: Array<string>;
+                missingPermissionMailingList: Array<string>;
+                missingPaymentMailingList: Array<string>;
+                totalMailingList: Array<string>;
             };
             this.chartDataFirstPick.datasets[0].data = data.one;
             this.chartDataSecondPick.datasets[0].data = data.two;
             this.chartDataThirdPick.datasets[0].data = data.three;
+            this.missingParentMailingList = data.missingParentMailingList;
+            this.missingStudentMailingList = data.missingStudentMailingList;
+            this.missingPermissionMailingList = data.missingPermissionMailingList;
+            this.missingPaymentMailingList = data.missingPaymentMailingList;
+            this.totalMailingList = data.totalMailingList;
             this.graduationYear.datasets[0].data = data.grad;
             this.hasPermission = data.hasPermission;
             this.hasParentCOC = data.hasParentCOC;
@@ -238,6 +256,10 @@ export default {
         }
     },
     methods: {
+        async copy(list: string[]) {
+            await navigator.clipboard.writeText(list.join(', ').toString())
+            console.log(list.join(', '))
+        },
         async fetchData() {
             if (this.updating) {
                 return;
@@ -262,6 +284,11 @@ export default {
             let missingPermission = [];
             let missingPay = [];
             let completeRegistration = [];
+            let missingPermissionMailingList = [];
+            let missingStudentMailingList = [];
+            let missingParentMailingList = [];
+            let missingPaymentMailingList = [];
+            let totalMailingList = [];
 
             // keep track of the already used names, must keep caps insensitive
             let hasParentCOCAlready = [];
@@ -281,6 +308,7 @@ export default {
                 if (!d.first_name || !d.last_name) {
                     return;
                 }
+                totalMailingList.push(d.email as string);
                 const name = `<a
                                     class="text-green-300"
                                     href="mailto:${d.email}"
@@ -288,7 +316,7 @@ export default {
                                     rel="noopener noreferrer"
                                 >
                                ${d.first_name} ${d.last_name} (${d.grad_year})
-							   </a>`;
+                               </a>`;
                 const shortName =
                     `${d.first_name} ${d.last_name} ${d.grad_year}`.toLowerCase();
                 if (
@@ -306,6 +334,7 @@ export default {
                     }
                 } else {
                     if (!missingParentCOCAlready.includes(shortName)) {
+                        missingParentMailingList.push(d.email);
                         missingParentCOC.push(name);
                         missingParentCOCAlready.push(shortName);
                     }
@@ -317,6 +346,7 @@ export default {
                     }
                 } else {
                     if (!missingStudentCOCAlready.includes(shortName)) {
+                        missingStudentMailingList.push(d.email);
                         missingStudentCOC.push(name);
                         missingStudentCOCAlready.push(shortName);
                     }
@@ -328,6 +358,7 @@ export default {
                     }
                 } else {
                     if (!missingPermissionAlready.includes(shortName)) {
+                        missingPermissionMailingList.push(d.email);
                         missingPermission.push(name);
                         missingPermissionAlready.push(shortName);
                     }
@@ -339,6 +370,7 @@ export default {
                     }
                 } else {
                     if (!missingPayAlready.includes(shortName)) {
+                        missingPaymentMailingList.push(d.email);
                         missingPay.push(name);
                         missingPayAlready.push(shortName);
                     }
@@ -414,6 +446,11 @@ export default {
             this.missingPermission = missingPermission;
             this.missingPay = missingPay;
             this.completeRegistration = completeRegistration;
+            this.missingPermissionMailingList = missingPermissionMailingList;
+            this.missingStudentMailingList = missingStudentMailingList;
+            this.missingParentMailingList = missingParentMailingList;
+            this.missingPaymentMailingList = missingPaymentMailingList;
+            this.totalMailingList = totalMailingList;
             ls.remove("graph_data");
             ls.set(
                 "graph_data",
@@ -431,6 +468,11 @@ export default {
                     missingPermission: this.missingPermission,
                     missingPay: this.missingPay,
                     completeRegistration: this.completeRegistration,
+                    missingPermissionMailingList: this.missingPermissionMailingList,
+                    missingStudentMailingList: this.missingStudentMailingList,
+                    missingParentMailingList: this.missingParentMailingList,
+                    missingPaymentMailingList: this.missingPaymentMailingList,
+                    totalMailingList: this.totalMailingList,
                 },
                 { encrypt: true, ttl: 86400 }
             );

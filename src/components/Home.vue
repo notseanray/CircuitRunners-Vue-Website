@@ -1,6 +1,5 @@
 <template>
     <div v-if="!isMobile" class="nooverflow">
-        <navbarcustom />
         <!--<h1 class="text-center mt-10 text-6xl tracking-wide font-roboto font-bold"><span class="text-crgreen">Circuit</span>Runners Robotics</h1>-->
 
         <q-carousel
@@ -150,11 +149,9 @@
             </div>
         </div>
 
-        <FooterComp />
     </div>
 
     <div v-else>
-        <navbarcustom />
         <!--<h1 class="text-center mt-10 text-6xl tracking-wide font-roboto font-bold"><span class="text-crgreen">Circuit</span>Runners Robotics</h1>-->
 
         <q-carousel
@@ -304,15 +301,11 @@
             </div>
         </div>
 
-        <FooterComp />
     </div>
 </template>
 
 <script>
 import { ref } from "vue";
-
-import FooterComp from "./FooterComp.vue";
-import navbarcustom from "./navbarcustom.vue";
 
 export default {
     data() {
@@ -325,10 +318,6 @@ export default {
             slide: ref(1),
             autoplay: ref(true),
         };
-    },
-    components: {
-        FooterComp: FooterComp,
-        navbarcustom: navbarcustom,
     },
     methods: {
         gotoabout() {

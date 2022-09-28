@@ -1,9 +1,7 @@
 <template>
     <div class="nooverflow">
-        <navbarcustom />
-
         <div class="titlecontainer">
-            <h1 v-if="!isMobile" class="mt-6 font-roboto text-bold">
+            <h1 v-if="!isMobile" class="mt-8 font-roboto text-bold text-6xl">
                 FRC 1002
             </h1>
 
@@ -39,7 +37,7 @@
                             award.
                         </p>
                         <img
-                            src="https://cdn.discordapp.com/attachments/966089783044628540/988844257534152704/image_6.png"
+                            src="https://i.imgur.com/DaDDzwO.png"
                             class="borderg rounded-lg"
                         />
                     </div>
@@ -66,28 +64,11 @@
                     </div>
                 </div>
             </div>
-            <!--
-        <div class="text-center">
-            Leadership
-            <div class="grid grid-cols-3 grid-flow-row gap-40 my-10">
-                <div>
-                    person 1
-                </div>
-                <div>
-                    person 2
-                </div>
-                <div>
-                    person 3
-                </div>
-            </div>
         </div>
-        --></div>
     </div>
 </template>
 
 <script>
-import FooterComp from "./FooterComp.vue";
-import navbarcustom from "./navbarcustom.vue";
 
 import { ref } from "vue";
 import.meta.hot;
@@ -102,11 +83,6 @@ export default {
         return {
             current: ref(2022),
         };
-    },
-
-    components: {
-        FooterComp: FooterComp,
-        navbarcustom: navbarcustom,
     },
     methods: {
         gotoabout() {

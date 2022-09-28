@@ -1,6 +1,6 @@
 <template>
     <div v-if="!isMobile">
-        <img class="top-5 absolute w-screen h-20" src="../assets/logo.svg" />
+        <img class="top-5 absolute w-screen h-20 pb-5" src="../assets/logo.svg" />
     </div>
     <div
         v-if="!isMobile"
@@ -49,6 +49,15 @@
                     </q-list>
                 </q-menu>
             </q-btn>
+
+            <!-- <q-btn -->
+            <!--     color="primary" -->
+            <!--     size="small" -->
+            <!--     text-color="black" -->
+            <!--     label="Sponsors" -->
+            <!--     v-on:click="tosponsors" -->
+            <!-- /> -->
+
         </div>
 
         <div class="flex flex-center q-gutter-md mr-10">
@@ -85,7 +94,7 @@
             </div>
             <h1 class="text-sm text-bold">{{ displayName() }}</h1>
             <div v-if="authed">
-                <div v-if="this.admin" class="inline mx-2">
+                <div v-if="admin" class="inline mx-2">
                     <q-btn
                         class=""
                         color="primary"
@@ -150,6 +159,11 @@
                                 >ABOUT US</q-item-section
                             >
                         </q-item>
+                        <!-- <q-item clickable v-close-popup v-on:click="tosponsors"> -->
+                        <!--     <q-item-section text-color="black" -->
+                        <!--         >SPONSORS</q-item-section -->
+                        <!--     > -->
+                        <!-- </q-item> -->
                         <q-item clickable v-close-popup v-on:click="toFRC">
                             <q-item-section text-color="black"
                                 >FRC 1002</q-item-section
@@ -165,7 +179,7 @@
                                 >FTC 11347</q-item-section
                             >
                         </q-item>
-                        <div v-if="this.authed">
+                        <div v-if="authed">
                             <q-item
                                 clickable
                                 v-close-popup
@@ -184,7 +198,7 @@
                                     >SIGNOUT</q-item-section
                                 >
                             </q-item>
-                            <div v-if="this.admin && this.authed">
+                            <div v-if="admin && authed">
                                 <q-item
                                     clickable
                                     v-close-popup
@@ -225,7 +239,7 @@ import { getAuth, signOut } from "firebase/auth";
 import { store_login, clear_login } from "../database";
 import { useStore } from "../store";
 
-export const MOBILE_WIDTH = 1600;
+export const MOBILE_WIDTH = 1700;
 
 export default {
     data() {
@@ -337,6 +351,10 @@ export default {
             this.hamburger = false;
             this.$router.push("/about");
         },
+        // tosponsors() {
+        //     this.hamburger = false;
+        //     this.$router.push("/sponsors");
+        // },
         tohome() {
             this.hamburger = false;
             this.$router.push("/");
