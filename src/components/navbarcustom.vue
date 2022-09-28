@@ -50,13 +50,13 @@
                 </q-menu>
             </q-btn>
 
-            <q-btn
-                color="primary"
-                size="small"
-                text-color="black"
-                label="Sponsors"
-                v-on:click="tosponsors"
-            />
+            <!-- <q-btn -->
+            <!--     color="primary" -->
+            <!--     size="small" -->
+            <!--     text-color="black" -->
+            <!--     label="Sponsors" -->
+            <!--     v-on:click="tosponsors" -->
+            <!-- /> -->
 
         </div>
 
@@ -159,11 +159,11 @@
                                 >ABOUT US</q-item-section
                             >
                         </q-item>
-                        <q-item clickable v-close-popup v-on:click="tosponsors">
-                            <q-item-section text-color="black"
-                                >SPONSORS</q-item-section
-                            >
-                        </q-item>
+                        <!-- <q-item clickable v-close-popup v-on:click="tosponsors"> -->
+                        <!--     <q-item-section text-color="black" -->
+                        <!--         >SPONSORS</q-item-section -->
+                        <!--     > -->
+                        <!-- </q-item> -->
                         <q-item clickable v-close-popup v-on:click="toFRC">
                             <q-item-section text-color="black"
                                 >FRC 1002</q-item-section
@@ -351,10 +351,10 @@ export default {
             this.hamburger = false;
             this.$router.push("/about");
         },
-        tosponsors() {
-            this.hamburger = false;
-            this.$router.push("/sponsors");
-        },
+        // tosponsors() {
+        //     this.hamburger = false;
+        //     this.$router.push("/sponsors");
+        // },
         tohome() {
             this.hamburger = false;
             this.$router.push("/");
