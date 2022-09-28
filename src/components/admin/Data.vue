@@ -1,123 +1,122 @@
 <template>
-    <div>
-        <Navbarcustom />
-        <div v-if="render && auth" class="mx-[15%]">
-            <div class="flex flex-wrap justify-center text-center">
-                <div class="w-4/12">
-                    <h1 class="text-slate-100 text-[20px]">First Pick</h1>
-                    <Pie
-                        :width="w - 3 / 12"
-                        :height="w - 3 / 12"
-                        :chartData="chartDataFirstPick"
-                    />
-                </div>
-                <div class="w-4/12">
-                    <h1 class="text-slate-100 text-[20px]">Second Pick</h1>
-                    <Pie
-                        :width="w - 3 / 12"
-                        :height="w - 3 / 12"
-                        :chartData="chartDataSecondPick"
-                    />
-                </div>
-                <div class="w-4/12">
-                    <h1 class="text-slate-100 text-[20px]">Third Pick</h1>
-                    <Pie
-                        :width="w - 3 / 12"
-                        :height="w - 3 / 12"
-                        :chartData="chartDataThirdPick"
-                    />
-                </div>
-                <div class="w-4/12">
-                    <h1 class="text-slate-100 text-[20px]">Graduation Year</h1>
-                    <Pie
-                        :width="w - 3 / 12"
-                        :height="w - 3 / 12"
-                        :chartData="graduationYear"
-                    />
-                </div>
+    <div class="flex flex-wrap justify-center text-center">
+        <h1 class="text-bold mt-8 mb-6 text-6xl">Data View</h1>
+    </div>
+    <div v-if="render && auth" class="mx-[15%]">
+        <div class="flex flex-wrap justify-center text-center">
+            <div class="w-4/12">
+                <h1 class="text-slate-100 text-[20px]">First Pick</h1>
+                <Pie
+                    :width="w - 3 / 12"
+                    :height="w - 3 / 12"
+                    :chartData="chartDataFirstPick"
+                />
             </div>
-            <br />
-            <div class="grid grid-cols-4 gap-1">
-                <h1 class="text-slate-100 text-[18px]">
-                    Missing Permission Form
-                </h1>
-                <h1 class="text-slate-100 text-[18px]">Missing Student COC</h1>
-                <h1 class="text-slate-100 text-[18px]">Missing Parent COC</h1>
-                <h1 class="text-slate-100 text-[18px]">Unpaid Dues</h1>
-                <div>
-                    <button class="my-2" @click="copy(missingPermissionMailingList)">Copy to Clipboard</button>
-                    <div v-for="item in missingPermission">
-                        <div v-html="item" />
-                    </div>
-                </div>
-                <div>
-                    <button class="my-2" @click="copy(missingStudentMailingList)">Copy to Clipboard</button>
-
-                    <div v-for="item in missingStudentCOC">
-                        <div v-html="item" />
-                    </div>
-                </div>
-                <div>
-                    <button class="my-2" @click="copy(missingParentMailingList)">Copy to Clipboard</button>
-                    <div v-for="item in missingParentCOC">
-                        <div v-html="item" />
-                    </div>
-                </div>
-                <div>
-                    <button class="my-2" @click="copy(missingPaymentMailingList)">Copy to Clipboard</button>
-                    <div v-for="item in missingPay">
-                        <div v-html="item" />
-                    </div>
-                </div>
+            <div class="w-4/12">
+                <h1 class="text-slate-100 text-[20px]">Second Pick</h1>
+                <Pie
+                    :width="w - 3 / 12"
+                    :height="w - 3 / 12"
+                    :chartData="chartDataSecondPick"
+                />
             </div>
-            <div class="grid grid-cols-4 gap-1">
-                <h1 class="text-slate-100 text-[18px]">Has Permission Form</h1>
-                <h1 class="text-slate-100 text-[18px]">Has Student COC</h1>
-                <h1 class="text-slate-100 text-[18px]">Has Parent COC</h1>
-                <h1 class="text-slate-100 text-[18px]">Paid Dues</h1>
-                <div>
-                    <div v-for="item in hasPermission">
-                        <div v-html="item" />
-                    </div>
-                </div>
-                <div>
-                    <div v-for="item in hasStudentCOC">
-                        <div v-html="item" />
-                    </div>
-                </div>
-                <div>
-                    <div v-for="item in hasParentCOC">
-                        <div v-html="item" />
-                    </div>
-                </div>
-                <div>
-                    <div v-for="item in hasPay">
-                        <div v-html="item" />
-                    </div>
-                </div>
+            <div class="w-4/12">
+                <h1 class="text-slate-100 text-[20px]">Third Pick</h1>
+                <Pie
+                    :width="w - 3 / 12"
+                    :height="w - 3 / 12"
+                    :chartData="chartDataThirdPick"
+                />
             </div>
-            <h1 class="text-slate-100 text-[24px] text-center">
-                Completed Registration
+            <div class="w-4/12">
+                <h1 class="text-slate-100 text-[20px]">Graduation Year</h1>
+                <Pie
+                    :width="w - 3 / 12"
+                    :height="w - 3 / 12"
+                    :chartData="graduationYear"
+                />
+            </div>
+        </div>
+        <br />
+        <div class="grid grid-cols-4 gap-1">
+            <h1 class="text-slate-100 text-[18px]">
+                Missing Permission Form
             </h1>
-            <p class="text-center">
-                <button class="my-2" @click="copy(totalMailingList)">Copy to Clipboard</button>
-            </p>
-            <div class="grid grid-cols-6 gap-2">
-                <div v-for="item in completeRegistration">
+            <h1 class="text-slate-100 text-[18px]">Missing Student COC</h1>
+            <h1 class="text-slate-100 text-[18px]">Missing Parent COC</h1>
+            <h1 class="text-slate-100 text-[18px]">Unpaid Dues</h1>
+            <div>
+                <button class="my-2" @click="copy(missingPermissionMailingList)">Copy to Clipboard</button>
+                <div v-for="item in missingPermission">
+                    <div v-html="item" />
+                </div>
+            </div>
+            <div>
+                <button class="my-2" @click="copy(missingStudentMailingList)">Copy to Clipboard</button>
+
+                <div v-for="item in missingStudentCOC">
+                    <div v-html="item" />
+                </div>
+            </div>
+            <div>
+                <button class="my-2" @click="copy(missingParentMailingList)">Copy to Clipboard</button>
+                <div v-for="item in missingParentCOC">
+                    <div v-html="item" />
+                </div>
+            </div>
+            <div>
+                <button class="my-2" @click="copy(missingPaymentMailingList)">Copy to Clipboard</button>
+                <div v-for="item in missingPay">
                     <div v-html="item" />
                 </div>
             </div>
         </div>
-        <q-btn
-            color="primary"
-            size="large"
-            text-color="black"
-            label="Fetch Data"
-            v-on:click="fetchData"
-            class="btn btn-primary my-10 mx-[20%]"
-        />
-        <FooterComp />
+        <div class="grid grid-cols-4 gap-1">
+            <h1 class="text-slate-100 text-[18px]">Has Permission Form</h1>
+            <h1 class="text-slate-100 text-[18px]">Has Student COC</h1>
+            <h1 class="text-slate-100 text-[18px]">Has Parent COC</h1>
+            <h1 class="text-slate-100 text-[18px]">Paid Dues</h1>
+            <div>
+                <div v-for="item in hasPermission">
+                    <div v-html="item" />
+                </div>
+            </div>
+            <div>
+                <div v-for="item in hasStudentCOC">
+                    <div v-html="item" />
+                </div>
+            </div>
+            <div>
+                <div v-for="item in hasParentCOC">
+                    <div v-html="item" />
+                </div>
+            </div>
+            <div>
+                <div v-for="item in hasPay">
+                    <div v-html="item" />
+                </div>
+            </div>
+        </div>
+        <h1 class="text-slate-100 text-[24px] text-center">
+            Completed Registration
+        </h1>
+        <p class="text-center">
+            <button class="my-2" @click="copy(totalMailingList)">Copy to Clipboard</button>
+        </p>
+        <div class="grid grid-cols-6 gap-2">
+            <div v-for="item in completeRegistration">
+                <div v-html="item" />
+            </div>
+        </div>
     </div>
+    <q-btn
+        color="primary"
+        size="large"
+        text-color="black"
+        label="Fetch Data"
+        v-on:click="fetchData"
+        class="btn btn-primary my-10 mx-[20%]"
+    />
 </template>
 <script lang="ts">
 import Pie from "../Pie.vue";
@@ -201,8 +200,6 @@ export default {
         };
     },
     components: {
-        FooterComp: FooterComp,
-        Navbarcustom: navbarcustom,
         Pie: Pie,
     },
     mounted() {

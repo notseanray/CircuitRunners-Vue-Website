@@ -1,5 +1,4 @@
 <template>
-    <navbarcustom />
     <div class="grid grid-flow-row pb-48">
         {{ load_input() }}
         <h1 class="text-center text-[30px] mt-6">Club Registration</h1>
@@ -599,12 +598,9 @@
             </div>
         </h2>
     </div>
-    <FooterComp class="fixed bottom-0 w-screen" />
 </template>
 
 <script lang="ts">
-import FooterComp from "../FooterComp.vue";
-import navbarcustom from "../navbarcustom.vue";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import {
     SavableFormData,
@@ -668,8 +664,6 @@ export default {
         };
     },
     components: {
-        FooterComp: FooterComp,
-        navbarcustom: navbarcustom,
         draggable: VueDraggableNext,
     },
     methods: {
