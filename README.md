@@ -1,6 +1,10 @@
-# CircuitRunners Website (Vue)
+## CircuitRunners Website (Vue)
 
-## New Developer Quickstart
+#### Not the active website!
+
+The current website was rewritten in Svelte, this is depreciated and fundamentally different
+
+### New Developer Quickstart
 
 - Use Github Desktop or Clone the Repo.
 - CD into your directory
